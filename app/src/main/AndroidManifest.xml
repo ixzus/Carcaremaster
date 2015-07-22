@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lazycare.carcaremaster"
+    android:persistent="true"
+    android:versionCode="7"
+    android:versionName="5.07.0710">
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 读写手机文件 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- GPS错略 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- GPS精确 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 获得WiFi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 改变WiFi状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 访问电话状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 访问网络连接 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 照相 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 闪光灯 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!-- 允许振动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 拨打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 允许系统开启启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 阅读手机短信内容 -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <!-- 接收手机短信 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <!-- 发送短信 -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+
+    <application
+        android:name="com.lazycare.carcaremaster.SysApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppBaseTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ImagesShowActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullTaeme" >
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullTaeme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FindPasswordActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AppointmentDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AppointmentServiceDeviceActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AppointmentServiceDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".QuestionsListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AppointmentListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MyAccountInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+
+        <activity
+            android:name=".ExchangeMoneyActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AppraiseListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".QuestionDetailWithReplyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+        </activity>
+        <activity
+            android:name=".BankListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AddBankCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".PayPwdSettingActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".TextRbActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".WithdrawMoneyActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ChooseBankActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".EmptyActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".BankCardDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name=".UserInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ImageShowActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".QuestionsListActivity2"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".QiPeiActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullTaeme" >
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullTaeme" >
+        </activity>
+        <activity
+            android:name=".MediaPlayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".MessageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".WorkHoursActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="552b6cfdfd98c501b70014c0" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" >
+        </meta-data>
+        <!--
+     问题轮询服务<service android:name="com.lazycare.carcaremaster.service.QuestionService" >
+        </service>
+        -->
+
+
+        <!-- 聊天服务 -->
+        <service android:name="com.lazycare.carcaremaster.service.IMChatService" >
+        </service>
+
+        <!-- 重连接服务 -->
+        <service android:name="com.lazycare.carcaremaster.service.ReConnectService" >
+        </service>
+        <!-- 监听开机广播 -->
+        <!--
+       <receiver android:name="com.lazycare.carcaremaster.receiver.BootBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" >
+                </action>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+        -->
+
+    </application>
+
+</manifest>

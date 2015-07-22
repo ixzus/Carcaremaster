@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/view_questionitem_bg"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/app_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="15dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="15dip"
+            android:gravity="center_vertical"
+            android:text="sdsfdsfdsfdsfdsfdsfdsf"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <Button
+            android:layout_width="24dip"
+            android:layout_height="24dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="15dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="15dip"
+            android:background="@drawable/ic_keyboard_arrow_right_grey600_36dp"
+            android:clickable="false"
+            android:duplicateParentState="true"
+            android:focusable="false" />
+    </RelativeLayout>
+
+</RelativeLayout>

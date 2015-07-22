@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true" 
+    android:orientation="vertical" >
+
+    
+
+    <RadioGroup
+        android:id="@+id/rg_oper"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <RadioButton
+            android:id="@+id/rb_ordertimerange"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="好评" />
+
+        <RadioButton
+            android:id="@+id/rb_appointtimerange"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dip"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="中评" />
+
+        <RadioButton
+            android:id="@+id/rb_servicerange"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dip"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="差评" />
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/lv_appraise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>

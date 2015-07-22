@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_appraiseoper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip"
+        android:background="@drawable/view_questionitem_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_appraisegood"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="好评(10)"
+            android:textColor="@color/green" />
+
+        <include layout="@layout/include_split_line" />
+
+        <TextView
+            android:id="@+id/tv_appraisemiddle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="中评(10)"
+            android:textColor="#F68A1D" />
+
+        <include layout="@layout/include_split_line" />
+
+        <TextView
+            android:id="@+id/tv_appraiselow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="差评(10)"
+            android:textColor="@color/red" />
+    </LinearLayout>
+
+</LinearLayout>

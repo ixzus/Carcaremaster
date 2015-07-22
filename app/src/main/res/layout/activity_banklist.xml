@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true" >
+
+    <RelativeLayout
+        android:id="@+id/rl_addbank"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/questiondetailwithreply_replyheight"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_addbank" />
+
+            <TextView
+                android:id="@+id/tv_addnewbank"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="6dip"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="添加银行卡"
+                android:textColor="@color/red" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rl_addbank"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/lv_banks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
+    </LinearLayout>
+
+</RelativeLayout>

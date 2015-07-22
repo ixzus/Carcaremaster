@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/responsetouchContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/gv_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dip"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginTop="@dimen/margin_top"
+            android:horizontalSpacing="@dimen/gridview_specingwidth"
+            android:numColumns="4"
+            android:scaleType="centerInside"
+            android:verticalSpacing="@dimen/gridview_specingwidth"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dip"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginTop="@dimen/margin_top"
+            android:scaleType="centerCrop"
+            android:src="@drawable/common_phone"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_picture_certain"
+        android:layout_width="match_parent"
+        android:layout_height="41dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="18dip"
+        android:background="@drawable/btn_login_bg"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/username_fontsize" />
+
+</LinearLayout>

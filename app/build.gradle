@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.lazycare.carcaremaster"
+        minSdkVersion 8
+        targetSdkVersion 21
+        versionCode 9
+        versionName "5.09.0710"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //Prevent duplicate META-INF/LICENSE.txt during packaging of APK
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile files('libs/picasso-2.3.3.jar')
+    compile files('libs/umeng-analytics-v5.4.2.jar')
+    compile files('libs/httpmime-4.2.5.jar')
+    compile files('libs/flame.jar')
+    compile files('libs/CCP_REST_SDK_JAVA_v2.6r.jar')
+    compile files('libs/asmack-jse-buddycloud-2010.12.11.jar')
+    compile 'com.afollestad:material-dialogs:0.7.6.0'
+}

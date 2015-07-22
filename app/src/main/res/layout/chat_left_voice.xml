@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="afterDescendants"
+    android:padding="5dp" >
+
+    <TextView
+        android:id="@+id/textview_time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textColor="#666666"
+        android:textSize="12sp" />
+
+    <!--
+        <View 
+        android:id="@+id/check_box"
+       	android:layout_width="35dp"
+   		android:layout_height="35dp"
+   		android:layout_centerVertical="true"
+   		android:visibility="visible"
+   		/>
+    -->
+
+    <RelativeLayout
+        android:id="@+id/layout_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_time" >
+
+        <com.lazycare.carcaremaster.widget.CircularImage
+            android:id="@+id/image_portrait_l"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/defaulthead" />
+
+        <TextView
+            android:id="@+id/textview_name_l"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:layout_marginBottom="2dip"
+            android:layout_marginRight="7dp"
+            android:layout_toRightOf="@id/image_portrait_l"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/layout_content_l"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_name_l"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="60dp"
+            android:layout_toRightOf="@id/image_portrait_l"
+            android:background="@drawable/incoming"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/receiverVoiceNode"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                 />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

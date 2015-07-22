@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_bank"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exchangemoney_item_height"
+        android:layout_marginTop="@dimen/usertech_bg_padding"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_bankicon"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/usertech_bg_padding"
+            android:src="@drawable/icon_bank" />
+
+        <ImageView
+            android:id="@+id/iv_bankarrow"
+            android:layout_width="16dip"
+            android:layout_height="25dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/icon_rightarrow" />
+
+        <TextView
+            android:id="@+id/tv_bankname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/usertech_bg_padding"
+            android:layout_marginRight="@dimen/usertech_bg_padding"
+            android:layout_toLeftOf="@id/iv_bankarrow"
+            android:layout_toRightOf="@id/iv_bankicon"
+            android:gravity="center_vertical|right"
+            android:text="工商银行" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_where"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exchangemoney_item_height"
+        android:layout_marginTop="@dimen/usertech_bg_padding"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_bankwhere_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/usertech_bg_padding"
+            android:gravity="center_vertical"
+            android:text="开户行所在地" />
+
+        <ImageView
+            android:id="@+id/iv_bankwherearrow"
+            android:layout_width="16dip"
+            android:layout_height="25dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/icon_rightarrow" />
+
+
+        <TextView
+            android:id="@+id/tv_bankwhere"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/usertech_bg_padding"
+            android:layout_marginRight="@dimen/usertech_bg_padding"
+            android:layout_toLeftOf="@id/iv_bankwherearrow"
+            android:layout_toRightOf="@id/tv_bankwhere_tip"
+            android:gravity="center_vertical|right"
+            android:text="上海" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="10dip">
+
+        <TextView
+            android:id="@+id/tv_cardtip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="储蓄卡号" />
+
+        <EditText
+            android:id="@+id/txt_yhcard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="10dip"
+            android:layout_toRightOf="@id/tv_cardtip"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="输入储蓄卡号码"
+            android:inputType="number" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="1dip">
+
+        <TextView
+            android:id="@+id/tv_moneynametip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="收款人姓名" />
+
+        <EditText
+            android:id="@+id/txt_moneyname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="10dip"
+            android:layout_toRightOf="@id/tv_moneynametip"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="输入收款人姓名" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="10dip">
+
+        <TextView
+            android:id="@+id/tv_moneytip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="提现金额" />
+
+        <EditText
+            android:id="@+id/txt_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="10dip"
+            android:layout_toRightOf="@id/tv_moneytip"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="当前没有可提现金额" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="10dip">
+
+        <TextView
+            android:id="@+id/tv_safePasstip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="密        码" />
+
+        <ImageView
+            android:id="@+id/iv_safePasstip"
+            android:layout_width="@dimen/icon_rightarrow_width"
+            android:layout_height="@dimen/icon_rightarrow_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/icon_password"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/txt_safePass"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="40dip"
+            android:layout_marginRight="10dip"
+            android:layout_toLeftOf="@+id/iv_safePasstip"
+            android:layout_toRightOf="@id/tv_safePasstip"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:background="@drawable/btn_login_bg"
+            android:clickable="false"
+            android:text="提交"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</LinearLayout>
+

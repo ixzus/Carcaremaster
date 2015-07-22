@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent" >
+
+        <LinearLayout
+            android:id="@+id/reply_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/margin_top"
+            android:minHeight="@dimen/questionlist_item_titlec_height"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_replytime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="top|center_horizontal"
+                android:text="2-1023-123"
+                android:textColor="@color/grey"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_replyusername"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:gravity="center_vertical"
+                android:text="12341234"
+                android:textColor="@color/red" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reply_layout"
+            android:layout_marginTop="3dip"
+            android:orientation="horizontal" >
+
+            <com.lazycare.carcaremaster.widget.CircularImage
+                android:id="@+id/ci_replyuserphoto"
+                android:layout_width="@dimen/questionreply_item_userphoto_width"
+                android:layout_height="@dimen/questionreply_item_userphoto_height"
+                android:layout_marginLeft="5dip"
+                android:src="@mipmap/ic_launcher" >
+            </com.lazycare.carcaremaster.widget.CircularImage>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_replycontent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/reply_layout"
+                    android:layout_gravity="center"
+                    android:background="@drawable/skin_aio_friend_bubble_nor"
+                    android:minHeight="@dimen/questionlist_item_phone_height" />
+
+                <ImageView
+                    android:id="@+id/reply_have"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/reply_layout"
+                    android:layout_gravity="center"
+                    android:src="@drawable/compose_toolbar_picture_highlighted"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

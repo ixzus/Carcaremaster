@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rg_oper_msg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_at"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="at我(0)" />
+
+        <RadioButton
+            android:id="@+id/rb_qd"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dip"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="抢单(0)" />
+
+        <RadioButton
+            android:id="@+id/rb_wdhf"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="我的回复(0)" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/vp_ques2"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rg_oper_msg"
+        android:layout_gravity="center"
+        android:layout_marginBottom="51dp" />
+
+</RelativeLayout>

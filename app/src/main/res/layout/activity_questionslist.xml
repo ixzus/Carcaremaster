@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
+
+    <RadioGroup
+        android:id="@+id/rb_oper"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_private"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/questionlist_tab1" />
+
+        <RadioButton
+            android:id="@+id/rb_public"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dip"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/questionlist_tab2" />
+
+        <RadioButton
+            android:id="@+id/rb_complete"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dip"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/questionlist_tab3" />
+    </RadioGroup>
+
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rb_oper">
+
+        <ListView
+            android:id="@+id/lv_questions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:dividerHeight="8dip"
+            android:fastScrollEnabled="true"
+            android:scrollbars="none"></ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</RelativeLayout>

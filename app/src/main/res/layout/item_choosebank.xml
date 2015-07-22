@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/view_choosebank_bg"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:paddingBottom="10dip"
+    android:paddingTop="10dip">
+
+    <ImageView
+        android:id="@+id/iv_bankicon"
+        android:layout_width="@dimen/icon_width"
+        android:layout_height="@dimen/icon_height"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dip"
+        android:src="@drawable/icon_pay" />
+
+    <TextView
+        android:id="@+id/tv_bankname"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_width"
+        android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@id/iv_bankicon"
+        android:gravity="center_vertical"
+        android:text="123"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

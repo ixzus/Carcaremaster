@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="2dip" android:state_pressed="true">
+        <layer-list>
+            <item android:bottom="0dp" android:left="0dp" android:right="0dp" android:top="1dp">
+                <shape>
+                    <solid android:color="#EAEFF6" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="2dp">
+                <shape>
+                    <solid android:color="#E3E8EE" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
+                <shape>
+                    <solid android:color="#D9DDE3" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp">
+                <shape>
+                    <solid android:color="@color/item_press" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- pressed -->
+    <item android:bottom="2dip" android:state_focused="true">
+        <layer-list>
+            <item android:bottom="0dp" android:left="0dp" android:right="0dp" android:top="1dp">
+                <shape>
+                    <solid android:color="#EAEFF6" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="1dp">
+                <shape>
+                    <solid android:color="#E3E8EE" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
+                <shape>
+                    <solid android:color="#D9DDE3" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="2dp">
+                <shape>
+                    <solid android:color="@color/item_press" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <!-- focused -->
+    <item>
+
+        <layer-list>
+            <item android:bottom="0dp" android:left="0dp" android:right="0dp" android:top="1dp">
+                <shape>
+                    <solid android:color="#EAEFF6" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="2dp">
+                <shape>
+                    <solid android:color="#E3E8EE" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
+                <shape>
+                    <solid android:color="#D9DDE3" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+            <item android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp">
+                <shape>
+                    <solid android:color="@color/white" />
+                    <corners android:radius="3dip" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exchangemoney_item_height"
+        android:background="@drawable/view_questionitem_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/exchangemoney_item_height"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:gravity="center_vertical"
+            android:text="您当前待结算的总金额为:" />
+
+        <TextView
+            android:id="@+id/tv_money_all"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/exchangemoney_item_height"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:textColor="@color/orange" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/view_questionitem_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="可 结 算 的 金 额:" />
+
+                <TextView
+                    android:id="@+id/tv_money_kjs_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/orange" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="160dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dip"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/case_can"
+                android:orientation="vertical"
+                android:paddingBottom="8dip"
+                android:paddingRight="15dip" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="8dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/ex_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="at我结算:"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/tv_money_kjs_at"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="8dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="抢单结算:"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/tv_money_kjs_qd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="8dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="业务提成:"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/tv_money_kjs_yw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text=" 未能结算的金额:" />
+
+                <TextView
+                    android:id="@+id/tv_money_wjs_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/orange" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="160dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dip"
+                android:layout_marginLeft="8dip"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/case_can"
+                android:orientation="vertical"
+                android:paddingBottom="8dip"
+                android:paddingRight="15dip" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="8dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/ex_txt1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="at我结算:"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/tv_money_wjs_at"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="8dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="抢单结算:"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/tv_money_wjs_qd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="8dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="业务提成:"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/tv_money_wjs_yw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/btn_exchange"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/btn_exchange_bg"
+                android:padding="3dp"
+                android:text="我要提现"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_bank"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exchangemoney_item_height"
+        android:layout_marginTop="@dimen/common_height"
+
+        android:gravity="center_vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/iv_bankicon"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:src="@drawable/icon_bank" />
+
+        <ImageView
+            android:id="@+id/iv_bankarrow"
+            android:layout_width="@dimen/icon_rightarrow_width"
+            android:layout_height="@dimen/icon_rightarrow_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right"
+            android:src="@drawable/icon_rightarrow" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_toLeftOf="@id/iv_bankarrow"
+            android:layout_toRightOf="@id/iv_bankicon"
+            android:gravity="center_vertical"
+            android:text="我的提现银行卡" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_pay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exchangemoney_item_height"
+        android:layout_marginTop="@dimen/common_height"
+        android:background="@drawable/view_questionitem_bg"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/iv_payicon"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:src="@drawable/icon_pay" />
+
+        <ImageView
+            android:id="@+id/iv_payarrow"
+            android:layout_width="@dimen/icon_rightarrow_width"
+            android:layout_height="25dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/icon_rightarrow" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_toLeftOf="@id/iv_payarrow"
+            android:layout_toRightOf="@id/iv_payicon"
+            android:gravity="center_vertical"
+            android:text="提现密码设置" />
+    </RelativeLayout>
+
+</LinearLayout>

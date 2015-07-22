@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true" 
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="10dip" >
+
+        <TextView
+            android:id="@+id/tv_moneytip_l"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="姓名" />
+
+        <EditText
+            android:id="@+id/txt_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_toRightOf="@id/tv_moneytip_l"
+            android:background="@color/white"
+            android:hint="@string/straddbank_username_hint" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="10dip" >
+
+        <TextView
+            android:id="@+id/tv_moneytip_l2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="卡号" />
+
+        <EditText
+            android:id="@+id/txt_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_toRightOf="@id/tv_moneytip_l2"
+            android:background="@color/white"
+            android:hint="@string/straddbank_cardnumber_hint" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_bankname"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/iv_bankiconl"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/icon_bank" />
+
+        <TextView
+            android:id="@+id/tv_banknametip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/iv_bankiconl"
+            android:gravity="center_vertical"
+            android:text="银行" />
+
+        <ImageView
+            android:id="@+id/iv_bankarrow"
+            android:layout_width="@dimen/icon_rightarrow_width"
+            android:layout_height="25dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/icon_rightarrow" />
+
+        <TextView
+            android:id="@+id/tv_bankname"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:layout_toLeftOf="@id/iv_bankarrow"
+            android:layout_toRightOf="@id/tv_banknametip"
+            android:gravity="center_vertical" >
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="10dip" >
+
+        <TextView
+            android:id="@+id/tv_moneytip_l4"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="支行" />
+
+        <EditText
+            android:id="@+id/txt_open_bank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_toRightOf="@id/tv_moneytip_l4"
+            android:background="@color/white"
+            android:hint="@string/straddbank_branchname_hint" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="30dip"
+        android:background="@drawable/btn_login_bg"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white" />
+
+</LinearLayout>

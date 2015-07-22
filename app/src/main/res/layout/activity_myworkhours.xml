@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/common_height"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/ll_oper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginTop="1dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/cb_dateone"
+                    style="@style/style_checkbox_red"
+                    android:layout_width="20dip"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_dateone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="明天" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginTop="1dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/cb_datetwo"
+                    style="@style/style_checkbox_red"
+                    android:layout_width="20dip"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_datetwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="明天" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginTop="1dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/cb_datethree"
+                    style="@style/style_checkbox_red"
+                    android:layout_width="20dip"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_datethree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="明天" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginTop="1dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/cb_datefour"
+                    style="@style/style_checkbox_red"
+                    android:layout_width="20dip"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_datefour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="明天" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginTop="1dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/cb_datefive"
+                    style="@style/style_checkbox_red"
+                    android:layout_width="20dip"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_datefive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="明天" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginTop="1dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/cb_datesix"
+                    style="@style/style_checkbox_red"
+                    android:layout_width="20dip"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_datesix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="明天" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginTop="1dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/cb_dateseven"
+                    style="@style/style_checkbox_red"
+                    android:layout_width="20dip"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_dateseven"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="明天" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/GridView"
+            android:layout_width="300dip"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ll_oper"
+            android:background="@color/white"
+            android:gravity="center"
+            android:horizontalSpacing="1dip"
+            android:numColumns="11"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="1dip" >
+        </GridView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/tv_tipcolor"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:background="@drawable/icon_itemselected" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_tipcolor"
+            android:text="已预约，无法提供服务" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_margin="@dimen/common_height"
+        android:background="@drawable/btn_login_bg"
+        android:text="确定"
+        android:textColor="@color/white" />
+
+</LinearLayout>

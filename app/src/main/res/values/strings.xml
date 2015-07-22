@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">触动养车</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_username">请输入手机号</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="txt_login">登录</string>
+    <string name="txt_forgetpwd">忘记密码?</string>
+    <string name="txt_registe">注册</string>
+    <string name="login_title">登录</string>
+    <string name="search">查找</string>
+    <string name="strnewphonenumber_hint">输入新手机号</string>
+    <string name="strrenewphonenumber_hint">确认新手机号</string>
+    <string name="strvalidationcode">获取验证码</string>
+    <string name="strvalidationcode_hint">请输入验证码</string>
+    <string name="stroldpwd_hint">旧密码</string>
+    <string name="strnewpwd_hint">新密码</string>
+    <string name="strrenewpwd_hint">确认新密码</string>
+    <string name="straddbank_username_hint">持卡人姓名</string>
+    <string name="straddbank_cardnumber_hint">银行卡号</string>
+    <string name="straddbank_bankname_hint">选择发卡银行</string>
+    <string name="straddbank_branchname_hint">请输入开户支行</string>
+    <string name="jingqingqidai">敬请期待</string>
+    <string name="nonenet">网络不可用</string>
+    <string name="posterroe">请求出错</string>
+    <string name="title_section1">明天</string>
+    <string name="title_section2">后天</string>
+    <string name="title_section3">04-04</string>
+    <string name="title_section4">04-05</string>
+    <string name="title_section5">04-04</string>
+    <string name="title_section6">04-05</string>
+    <string name="title_section7">04-04</string>
+    <string name="questionlist_tab1">&#640;我</string>
+    <string name="questionlist_tab2">&#160;抢单</string>
+    <string name="questionlist_tab3">我的回复</string>
+    <string name="dir">/lanrenyangche</string>
+    <string name="db_dir">/database</string>
+    <string name="imcoming_message_ticker_text">新的消息: <xliff:g id="text">%0$s</xliff:g></string>
+    <!-- 下拉刷新和上拉加载更多的文本 -->
+    <string name="pushmsg_center_no_more_msg">已经到底啦</string>
+    <string name="pushmsg_center_pull_up_text">松开加载更多</string>
+    <string name="pushmsg_center_pull_down_text">下拉可以刷新</string>
+    <string name="pushmsg_center_pull_release_text">松开获取更多</string>
+    <string name="pushmsg_center_pull_down_update_time">最后更新时间 : </string>
+    <string name="pushmsg_center_load_more_ongoing_text">正在加载中</string>
+    <string name="pull_to_refresh_pull_label">向下拉动可以刷新</string>
+    <string name="pull_to_refresh_header_hint_normal">@string/pushmsg_center_pull_down_text</string>
+    <string name="pull_to_refresh_header_hint_normal2">上拉可以刷新</string>
+    <string name="pull_to_refresh_header_hint_ready">松开后刷新</string>
+    <string name="pull_to_refresh_header_hint_loading">@string/pushmsg_center_load_more_ongoing_text</string>
+    <string name="pull_to_refresh_header_last_time">@string/pushmsg_center_pull_down_update_time</string>
+    <string name="pull_to_refresh_footer_hint_ready">松开载入更多</string>
+    <string name="pull_to_refresh_no_more_data">@string/pushmsg_center_no_more_msg</string>
+    <string name="pull_to_refresh_network_error">网络不给力，请检查网络</string>
+    <!-- 缺省的服务器配置 -->
+    <integer name="xmpp_port">5222</integer>
+    <!--
+    <string name="xmpp_host">test.chudongyangche.com</string>
+    <string name="xmpp_service_name">test.chudongyangche.com</string>
+    -->
+    <!--
+   <string name="xmpp_host">development.chudongyangche.com</string>
+    <string name="xmpp_service_name">development.chudongyangche.com</string>
+    -->
+    <!-- 测试环境-->
+    <string name="xmpp_host">121.40.83.55</string>
+    <string name="xmpp_service_name">121.40.83.55</string>
+
+    <!--生产环境-->
+    <!--<string name="xmpp_host">121.43.235.158</string>-->
+    <!--<string name="xmpp_service_name">121.43.235.158</string>-->
+
+
+    <!-- dialog -->
+    <string name="dialog_findpwd">系统将向您注册的手机号发送一条验证短信，注意查收</string>
+    <string name="dialog_changephone">系统将向您输入的新手机号发送一条验证短信，注意查收</string>
+    <string name="action_yes">确定</string>
+    <string name="action_no">取消</string>
+    <string name="dialog_appoint_modifyprice_title">修改价格</string>
+    <string name="dialog_appoint_modifyprice">请谨慎输入您要修改的价格(元)</string>
+    <string name="dialog_appoint_modifyprice_hint">输入价格</string>
+    <string name="dialog_appoint_startservice">确定开启服务后，该订单将不能再更改喔。</string>
+    <string name="dialog_appoint_complservice">确定完成订单后，该订单将会被关闭。</string>
+    <string name="dialog_update">系统检测到有新版本,立即更新?</string>
+    <string name="dialog_update_auto_title">温馨提示</string>
+    <string name="dialog_update_auto">小触有新版本啦,赶快更新吧!!!</string>
+    <string name="action_update_auto">不再提醒</string>
+    <string name="action_now">更新</string>
+    <string name="action_delay">稍后更新</string>
+    <string name="dialog_now">正在更新...</string>
+    <string name="dialog_deletephoto">确定删除图片?</string>
+    <string name="dialog_deletemessage">确定要删除该条消息吗? 删除之后将不能恢复</string>
+    <string name="dialog_updatephotodone">图片上传成功!!</string>
+    <string name="action_know">知道了</string>
+    <string name="dialog_deleteselectedphoto">确定要删除选中的图片?</string>
+    <string name="dialog_selectprovice">选择开户地</string>
+    <string name="dialog_selectbank">选择银行</string>
+    <string-array name="bank">
+        <item>农业银行</item>
+        <item>建设银行</item>
+        <item>工商银行</item>
+        <item>人民银行</item>
+        <item>中国银行</item>
+    </string-array>
+    <string-array name="province">
+        <item>安徽省</item>
+        <item>北京市</item>
+        <item>福建省</item>
+        <item>甘肃省</item>
+        <item>广东省</item>
+        <item>广西壮族自治区</item>
+        <item>贵州省</item>
+        <item>海南省</item>
+        <item>河北省</item>
+        <item>河南省</item>
+        <item>黑龙江省</item>
+        <item>湖北省</item>
+        <item>湖南省</item>
+        <item>吉林省</item>
+        <item>江苏省</item>
+        <item>江西省</item>
+        <item>辽宁省</item>
+        <item>内蒙古自治区</item>
+        <item>宁夏回族自治区</item>
+        <item>青海省</item>
+        <item>山东省</item>
+        <item>山西省</item>
+        <item>陕西省</item>
+        <item>上海市</item>
+        <item>四川省</item>
+        <item>天津市</item>
+        <item>西藏自治区</item>
+        <item>新疆维吾尔自治区</item>
+        <item>云南省</item>
+        <item>浙江省</item>
+        <item>重庆市</item>
+    </string-array>
+</resources>

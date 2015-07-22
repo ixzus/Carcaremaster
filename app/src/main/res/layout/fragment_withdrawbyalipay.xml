@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="@dimen/usertech_bg_padding">
+
+        <TextView
+            android:id="@+id/tv_cardtip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="支付宝账号" />
+
+        <EditText
+            android:id="@+id/txt_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="10dip"
+            android:layout_toRightOf="@id/tv_cardtip"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="输入支付宝账号"
+            android:inputType="text" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="1dip">
+
+        <TextView
+            android:id="@+id/tv_moneynametip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="收款人姓名" />
+
+        <EditText
+            android:id="@+id/txt_moneyname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="10dip"
+            android:layout_toRightOf="@id/tv_moneynametip"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="输入收款人姓名" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="20dip">
+
+        <TextView
+            android:id="@+id/tv_moneytip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="提 现 金  额" />
+
+        <EditText
+            android:id="@+id/txt_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="10dip"
+            android:layout_toRightOf="@id/tv_moneytip"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="当前没有可提现金额" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/itembgstyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="20dip">
+
+        <TextView
+            android:id="@+id/tv_safePasstip"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:text="密            码" />
+
+        <ImageView
+            android:id="@+id/iv_safePasstip"
+            android:layout_width="@dimen/icon_rightarrow_width"
+            android:layout_height="@dimen/icon_rightarrow_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:visibility="gone"
+            android:src="@drawable/icon_password" />
+
+        <EditText
+            android:id="@+id/txt_safePass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dip"
+            android:layout_marginRight="10dip"
+            android:layout_toLeftOf="@+id/iv_safePasstip"
+            android:layout_toRightOf="@id/tv_safePasstip"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:background="@drawable/btn_login_bg"
+            android:clickable="false"
+            android:text="提交"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</LinearLayout>
+

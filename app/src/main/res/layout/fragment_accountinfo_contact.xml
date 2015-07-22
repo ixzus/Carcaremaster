@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dip"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <LinearLayout style="@style/detail_item_style" >
+
+            <TextView
+                android:id="@+id/tv_account_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:minHeight="@dimen/common_height"
+                android:text="13867864248"
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:typeface="monospace" >
+            </TextView>
+        </LinearLayout>
+
+        <View style="@style/StyleLine" />
+
+        <LinearLayout style="@style/detail_item_style" >
+
+            <EditText
+                android:id="@+id/tv_account_newphone"
+                style="@style/detail_info_item_edit_style"
+                android:hint="输入新手机号"
+                android:inputType="phone" >
+            </EditText>
+        </LinearLayout>
+
+        <View style="@style/StyleLine" />
+
+        <LinearLayout style="@style/detail_item_style" >
+
+            <EditText
+                android:id="@+id/tv_info_newphone_certain"
+                style="@style/detail_info_item_edit_style"
+                android:hint="确认新手机号"
+                android:inputType="phone" >
+            </EditText>
+        </LinearLayout>
+
+        <View style="@style/StyleLine" />
+
+        <RelativeLayout style="@style/detail_item_style" >
+
+            <EditText
+                android:id="@+id/tv_info_captche"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="left|center_vertical"
+                android:hint="请输入验证码"
+                android:paddingLeft="10dip"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/username_fontsize" >
+            </EditText>
+
+            <Button
+                android:id="@+id/btn_captche"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginBottom="4dip"
+                android:layout_marginRight="17dip"
+                android:layout_marginTop="4dip"
+                android:background="@drawable/btn_verifi_bg"
+                android:paddingLeft="4dip"
+                android:paddingRight="4dip"
+                android:text="获取验证码"
+                android:textColor="@color/grey"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_contact_certain"
+        android:layout_width="match_parent"
+        android:layout_height="41dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="18dip"
+        android:background="@drawable/btn_login_bg"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/username_fontsize" />
+
+</LinearLayout>

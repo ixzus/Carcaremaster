@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/view_questionitem_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:minHeight="@dimen/questionlist_item_titlec_height" >
+
+        <LinearLayout
+            android:id="@+id/ll_userphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:gravity="center_horizontal" >
+
+            <com.lazycare.carcaremaster.widget.CircularImage
+                android:id="@+id/ci_userphoto"
+                android:layout_width="@dimen/questionlist_item_userphoto_width"
+                android:layout_height="@dimen/questionlist_item_userphoto_height"
+                android:src="@drawable/defaulthead" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_toRightOf="@id/ll_userphoto"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_phonenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="1327122****" />
+
+            <TextView
+                android:id="@+id/tv_cardescribtion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="宝马 5系 2013款 5系 2.0T 手自一体 豪华型"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/username_fontsize" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@color/lightgrey" />
+
+        <LinearLayout
+            android:id="@+id/sv_questiondetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="2dp" >
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:minHeight="@dimen/questionlist_item_phone_height" />
+        </LinearLayout>
+
+        <com.lazycare.carcaremaster.widget.ScrollGridView
+            android:id="@+id/gv_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="@dimen/margin_right"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/layout_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_verifi_bg"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="4dip"
+            android:layout_marginBottom="@dimen/margin_left"
+            android:padding="3dip"
+            android:clickable="true"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/view_iv_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="left"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_marginLeft="6dip" />
+
+            <TextView
+                android:id="@+id/view_tv_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dip"
+                android:layout_toRightOf="@+id/view_iv_imageview"
+                android:text="4s"
+                android:layout_marginRight="40dip"
+                android:textColor="#f79d17"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:layout_marginTop="5dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:src="@drawable/icon_red_replay" />
+
+        <TextView
+            android:id="@+id/tv_replay1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:text="全部回复" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/lightgrey" />
+
+</LinearLayout>

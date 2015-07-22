@@ -1,0 +1,149 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/statusbar_bg</item>
+        <item name="colorPrimaryDark">@color/red</item>
+        <item name="colorAccent">@color/material_pink_500</item>
+    </style>
+
+    <style name="FullTaeme" parent="Theme.AppCompat.NoActionBar"></style>
+
+    <style name="translucent_theme" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="itembgstyle">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="font_large_style_white">
+        <item name="android:textSize">@dimen/username_fontsize</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="font_large_style_black">
+        <item name="android:textSize">@dimen/username_fontsize</item>
+    </style>
+
+    <style name="detail_item_style">
+        <item name="android:layout_height">44dp</item>
+        <item name="android:minHeight">@dimen/common_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/detail_padding</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="detail_item_texttip_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/common_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/username_fontsize</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingLeft">@dimen/usertech_bg_padding</item>
+    </style>
+
+    <style name="detail_item_text_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/common_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/username_fontsize</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="detail_info_item_text_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/common_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/username_fontsize</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:layout_marginLeft">50dip</item>
+    </style>
+
+    <style name="detail_info_item_edit_style">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:minHeight">@dimen/common_height</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/username_fontsize</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="style_checkbox_red" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_red</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ProgressDialog" parent="@style/Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+    <style name="Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/custom_dialogbg</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="StyleRb">
+        <item name="android:background">@drawable/rb_bg_selector</item>
+        <item name="android:textColor">@drawable/rb_text_selector</item>
+    </style>
+
+    <style name="StyleLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dip</item>
+        <item name="android:background">@color/grey_line</item>
+        <item name="android:layout_marginLeft">8dip</item>
+        <item name="android:layout_marginTop">3dip</item>
+        <item name="android:layout_marginBottom">3dip</item>
+        <item name="android:layout_marginRight">8dip</item>
+    </style>
+
+    <style name="PopupAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit</item>
+    </style>
+
+    <style name="StyleLine_vertical">
+        <item name="android:layout_width">0.5dip</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:background">@color/grey_line</item>
+    </style>
+
+    <style name="StyleLine_horizontal">
+        <item name="android:layout_width">60dip</item>
+        <item name="android:layout_height">0.5dip</item>
+        <item name="android:background">@color/grey_line</item>
+    </style>
+
+    <style name="StyleLine_dialog_horizontal">
+        <item name="android:layout_width">230dip</item>
+        <item name="android:layout_height">0.5dip</item>
+        <item name="android:background">@color/grey_line</item>
+    </style>
+
+    <style name="Voice_Dialogstyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <!-- 显示对话框时当前的屏幕是否变暗 -->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+</resources>

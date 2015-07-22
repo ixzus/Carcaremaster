@@ -1,0 +1,7 @@
+<resources>
+
+    <dimen name="gridview_specingwidth">1dp</dimen>
+  
+    <dimen name="padding_bottom">30dip</dimen>
+
+</resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp"
+    android:descendantFocusability="afterDescendants"
+    android:padding="5dp" >
+
+    <TextView
+        android:id="@+id/textview_time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textColor="#666666"
+        android:textSize="12sp" />
+
+    <!--
+        <View 
+        android:id="@+id/check_box"
+       	android:layout_width="35dp"
+   		android:layout_height="35dp"
+   		android:layout_centerVertical="true"
+   		android:visibility="visible"
+   		/>
+    -->
+
+    <RelativeLayout
+        android:id="@+id/layout_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_time"
+        android:layout_marginLeft="30dp" >
+
+        <com.lazycare.carcaremaster.widget.CircularImage
+            android:id="@+id/image_portrait_r"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/defaulthead" />
+
+        <TextView
+            android:id="@+id/textview_name_r"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="7dp"
+            android:layout_toLeftOf="@id/image_portrait_r"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/layout_content_r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_name_r"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/image_portrait_r"
+            android:background="@drawable/outgoing"
+            android:clickable="true"
+            android:duplicateParentState="false" >
+
+            <ImageView
+                android:id="@+id/photo_content_r"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="-20dp"
+                android:clickable="false"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/photo_content_progress"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:background="#a0000000"
+                android:clickable="false"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/view_progress_r"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="-30dp"
+            android:layout_toLeftOf="@+id/layout_content_r"
+            android:indeterminateDrawable="@drawable/view_progress"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</RelativeLayout>

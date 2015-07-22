@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey" >
+
+    <ListView
+        android:id="@+id/lv_questions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_marginTop="@dimen/margin_top"
+        android:scrollbars="none"
+        android:background="@null"
+        android:dividerHeight="@dimen/margin_top"
+        android:divider="@null"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right">
+    </ListView>
+
+</RelativeLayout>

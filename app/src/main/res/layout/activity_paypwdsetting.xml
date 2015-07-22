@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <RadioGroup
+        android:id="@+id/rg_paypwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rb_paypwd_pwd"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="修改提现密码" />
+
+        <RadioButton
+            android:id="@+id/rb_paypwd_forget"
+            style="@style/StyleRb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dip"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="忘记提现密码" />
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_paypwd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dip"
+        android:paddingBottom="55dip"
+        android:persistentDrawingCache="animation" />
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/list_appointservicedevice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3dip"
+        android:divider="@null"
+        android:dividerHeight="8dip" />
+
+    <TextView
+        android:id="@+id/nodatadevice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:text="暂无配件信息"
+        android:textSize="25sp"
+        android:visibility="gone" />
+
+</RelativeLayout>
