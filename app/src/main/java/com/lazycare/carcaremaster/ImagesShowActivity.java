@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lazycare.carcaremaster.util.StringUtil;
+import com.lazycare.carcaremaster.widget.imageview.GestureImageView;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -137,7 +138,7 @@ public class ImagesShowActivity extends BaseActivity {
             View iv = LayoutInflater.from(context).inflate(
                     R.layout.item_viewpage, null);
 
-            ImageView img = (ImageView) iv.findViewById(R.id.list_viewpage_img);
+            GestureImageView img = (GestureImageView) iv.findViewById(R.id.image);
             if (!res.get(position).equals("")) {
                 //判断是不是url
                 if (StringUtil.isHttp(res.get(position))) {
