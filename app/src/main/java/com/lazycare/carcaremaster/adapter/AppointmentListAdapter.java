@@ -1,11 +1,21 @@
 package com.lazycare.carcaremaster.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +26,8 @@ import android.widget.TextView;
 
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.AppointmentClass;
+import com.lazycare.carcaremaster.util.Config;
+import com.lazycare.carcaremaster.util.DateUtil;
 import com.lazycare.carcaremaster.widget.CircularImage;
 import com.squareup.picasso.Picasso;
 
@@ -34,6 +46,7 @@ public class AppointmentListAdapter extends BaseAdapter {
     public AppointmentListAdapter(Context mContext) {
         this.mContext = mContext;
     }
+
 
     public AppointmentListAdapter(List<AppointmentClass> mList, Context mContext) {
         super();
@@ -69,6 +82,7 @@ public class AppointmentListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
+
         if (null == convertView) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(
@@ -95,24 +109,24 @@ public class AppointmentListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
         AppointmentClass ac = listAppointment.get(position);
         if (ac.getHead() != null && !ac.getHead().equals("")) {
             Picasso.with(mContext).load(ac.getHead()).into(holder.ci_userphoto);
         }
-        // holder.ci_userphoto.setImageDrawable(drawable);
         holder.tv_phonenumber.setText(ac.getMmobile());
-        String addtime = ac.getAdd_time();
-        holder.tv_servicetime.setText(addtime);
         holder.tv_appointstate.setText(ac.getService_state());
         holder.tv_content.setText(ac.getService());
         holder.tv_cartype.setText(ac.getCar());
         holder.tv_appointtime.setText(ac.getBook_time());
         holder.rl_appointphone = (RelativeLayout) convertView
                 .findViewById(R.id.rl_appointphone);
+        //付款状态
         if (ac.getPay_state().equals("1"))
             holder.tv_pay_state.setVisibility(View.VISIBLE);
-        else
+        else {
             holder.tv_pay_state.setVisibility(View.GONE);
+        }
 
         final String phonenumber = ac.getMobile();
         holder.rl_appointphone.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +139,27 @@ public class AppointmentListAdapter extends BaseAdapter {
                 mContext.startActivity(call);
             }
         });
+        int period = 0;
+        try {
+            //系统时间
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddkkmmss");
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+            Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
+            String strnow = formatter.format(curDate);
+            //下单时间
+            Date oldDate = formatter2.parse(ac.getAdd_time());
+            String str = formatter.format(oldDate);
+            //得到时间差
+            period = DateUtil.getSecsDiff(strnow, str);
+            Log.d("gmyboy", "str=" + str + "  strnow=" + strnow + "   peroid=" + period + "" + "  addtime= " + ac.getAdd_time());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (period < Config.PEROID && period >= 0 && ac.getPay_state().equals("0")) {
+            new TimerClass(holder.tv_servicetime, Config.PEROID - period).schedule();
+        } else {
+            holder.tv_servicetime.setText(ac.getAdd_time());
+        }
         return convertView;
     }
 
@@ -139,4 +174,46 @@ public class AppointmentListAdapter extends BaseAdapter {
         TextView tv_appointtime;
         RelativeLayout rl_appointphone;
     }
+
+    class TimerClass extends Timer {
+        private TextView textView;
+        private int period;
+        private TimerTask timerTask;
+        private Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what > 0) {
+                    textView.setText("等待支付:" + msg.what / 60 + ":" + msg.what % 60);
+                } else {
+                    textView.setText("该订单已被取消");
+                    // 结束Timer计时器
+                    cancel();
+                }
+            }
+        };
+
+        public TimerClass(TextView textView, final int period) {
+            this.textView = textView;
+            this.period = period;
+            timerTask = new TimerTask() {
+                int i = period;
+
+                @Override
+                public void run() {
+                    Log.d("debug", "run方法所在的线程："
+                            + Thread.currentThread().getName());
+                    // 定义一个消息传过去
+                    Message msg = new Message();
+                    msg.what = i--;
+                    handler.sendMessage(msg);
+                }
+            };
+        }
+
+
+        public void schedule() {
+            schedule(timerTask, 1000, 1000);// 3秒后开始倒计时，倒计时间隔为1秒
+        }
+    }
+
 }

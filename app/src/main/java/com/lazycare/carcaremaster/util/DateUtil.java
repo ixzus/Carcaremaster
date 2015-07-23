@@ -606,9 +606,9 @@ public class DateUtil {
 	/**
 	 * 计算两个时间的差（单位：秒）
 	 * 
-	 * @param begin_dt
-	 *            格式：yyyyMMddkkmmss
 	 * @param end_dt
+	 *            格式：yyyyMMddkkmmss
+	 * @param  begin_dt
 	 *            格式：yyyyMMddkkmmss
 	 * @return 差（秒）
 	 */

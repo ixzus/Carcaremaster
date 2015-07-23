@@ -1,15 +1,5 @@
 package com.lazycare.carcaremaster;
 
-import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -21,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,7 +21,6 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -51,7 +41,14 @@ import com.lazycare.carcaremaster.util.Constant;
 import com.lazycare.carcaremaster.util.DialogUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 import com.lazycare.carcaremaster.widget.AudioPlayer;
-import com.lazycare.carcaremaster.widget.pulltorefresh.PullToRefreshListView;
+
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 车主问题列表页
@@ -63,7 +60,6 @@ import com.lazycare.carcaremaster.widget.pulltorefresh.PullToRefreshListView;
 public class QuestionsListActivity extends BaseActivity implements
         SearchView.OnQueryTextListener, SwipeRefreshLayout.OnRefreshListener {
     private ListView listView;
-    private PullToRefreshListView pullView;
     List<QuestionClass> lstQuestions = new ArrayList<QuestionClass>();
     private int pageIndex = 1;
     int dataSize = 0;
@@ -87,7 +83,8 @@ public class QuestionsListActivity extends BaseActivity implements
     private AudioPlayer player;
     private ContacterReceiver receiver = null;
     private int NOTITYPE = -1;// 默认是@我
-private SwipeRefreshLayout refreshLayout;
+    private SwipeRefreshLayout refreshLayout;
+
     @Override
     protected void onDestroy() {
         if (player != null && player.isPlaying()) {
@@ -181,7 +178,7 @@ private SwipeRefreshLayout refreshLayout;
         // listView = pullView.getRefreshableView();
         // listView.setDividerHeight(20);
         // listView.setSelector(R.color.transparent);
-        refreshLayout=(SwipeRefreshLayout)findViewById(R.id.swiperefresh);
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         rb_private = (RadioButton) findViewById(R.id.rb_private);
         rb_public = (RadioButton) findViewById(R.id.rb_public);
         rb_complete = (RadioButton) findViewById(R.id.rb_complete);
@@ -497,17 +494,6 @@ private SwipeRefreshLayout refreshLayout;
         }
     }
 
-    private void setLastUpdateTime() {
-        SimpleDateFormat mDateFormat = new SimpleDateFormat("MM-dd HH:mm");
-        String text;
-        Long time = System.currentTimeMillis();
-        if (System.currentTimeMillis() == 0) {
-            text = "";
-        } else {
-            text = mDateFormat.format(new Date(time));
-        }
-        pullView.setLastUpdatedLabel(text);
-    }
 
     @Override
     public boolean onQueryTextChange(String newText) {

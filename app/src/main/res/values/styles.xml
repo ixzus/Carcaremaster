@@ -119,7 +119,7 @@
 
     <style name="StyleLine_vertical">
         <item name="android:layout_width">0.5dip</item>
-        <item name="android:layout_height">50dip</item>
+        <item name="android:layout_height">45dip</item>
         <item name="android:background">@color/grey_line</item>
     </style>
 

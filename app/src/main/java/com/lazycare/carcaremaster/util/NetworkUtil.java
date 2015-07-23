@@ -45,11 +45,11 @@ import com.lazycare.carcaremaster.data.Attachments;
  */
 public class NetworkUtil {
     /* 测试环境 */
-//	public static String IP = "test.chudongyangche.cn";
+    public static String IP = "test.chudongyangche.cn";
     /* 开发环境地址 */
 //    public static String IP = "development.chudongyangche.com";
     /* 生产环境地址 */
-	 public static String IP = "121.43.235.158/chudongyangche";
+//	 public static String IP = "121.43.235.158/chudongyangche";
 
     public static String WSDL_URL = "http://" + IP + "/api/index.php";
     /* menu图片显示的地址 */
@@ -342,16 +342,18 @@ public class NetworkUtil {
             return ErrorUtil.getMessage(ErrorUtil.NETWORK_UNCONNECT);
         }
     }
+
     public static String post2(Map<String, String> entity, String uri) {
         return post2(entity, uri, WSDL_URL);
     }
+
     public static String post2(Map<String, String> entity, String uri, String http) {
         String mURL = http + uri + "?";
         try {
             for (Map.Entry<String, String> entry : entity.entrySet()) {
-                mURL += entry.getKey() + "=" + entry.getValue()+"&";
+                mURL += entry.getKey() + "=" + entry.getValue() + "&";
             }
-            mURL.substring(0,mURL.length()-2);
+            mURL.substring(0, mURL.length() - 2);
             HttpGet httpost = new HttpGet(mURL);
             Log.d("PARAM", "URL:" + mURL);
             HttpResponse response = mHttpClient.execute(httpost);

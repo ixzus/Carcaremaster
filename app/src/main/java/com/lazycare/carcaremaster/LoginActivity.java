@@ -278,13 +278,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						String data = jb.getString("data");
 
 						if (error.equals("0")) {
-							List<ArtificerFilterTimeClass> lstAFTC = new ArrayList<ArtificerFilterTimeClass>();
+							List<ArtificerFilterTimeClass> lstAFTC = new ArrayList<>();
 							lstAFTC = gson
 									.fromJson(
 											data,
 											new TypeToken<List<ArtificerFilterTimeClass>>() {
 											}.getType());
-							// 取出所有true/false 放入list
 							int period=DateUtil.getDatePeriod(
 									getSharePreferences().getString(
 											Configuration.TIME, "1990-01-01"),

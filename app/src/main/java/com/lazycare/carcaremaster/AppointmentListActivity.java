@@ -77,13 +77,13 @@ public class AppointmentListActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.good:
-                        evaluationType = "1";
+                        evaluationType = "3";
                         break;
                     case R.id.mid:
                         evaluationType = "2";
                         break;
                     case R.id.bad:
-                        evaluationType = "3";
+                        evaluationType = "1";
                         break;
                 }
                 //选择性的更新第三个tab

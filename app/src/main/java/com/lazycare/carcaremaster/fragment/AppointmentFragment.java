@@ -102,7 +102,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
      */
     private boolean mHasLoadedOnce;
     //评价
-    public static String evaluationType = "";// 评价方式, 1:好评 2:中评 3:差评
+    public static String evaluationType = "";// 评价方式, 3:好评 2:中评 1:差评
     //刷新布局
     private SwipeRefreshLayout refreshLayout;
 
@@ -147,14 +147,14 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
                     orderType = "book";
                     break;
                 case 2:
-
+                    orderType = "evaluation";
                     break;
                 default:
                     break;
             }
             view = inflater.inflate(R.layout.fragment_app_tab, null);
             adapter = new AppointmentListAdapter(getActivity());
-            refreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
+            refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
             listView = (ListView) view.findViewById(R.id.lv_appointments);
             listView.setAdapter(adapter);
             isPrepared = true;
@@ -222,8 +222,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
             map.put("id", id);
             if (mCurIndex == 2)
                 map.put("evaluation", evaluationType);
-            else
-                map.put("order", orderType);
+            map.put("order", orderType);
             TaskExecutor.Execute(new DataRunnable(getActivity(),
                     "/Order/getOrderList", mHandler, map));
         } else {
@@ -317,8 +316,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
         map.put("id", id);
         if (mCurIndex == 2)
             map.put("evaluation", evaluationType);
-        else
-            map.put("order", orderType);
+        map.put("order", orderType);
         TaskExecutor.Execute(new DataRunnable(getActivity(),
                 "/Order/getOrderList", mHandler, map));
     }
