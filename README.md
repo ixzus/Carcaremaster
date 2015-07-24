@@ -8,6 +8,7 @@ the powerful O2O of Auto market
  
 <img src="https://github.com/gmyboy/Carcaremaster/blob/master/screenshots/main.png" width = "300" height = "572" alt="demo1" align=center />
 <img src="https://github.com/gmyboy/Carcaremaster/blob/master/screenshots/main4.png" width = "300" height = "572" alt="demo2" align=center />
+<img src="https://github.com/gmyboy/Carcaremaster/blob/master/screenshots/main7.png" width = "300" height = "572" alt="demo2" align=center />
 
 ### 车主问题列表页和详情页
  
