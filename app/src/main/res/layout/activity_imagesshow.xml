@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_show" />
 
     <RelativeLayout
         android:id="@+id/layout_show"
         android:layout_width="match_parent"
         android:layout_height="50dip"
-        android:layout_alignParentTop="true"
-        android:background="@color/helf_trans" >
+        android:layout_gravity="top|center_horizontal"
+        android:background="@color/transparent">
 
         <Button
             android:id="@+id/show_back"
@@ -29,15 +35,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:background="@drawable/tv_imageshow_bg"
             android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_show" >
-    </android.support.v4.view.ViewPager>
 
-</RelativeLayout>
+</FrameLayout>

@@ -23,7 +23,7 @@ public class AppointmentListActivity extends BaseActivity {
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
     private ViewPager mViewPager;
     private AppointmentPageAdapter pageAdapter;
-    public static String evaluationType = "1";// 评价方式, 1:好评 2:中评 3:差评
+    public static String evaluationType = "3";// 评价方式, 1:好评 2:中评 3:差评
 
     @Override
     public void setLayout() {

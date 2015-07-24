@@ -34,4 +34,6 @@ dependencies {
     compile files('libs/CCP_REST_SDK_JAVA_v2.6r.jar')
     compile files('libs/asmack-jse-buddycloud-2010.12.11.jar')
     compile 'com.afollestad:material-dialogs:0.7.6.0'
+//    compile 'com.facebook.fresco:fresco:0.6.0+'
+//    compile 'com.android.support:support-annotations:22.2.1'
 }

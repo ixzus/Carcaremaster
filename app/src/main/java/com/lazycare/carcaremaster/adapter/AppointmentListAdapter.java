@@ -155,8 +155,10 @@ public class AppointmentListAdapter extends BaseAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (period < Config.PEROID && period >= 0 && ac.getPay_state().equals("0")) {
-            new TimerClass(holder.tv_servicetime, Config.PEROID - period).schedule();
+        //标准单  未付款   时间间隔小于10分钟   （period < Config.PEROID && period >= 0 &&）
+        if ( ac.getPay_state().equals("0") && ac.getStandard().equals("1")) {
+//            new TimerClass(holder.tv_servicetime, Config.PEROID - period).schedule();
+            holder.tv_servicetime.setText("等待车主支付中...");
         } else {
             holder.tv_servicetime.setText(ac.getAdd_time());
         }
@@ -175,6 +177,9 @@ public class AppointmentListAdapter extends BaseAdapter {
         RelativeLayout rl_appointphone;
     }
 
+    /**
+     * 显示倒计时
+     */
     class TimerClass extends Timer {
         private TextView textView;
         private int period;
@@ -183,7 +188,7 @@ public class AppointmentListAdapter extends BaseAdapter {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what > 0) {
-                    textView.setText("等待支付:" + msg.what / 60 + ":" + msg.what % 60);
+                    textView.setText("等待支付: " + msg.what / 60 + "分" + msg.what % 60 + "秒");
                 } else {
                     textView.setText("该订单已被取消");
                     // 结束Timer计时器

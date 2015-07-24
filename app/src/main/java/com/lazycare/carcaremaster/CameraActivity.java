@@ -39,7 +39,6 @@ import com.lazycare.carcaremaster.widget.CameraPreview.OnCameraStatusListener;
  */
 public class CameraActivity extends BaseActivity implements
 		OnCameraStatusListener, OnClickListener {
-
 	public static final Uri IMAGE_URI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 	public static final String PATH = Config.BASE_PATH + "/Camera/";// 拍照完后图片保存目录
 

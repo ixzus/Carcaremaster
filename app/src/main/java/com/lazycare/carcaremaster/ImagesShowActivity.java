@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -138,17 +139,19 @@ public class ImagesShowActivity extends BaseActivity {
             View iv = LayoutInflater.from(context).inflate(
                     R.layout.item_viewpage, null);
 
-            GestureImageView img = (GestureImageView) iv.findViewById(R.id.image);
+//            GestureImageView img = (GestureImageView) iv.findViewById(R.id.image);
+            ImageView img=(ImageView)iv.findViewById(R.id.imageview);
+            Log.d("gmyboy", "---------------"+res.get(position));
             if (!res.get(position).equals("")) {
                 //判断是不是url
                 if (StringUtil.isHttp(res.get(position))) {
                     Picasso.with(ImagesShowActivity.this)
                             .load(res.get(position)).centerCrop()
-                            .resize(1000, 1000).into(img);
+                            .resize(800, 800).into(img);
                 } else {
                     Picasso.with(ImagesShowActivity.this)
                             .load(new File(res.get(position))).centerCrop()
-                            .resize(1000, 1000).into(img);
+                            .resize(800, 800).into(img);
                 }
             }
 

@@ -188,10 +188,11 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    // TODO Auto-generated method stub
                     Intent intent = new Intent();
                     intent.putExtra("order_id", adapter.listAppointment
                             .get(position).getId());
+                    intent.putExtra("standard", adapter.listAppointment
+                            .get(position).getStandard());
                     intent.setClass(getActivity(),
                             AppointmentDetailActivity.class);
                     startActivity(intent);
@@ -310,7 +311,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
-        mDialog = CustomProgressDialog.showCancelable(getActivity(),
+        mDialog = CustomProgressDialog.show(getActivity(),
                 "加载中...");
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);

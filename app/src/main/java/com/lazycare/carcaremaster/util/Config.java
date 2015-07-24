@@ -14,8 +14,17 @@ public class Config {
      * 个信推送
      */
     public static final String USERNAME = "username";
+    /**
+     * 工时管理显示的天数
+     */
     public static int TIME_DAY = 7;
+    /**
+     * 工时管理每天显示的时间段数
+     */
     public static int TIME_HOURS = 12;
+    /**
+     * 项目主目录
+     */
     public static final String BASE_PATH = Environment
             .getExternalStorageDirectory().toString() + "/chudongyangche";
     /**
