@@ -3,5 +3,6 @@
     <dimen name="gridview_specingwidth">1dp</dimen>
   
     <dimen name="padding_bottom">30dip</dimen>
-
+    <dimen name="main_top_height">140dip</dimen>
+    <dimen name="main_top_content_height">70dip</dimen>
 </resources>

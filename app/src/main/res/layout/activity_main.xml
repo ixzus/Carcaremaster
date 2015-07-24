@@ -9,20 +9,20 @@
     <RelativeLayout
         android:id="@+id/rl_userinfo"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/main_userbg_height"
+        android:layout_height="@dimen/main_top_height"
         android:background="@drawable/userinfo_bg">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/userphoto_height"
+            android:layout_height="@dimen/main_top_content_height"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <com.lazycare.carcaremaster.widget.CircularImage
                 android:id="@+id/ci_headphoto"
-                android:layout_width="@dimen/userphoto_width"
-                android:layout_height="@dimen/userphoto_height"
+                android:layout_width="@dimen/main_top_content_height"
+                android:layout_height="@dimen/main_top_content_height"
                 android:src="@drawable/defaulthead" />
 
             <LinearLayout
