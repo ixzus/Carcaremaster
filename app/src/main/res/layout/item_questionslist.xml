@@ -1,5 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/lightgrey"
@@ -38,11 +38,15 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_horizontal">
 
-                    <com.lazycare.carcaremaster.widget.CircularImage
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/ci_userphoto"
-                        android:layout_width="@dimen/questionlist_item_userphoto_width"
-                        android:layout_height="@dimen/questionlist_item_userphoto_height"
-                        android:src="@drawable/defaulthead" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        fresco:failureImage="@drawable/defaulthead"
+                        fresco:failureImageScaleType="centerInside"
+                        fresco:placeholderImage="@drawable/defaulthead"
+                        fresco:placeholderImageScaleType="fitCenter"
+                        fresco:roundWithOverlayColor="#00000000" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -103,9 +107,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
-                android:textColor="@color/black"
                 android:layout_marginTop="3dip"
                 android:minHeight="@dimen/questionlist_item_phone_height"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:visibility="gone" />
 
@@ -114,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
-                android:layout_marginRight="@dimen/margin_right"
+                android:layout_marginRight="40dip"
                 android:numColumns="4"
                 android:scrollbars="none"
                 android:visibility="gone" />

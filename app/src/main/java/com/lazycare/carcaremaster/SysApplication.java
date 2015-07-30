@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.app.Application;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.lazycare.carcaremaster.handler.ErrorHandler;
 import com.lazycare.carcaremaster.util.Config;
 
@@ -22,6 +23,7 @@ public class SysApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Fresco.initialize(this);
 //		ErrorHandler crashHandler = ErrorHandler.getInstance();
 //		crashHandler.init(getApplicationContext());
 		dir = new File(Config.RECORD_PATH);

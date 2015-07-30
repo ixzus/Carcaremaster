@@ -77,6 +77,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".TestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullTaeme" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
             android:name=".FindPasswordActivity"
             android:screenOrientation="portrait" >
         </activity>

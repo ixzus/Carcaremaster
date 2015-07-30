@@ -5,10 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +25,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.BasePostprocessor;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.facebook.imagepipeline.request.Postprocessor;
+import com.lazycare.carcaremaster.image.OpusTypeProcessor;
+import com.lazycare.carcaremaster.image.TuoFrescoProcessor;
 import com.lazycare.carcaremaster.util.StringUtil;
 import com.lazycare.carcaremaster.widget.imageview.GestureImageView;
 import com.squareup.picasso.Picasso;
@@ -138,23 +155,53 @@ public class ImagesShowActivity extends BaseActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             View iv = LayoutInflater.from(context).inflate(
                     R.layout.item_viewpage, null);
-
+            SimpleDraweeView img = (SimpleDraweeView) iv.findViewById(R.id.imageview);
 //            GestureImageView img = (GestureImageView) iv.findViewById(R.id.image);
-            ImageView img=(ImageView)iv.findViewById(R.id.imageview);
-            Log.d("gmyboy", "---------------"+res.get(position));
-            if (!res.get(position).equals("")) {
-                //判断是不是url
-                if (StringUtil.isHttp(res.get(position))) {
-                    Picasso.with(ImagesShowActivity.this)
-                            .load(res.get(position)).centerCrop()
-                            .resize(800, 800).into(img);
-                } else {
-                    Picasso.with(ImagesShowActivity.this)
-                            .load(new File(res.get(position))).centerCrop()
-                            .resize(800, 800).into(img);
-                }
-            }
+//            ImageView img=(ImageView)iv.findViewById(R.id.imageview);
 
+//            TuoFrescoProcessor processor = new TuoFrescoProcessor();
+//            OpusTypeProcessor opusTypeProcessor = new OpusTypeProcessor(context);
+//            opusTypeProcessor.setOpusType(opusInfo.getOpusType());
+//            processor.addProcessor(opusTypeProcessor);
+            /**
+             * 给图片加标识
+             */
+            Postprocessor redMeshPostprocessor = new BasePostprocessor() {
+                @Override
+                public String getName() {
+                    return "redMeshPostprocessor";
+                }
+
+                @Override
+                public void process(Bitmap bitmap) {
+                    Canvas canvas = new Canvas(bitmap);
+                    //对bitmap进行处理
+
+                    canvas.drawBitmap(bitmap, 0.0f, 0.0f, null);
+
+                    TextPaint textPaint = new TextPaint();
+                    textPaint.setAntiAlias(true);
+                    textPaint.setTextSize(16.0F);
+                    StaticLayout sl = new StaticLayout("GIF", textPaint, bitmap.getWidth() - 8, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
+                    canvas.translate(6, 40);
+                    sl.draw(canvas);
+                }
+
+            };
+            Log.d("gmyboy", "---------------" + res.get(position));
+            if (!res.get(position).equals("")) {
+                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(res.get(position)))
+//                            .setResizeOptions(new ResizeOptions(100, 100))//修改图片大小
+                        .setAutoRotateEnabled(true)//设置图片智能摆正
+                        .setProgressiveRenderingEnabled(true)//设置渐进显示
+//                            .setPostprocessor(redMeshPostprocessor)//设置后处理  (设置之后加载图片每次都会有progress，说明每次都要从网络从新加载)
+                        .build();
+                PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                        .setImageRequest(request)
+                        .setOldController(img.getController())
+                        .build();
+                img.setController(controller);
+            }
             ((ViewPager) container).addView(iv, 0);
             return iv;
         }
