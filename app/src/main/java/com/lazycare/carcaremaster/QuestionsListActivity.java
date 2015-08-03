@@ -171,13 +171,6 @@ public class QuestionsListActivity extends BaseActivity implements
     @Override
     public void initView() {
         NOTITYPE = getIntent().getIntExtra("type", -1);
-        // pullView = (PullToRefreshListView) findViewById(R.id.first_pullview);
-        // pullView.setPullLoadEnabled(false);
-        // pullView.setScrollLoadEnabled(true);
-        //
-        // listView = pullView.getRefreshableView();
-        // listView.setDividerHeight(20);
-        // listView.setSelector(R.color.transparent);
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         rb_private = (RadioButton) findViewById(R.id.rb_private);
         rb_public = (RadioButton) findViewById(R.id.rb_public);
@@ -226,11 +219,6 @@ public class QuestionsListActivity extends BaseActivity implements
                 if (adapter != null) {
                     adapter.notifyDataSetChanged();
                 }
-
-                // adapter = new QuestionListAdapter(type,
-                // QuestionsListActivity.this);
-                // pageIndex = 1;
-                // listView.setAdapter(adapter);
                 loadMoreData();
             }
         });
@@ -240,8 +228,7 @@ public class QuestionsListActivity extends BaseActivity implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // Toast.makeText(QuestionsListActivity.this, "项目被点击",
-                // Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent();
                 intent.setClass(QuestionsListActivity.this,
                         QuestionDetailWithReplyActivity.class);
@@ -256,31 +243,7 @@ public class QuestionsListActivity extends BaseActivity implements
         });
 
         listView.setTextFilterEnabled(true);
-        // pullView.setOnRefreshListener(new OnRefreshListener<ListView>() {
-        //
-        // @Override
-        // public void onPullDownToRefresh(
-        // PullToRefreshBase<ListView> refreshView) {
-        // loadMoreData();
-        // }
-        //
-        // @Override
-        // public void onPullUpToRefresh(
-        // PullToRefreshBase<ListView> refreshView) {
-        // pageIndex++;
-        // Map<String, String> map = new HashMap<String, String>();
-        // start = (pageIndex - 1) * limit;
-        // map.put("id", id);
-        // map.put("start", String.valueOf(start));
-        // map.put("limit", String.valueOf(limit));
-        // map.put("type", String.valueOf(type));
-        //
-        // TaskExecutor.Execute(new DataRunnable(
-        // QuestionsListActivity.this,
-        // "/Questions/getQuestionsList", mHandler,Config.WHAT_TWO, map));
-        //
-        // }
-        // });
+
 
     }
 
@@ -292,8 +255,6 @@ public class QuestionsListActivity extends BaseActivity implements
         id = getSharedPreferences(Configuration.USERINFO, 0).getString(
                 Configuration.ID, "1");
 
-        // searchView.setOnQueryTextListener(this);
-        // searchView.setSubmitButtonEnabled(false);
         // 初始化广播
         receiver = new ContacterReceiver();
         // 刷新时，指示器旋转后变化的颜色
@@ -392,7 +353,7 @@ public class QuestionsListActivity extends BaseActivity implements
         private WeakReference<QuestionsListActivity> mWeak;
 
         public LoadQuestionsHandler(QuestionsListActivity activity) {
-            mWeak = new WeakReference<QuestionsListActivity>(activity);
+            mWeak = new WeakReference<>(activity);
         }
 
         @Override
@@ -479,10 +440,10 @@ public class QuestionsListActivity extends BaseActivity implements
                                 }
                             }
                         });
-                        // if (type != 0) {
-                        // // @wo 我的回复 存进本地数据库
-                        // services.savaData(lstQuestions, type, id);
-                        // }
+                        if (type != 0) {
+                            // @wo 我的回复 存进本地数据库
+                            services.savaData(lstQuestions, type, id);
+                        }
 
                     } else
                         showToast(msg);

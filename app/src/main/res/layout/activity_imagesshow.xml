@@ -28,6 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dip"
             android:background="@drawable/btn_back2"
+            android:visibility="gone"
             android:clickable="true" />
 
         <TextView
@@ -36,6 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@drawable/tv_imageshow_bg"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="5dip"
+            android:paddingBottom="5dip"
             android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>

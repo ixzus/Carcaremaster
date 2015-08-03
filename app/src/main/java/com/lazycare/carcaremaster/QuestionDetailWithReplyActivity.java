@@ -10,19 +10,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smackx.filetransfer.FileTransfer.Status;
-import org.jivesoftware.smackx.filetransfer.FileTransferListener;
 import org.jivesoftware.smackx.filetransfer.FileTransferManager;
-import org.jivesoftware.smackx.filetransfer.FileTransferRequest;
 import org.jivesoftware.smackx.filetransfer.IncomingFileTransfer;
-import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -62,6 +55,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lazycare.carcaremaster.adapter.ImageOneAdapter;
@@ -81,9 +79,7 @@ import com.lazycare.carcaremaster.util.DateUtil;
 import com.lazycare.carcaremaster.util.ImageUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 import com.lazycare.carcaremaster.util.ObjectUtil;
-import com.lazycare.carcaremaster.util.XmppConnectionManager;
 import com.lazycare.carcaremaster.widget.AudioPlayer;
-import com.lazycare.carcaremaster.widget.CircularImage;
 import com.lazycare.carcaremaster.widget.ModelPopup;
 import com.lazycare.carcaremaster.widget.RecordButton;
 import com.lazycare.carcaremaster.widget.ScrollGridView;
@@ -122,10 +118,12 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
 
     //头布局
     private class ControlView {
-        CircularImage ciUserPhoto;
+        SimpleDraweeView ciUserPhoto;
         TextView tvPhoneNumber;
         TextView tvCarDescribtion;
         TextView tvContent;
+        TextView tvDate;
+        TextView tvCount;
         ScrollGridView gvImage;
         ImageView ivvoice;
         TextView tvvoice;
@@ -274,7 +272,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
         second_layout = (LinearLayout) this.findViewById(R.id.second_layout);
         View view = getLayoutInflater().inflate(R.layout.view_reply_header,
                 null);
-        mCv.ciUserPhoto = (CircularImage) view.findViewById(R.id.ci_userphoto);
+        mCv.ciUserPhoto = (SimpleDraweeView) view.findViewById(R.id.ci_userphoto);
         mCv.tvPhoneNumber = (TextView) view.findViewById(R.id.tv_phonenumber);
         mCv.tvCarDescribtion = (TextView) view
                 .findViewById(R.id.tv_cardescribtion);
@@ -283,6 +281,8 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
         mCv.ivvoice = (ImageView) view.findViewById(R.id.view_iv_imageview);
         mCv.rlvoice = (RelativeLayout) view.findViewById(R.id.layout_audio);
         mCv.tvvoice = (TextView) view.findViewById(R.id.view_tv_audio);
+        mCv.tvDate = (TextView) view.findViewById(R.id.tv_date);
+        mCv.tvCount = (TextView) view.findViewById(R.id.tv_replay1);
         // mCv.rlReplay = (RelativeLayout) findViewById(R.id.rl_replay);
         // mCv.rlReplay.setOnClickListener(this);
         listView = (ListView) findViewById(R.id.lv_replys);
@@ -629,10 +629,10 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                         if (error.equals("0")) {
                             JSONObject jd = new JSONObject(data);
                             String car = jd.getString("car");
-                            String nickname = jd.getString("nickname");
+                            String mobile = jd.getString("mobile");
                             String content = jd.getString("content");// 内容
                             String head = jd.getString("head");// 头像
-                            // String strPhotos = jd.getString("photos");
+                            String mdate = jd.getString("mdate");
                             String mphotos = jd.getString("mphotos");
                             String answers = jd.getString("answers");
                             String question_type = jd.getString("question_type");
@@ -642,15 +642,19 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                             member_id = jd.getString("member_id");
                             // 初始化IM
                             // 待解决生产环境有mmobile
-                            if (jd.getString("mmobile")!=null)
-                            to = jd.getString("mmobile");// 得到对方师傅的名字
+                            if (jd.getString("mmobile") != null)
+                                to = jd.getString("mmobile");// 得到对方师傅的名字
 //                            initIM();
                             if (head != null && !head.equals("")) {
-                                Picasso.with(QuestionDetailWithReplyActivity.this)
-                                        .load(head)
-                                        .placeholder(R.drawable.defaulthead)
-                                        .error(R.drawable.defaulthead)
-                                        .into(mCv.ciUserPhoto);
+                                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(head))
+                                        .setAutoRotateEnabled(true)//设置图片智能摆正
+                                        .setProgressiveRenderingEnabled(true)//设置渐进显示
+                                        .build();
+                                PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                                        .setImageRequest(request)
+                                        .setOldController(mCv.ciUserPhoto.getController())
+                                        .build();
+                                mCv.ciUserPhoto.setController(controller);
                             }
                             if (audio != null && !audio.equals("")) {
                                 mCv.ivvoice.setVisibility(View.VISIBLE);
@@ -665,13 +669,15 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                                 qiang.setVisibility(View.VISIBLE);// 抢单按钮
                                 second_layout.setVisibility(View.GONE);// 底部输入框
                             }
-                            mCv.tvPhoneNumber.setText(nickname);
+                            mCv.tvPhoneNumber.setText(mobile);
                             mCv.tvCarDescribtion.setText(car);
                             mCv.tvContent.setText(content);
+                            mCv.tvDate.setText(mdate);
                             List<String> lstPhoto = gson.fromJson(mphotos,
                                     new TypeToken<List<String>>() {
                                     }.getType());
                             if (!ObjectUtil.isEmpty(lstPhoto)) {
+
                                 mCv.gvImage.setVisibility(View.VISIBLE);
                                 ImageOneAdapter adapter_image;
                                 if (1 == lstPhoto.size()) {
@@ -696,23 +702,14 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                             } else
                                 mCv.gvImage.setVisibility(View.GONE);
 
-                            List<QuestionReplyClass> lstQuestionReply = gson
-                                    .fromJson(
-                                            answers,
-                                            new TypeToken<List<QuestionReplyClass>>() {
-                                            }.getType());
-                            // for (QuestionReplyClass qrc : lstQuestionReply) {
-                            // adapter.addNewItem(qrc);
-                            // }
-                            adapter = new ReplyListAdapter(
-                                    QuestionDetailWithReplyActivity.this,
-                                    lstQuestionReply, player);
+                            List<QuestionReplyClass> lstQuestionReply = gson.fromJson(answers, new TypeToken<List<QuestionReplyClass>>() {
+                            }.getType());
+                            mCv.tvCount.setText(String.valueOf(lstQuestionReply.size()));
+                            adapter = new ReplyListAdapter(QuestionDetailWithReplyActivity.this, lstQuestionReply, player);
                             listView.setAdapter(adapter);
                             listView.setOnScrollListener(new OnScrollListener() {
                                 @Override
-                                public void onScrollStateChanged(AbsListView view,
-                                                                 int scrollState) {
-                                    // TODO Auto-generated method stub
+                                public void onScrollStateChanged(AbsListView view, int scrollState) {
                                 }
 
                                 @Override

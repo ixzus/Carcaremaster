@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/view_questionitem_bg"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:minHeight="@dimen/questionlist_item_titlec_height" >
+        android:minHeight="@dimen/questionlist_item_titlec_height">
 
         <LinearLayout
             android:id="@+id/ll_userphoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:clickable="false"
             android:layout_marginLeft="@dimen/margin_left"
-            android:gravity="center_horizontal" >
+            android:clickable="false"
+            android:gravity="center_horizontal">
 
-            <com.lazycare.carcaremaster.widget.CircularImage
+
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/ci_userphoto"
-                android:layout_width="@dimen/questionlist_item_userphoto_width"
-                android:layout_height="@dimen/questionlist_item_userphoto_height"
-                android:src="@drawable/defaulthead" />
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                fresco:failureImage="@drawable/defaulthead"
+                fresco:failureImageScaleType="centerInside"
+                fresco:placeholderImage="@drawable/defaulthead"
+                fresco:placeholderImageScaleType="fitCenter" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:clickable="false"
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_toRightOf="@id/ll_userphoto"
-            android:orientation="vertical" >
+            android:clickable="false"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_phonenumber"
@@ -58,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="false"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -70,15 +75,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
-            android:layout_marginTop="2dp" >
+            android:layout_marginTop="2dp">
 
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:minHeight="@dimen/questionlist_item_phone_height"
                 android:textColor="@color/black"
-                android:minHeight="@dimen/questionlist_item_phone_height" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <com.lazycare.carcaremaster.widget.ScrollGridView
@@ -95,13 +100,13 @@
             android:id="@+id/layout_audio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_verifi_bg"
+            android:layout_marginBottom="@dimen/margin_left"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="4dip"
-            android:layout_marginBottom="@dimen/margin_left"
-            android:padding="3dip"
+            android:background="@drawable/btn_verifi_bg"
             android:clickable="true"
-            android:visibility="gone" >
+            android:padding="3dip"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/view_iv_imageview"
@@ -109,9 +114,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="left"
+                android:layout_marginLeft="6dip"
                 android:clickable="false"
-                android:focusable="false"
-                android:layout_marginLeft="6dip" />
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/view_tv_audio"
@@ -119,34 +124,48 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dip"
+                android:layout_marginRight="40dip"
                 android:layout_toRightOf="@+id/view_iv_imageview"
                 android:text="4s"
-                android:layout_marginRight="40dip"
                 android:textColor="#f79d17"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_height"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
         android:layout_marginTop="5dip"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical">
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
-            android:src="@drawable/icon_red_replay" />
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left" />
 
         <TextView
             android:id="@+id/tv_replay1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right"
             android:text="全部回复" />
-    </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:layout_toLeftOf="@id/tv_replay1"
+            android:background="@drawable/icon_replay" />
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"

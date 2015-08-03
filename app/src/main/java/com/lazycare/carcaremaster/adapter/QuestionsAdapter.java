@@ -3,10 +3,9 @@ package com.lazycare.carcaremaster.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,9 +30,7 @@ import com.lazycare.carcaremaster.data.QuestionClass;
 import com.lazycare.carcaremaster.util.DateUtil;
 import com.lazycare.carcaremaster.util.ObjectUtil;
 import com.lazycare.carcaremaster.widget.AudioPlayer;
-import com.lazycare.carcaremaster.widget.CircularImage;
 import com.lazycare.carcaremaster.widget.ScrollGridView;
-import com.squareup.picasso.Picasso;
 
 /**
  * 车主问题列表页adapter
@@ -45,10 +42,10 @@ import com.squareup.picasso.Picasso;
 public class QuestionsAdapter extends BaseAdapter {
 
     public List<QuestionClass> listQuestion;
-    private Context mContext;
+    private Activity mContext;
     private AudioPlayer player;
 
-    public QuestionsAdapter(List<QuestionClass> mList, Context mContext,
+    public QuestionsAdapter(List<QuestionClass> mList, Activity mContext,
                             AudioPlayer player) {
         super();
         this.listQuestion = mList;
@@ -192,7 +189,6 @@ public class QuestionsAdapter extends BaseAdapter {
             holder.rl_voice.setVisibility(View.VISIBLE);
             holder.iv_imageview
                     .setBackgroundResource(R.drawable.chatfrom_voice_playing);
-            // player = new AudioPlayer(mContext, holder.iv_imageview, "right");
             // 点击播放音频
             holder.rl_voice.setOnClickListener(new OnClickListener() {
 
@@ -211,13 +207,6 @@ public class QuestionsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    /**
-     * @author LiuSiQing
-     * @Package com.mngwyhouhzmb.activity.neighbour
-     * @Title OnItemListener
-     * @Description 图片展示监听
-     * @Time 2014年11月12日上午11:31:00
-     */
     private class OnItemListener implements OnItemClickListener {
 
         private List<String> list;
@@ -236,6 +225,7 @@ public class QuestionsAdapter extends BaseAdapter {
             intent.putExtra("pos", position + "");
             intent.putExtra("type", "1");// 网络
             mContext.startActivity(intent);
+            mContext.overridePendingTransition(R.anim.scale_in,android.R.anim.fade_out);
         }
     }
 

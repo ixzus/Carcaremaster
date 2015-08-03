@@ -56,7 +56,6 @@ public class ImagesShowActivity extends BaseActivity {
     private int position = 0;
     private TextView txt;
     private Button back;
-    //	private String type = "";
     int old = 0;
 
     @Override
@@ -77,7 +76,6 @@ public class ImagesShowActivity extends BaseActivity {
         back = (Button) findViewById(R.id.show_back);
         res = getIntent().getStringArrayListExtra("mlist");
         String pos = getIntent().getStringExtra("pos");
-//		type = getIntent().getStringExtra("type");
         if (!pos.equals("")) {
             position = Integer.parseInt(pos);
         }
@@ -125,6 +123,7 @@ public class ImagesShowActivity extends BaseActivity {
             }
         });
     }
+
 
     public class MyPageAdapter extends PagerAdapter {
         private List<String> res;
@@ -202,6 +201,13 @@ public class ImagesShowActivity extends BaseActivity {
                         .build();
                 img.setController(controller);
             }
+            img.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            });
             ((ViewPager) container).addView(iv, 0);
             return iv;
         }

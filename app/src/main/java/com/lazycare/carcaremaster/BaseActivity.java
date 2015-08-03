@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
@@ -17,15 +16,11 @@ import android.widget.Toast;
 
 import com.lazycare.carcaremaster.data.LoginConfig;
 import com.lazycare.carcaremaster.impl.IBaseActivity;
-import com.lazycare.carcaremaster.receiver.ConnectionChangeReceiver;
 import com.lazycare.carcaremaster.service.IMChatService;
 import com.lazycare.carcaremaster.service.LoginService;
 import com.lazycare.carcaremaster.service.ReConnectService;
 import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.Constant;
-import com.lazycare.carcaremaster.util.NetworkUtil;
-import com.lazycare.carcaremaster.util.StackOfActivity;
-import com.lazycare.carcaremaster.util.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -43,24 +38,22 @@ public abstract class BaseActivity extends ActionBarActivity implements
     public String TAG = this.getClass().getSimpleName();
     public Dialog dialog;
     public Context mContext = this;
-    private SysApplication application;
     private String IMEI = "";
     protected SharedPreferences preferences;
     private static IMChatService mService = new IMChatService();
     private static ReConnectService mReConnectService = new ReConnectService();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        StackOfActivity.getInstance().addActivity(this);
         // bug分析
         MobclickAgent.setDebugMode(true);
         MobclickAgent.openActivityDurationTrack(false);
         MobclickAgent.updateOnlineConfig(this);
-        application = (SysApplication) getApplication();
+        SysApplication.getInstance().addActivity(this);
         preferences = getSharedPreferences(Constant.LOGIN_SET, 0);
-
         setActionBarOption();
         setLayout();
         //initView之前
@@ -117,37 +110,6 @@ public abstract class BaseActivity extends ActionBarActivity implements
 
     }
 
-    // public static ServiceConnection connection = new ServiceConnection() {
-    // @Override
-    // public void onServiceDisconnected(ComponentName name) {
-    // // Toast.makeText(mContext, "这里是：onServiceDisconnected",
-    // // 1000).show();
-    // }
-    //
-    // @Override
-    // public void onServiceConnected(ComponentName name, IBinder service) {
-    // // Toast.makeText(mContext, "这里是：onServiceConnected", 1000).show();
-    // System.out.println("onServiceConnected");
-    // IMChatService.MyBinder myBinder = (MyBinder) service;
-    // mService = myBinder.getService();
-    // }
-    // };
-    // public static ServiceConnection reconnection = new ServiceConnection() {
-    // @Override
-    // public void onServiceDisconnected(ComponentName name) {
-    // // Toast.makeText(mContext, "这里是：onServiceDisconnected",
-    // // 1000).show();
-    // }
-    //
-    // @Override
-    // public void onServiceConnected(ComponentName name, IBinder service) {
-    // // Toast.makeText(mContext, "这里是：onServiceConnected", 1000).show();
-    // System.out.println("onServiceConnected");
-    // ReConnectService.MyReBinder myBinder = (MyReBinder) service;
-    // mReConnectService = myBinder.getService();
-    // }
-    // };
-
     /**
      * 销毁服务.
      *
@@ -203,7 +165,6 @@ public abstract class BaseActivity extends ActionBarActivity implements
         super.onRestart();
         Log.d("gmyboy", TAG + "---------onRestart-----------");
         startService();
-
     }
 
     @Override
@@ -231,9 +192,7 @@ public abstract class BaseActivity extends ActionBarActivity implements
         super.onResume();
         MobclickAgent.onPageStart(TAG);
         MobclickAgent.onResume(this);
-        // IntentFilter filter = new IntentFilter();
-        // filter.addAction(Constant.ACTION_RECONNECT_STATE);
-        // registerReceiver(mreceiver, filter);
+
     }
 
     public SharedPreferences getSharePreferences() {
@@ -295,17 +254,17 @@ public abstract class BaseActivity extends ActionBarActivity implements
      */
     public void exit() {
         stopService();
-        StackOfActivity.getInstance().exit();
+        SysApplication.getInstance().exit();
     }
 
     /**
      * 显示toast
      *
-     * @param context
      * @param massage
      */
     public void showToast(String massage) {
         Toast.makeText(this, massage, Toast.LENGTH_SHORT).show();
     }
+
 
 }

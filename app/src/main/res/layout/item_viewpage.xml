@@ -23,13 +23,16 @@
         android:id="@+id/imageview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:maxHeight="700dip"
         fresco:fadeDuration="1000"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
         fresco:progressBarImage="@drawable/ic_launcher"
         fresco:progressBarImageScaleType="centerInside"
         fresco:progressBarAutoRotateInterval="1000"
-        fresco:failureImage="@drawable/ic_launcher"
+        fresco:failureImage="@mipmap/pic_failure"
         fresco:failureImageScaleType="centerInside"
-        fresco:retryImage="@drawable/ic_launcher"
+        fresco:retryImage="@mipmap/pic_failure"
         fresco:retryImageScaleType="centerCrop"
-        android:scaleType="centerInside"/>
+        fresco:actualImageScaleType="fitCenter"/>
 </FrameLayout>

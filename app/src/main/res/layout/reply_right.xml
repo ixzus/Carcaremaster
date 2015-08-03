@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="false"
-    android:focusable="false"
     android:descendantFocusability="beforeDescendants"
-    android:padding="5dp" >
+    android:focusable="false"
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/textview_time"
@@ -35,15 +36,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textview_time"
-        android:layout_marginLeft="30dp" >
+        android:layout_marginLeft="30dp">
 
-        <com.lazycare.carcaremaster.widget.CircularImage
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image_portrait_r"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/defaulthead" />
+            fresco:actualImageScaleType="fitCenter"
+            fresco:failureImage="@drawable/defaulthead"
+            fresco:failureImageScaleType="centerInside"
+            fresco:placeholderImage="@drawable/defaulthead"
+            fresco:placeholderImageScaleType="fitCenter" />
 
         <TextView
             android:id="@+id/textview_name_r"
@@ -66,7 +70,7 @@
             android:layout_toLeftOf="@id/image_portrait_r"
             android:background="@drawable/outgoing"
             android:clickable="true"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textview_content_r"
@@ -80,7 +84,7 @@
                 android:textSize="14sp"
                 android:visibility="gone" />
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/photo_content_r"
                 android:layout_width="130dp"
                 android:layout_height="140dp"
@@ -89,8 +93,15 @@
                 android:clickable="false"
                 android:maxHeight="90dp"
                 android:maxWidth="70dp"
-                android:scaleType="centerCrop"
-                android:visibility="gone" />
+                android:visibility="gone"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:failureImage="@mipmap/pic_failure"
+                fresco:failureImageScaleType="centerInside"
+                fresco:progressBarAutoRotateInterval="400"
+                fresco:progressBarImage="@drawable/ic_launcher"
+                fresco:progressBarImageScaleType="centerInside"
+                fresco:retryImage="@mipmap/pic_failure"
+                fresco:retryImageScaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/senderVoiceNode"

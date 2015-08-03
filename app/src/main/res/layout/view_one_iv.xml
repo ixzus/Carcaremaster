@@ -3,25 +3,27 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <!--<ImageView-->
-        <!--android:id="@+id/iv_one"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/height_image"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_margin="@dimen/margin_image"-->
-        <!--android:contentDescription="@null"-->
-        <!--android:scaleType="centerCrop" />-->
+    <!--android:id="@+id/iv_one"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/height_image"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_margin="@dimen/margin_image"-->
+    <!--android:contentDescription="@null"-->
+    <!--android:scaleType="centerCrop" />-->
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_one"
         android:layout_width="match_parent"
         android:layout_height="110dip"
-        fresco:fadeDuration="200"
-        fresco:failureImage="@color/grey"
         android:layout_margin="3dip"
+        android:scaleType="centerInside"
+        fresco:fadeDuration="200"
+        fresco:failureImage="@mipmap/pic_failure"
         fresco:failureImageScaleType="centerInside"
-        fresco:retryImage="@drawable/ic_launcher"
-        fresco:retryImageScaleType="centerCrop"
-        android:scaleType="centerInside"/>
+        fresco:placeholderImage="@mipmap/pic_placeholder"
+        fresco:placeholderImageScaleType="centerInside"
+        fresco:retryImage="@mipmap/pic_failure"
+        fresco:retryImageScaleType="centerCrop" />
 </LinearLayout>

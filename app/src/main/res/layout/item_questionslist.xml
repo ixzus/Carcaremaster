@@ -45,8 +45,7 @@
                         fresco:failureImage="@drawable/defaulthead"
                         fresco:failureImageScaleType="centerInside"
                         fresco:placeholderImage="@drawable/defaulthead"
-                        fresco:placeholderImageScaleType="fitCenter"
-                        fresco:roundWithOverlayColor="#00000000" />
+                        fresco:placeholderImageScaleType="fitCenter" />
                 </LinearLayout>
 
                 <LinearLayout

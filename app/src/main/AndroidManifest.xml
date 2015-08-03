@@ -45,7 +45,8 @@
     <!-- 发送短信 -->
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-
+    <!-- 更改系统设置-->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
     <application
         android:name="com.lazycare.carcaremaster.SysApplication"

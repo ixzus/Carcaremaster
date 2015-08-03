@@ -20,9 +20,11 @@
         android:layout_height="140dip"
         fresco:fadeDuration="200"
         android:layout_margin="2dip"
-        fresco:failureImage="@color/grey"
+        fresco:placeholderImage="@mipmap/pic_placeholder"
+        fresco:placeholderImageScaleType="centerInside"
+        fresco:failureImage="@mipmap/pic_failure"
         fresco:failureImageScaleType="centerInside"
-        fresco:retryImage="@drawable/ic_launcher"
+        fresco:retryImage="@mipmap/pic_failure"
         fresco:retryImageScaleType="centerCrop"
         android:scaleType="centerInside"/>
 

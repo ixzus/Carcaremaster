@@ -193,8 +193,9 @@ public class Config {
     /**
      * 描述冲连接，
      */
-    public static final boolean RECONNECT_STATE_SUCCESS = true;
-    public static final boolean RECONNECT_STATE_FAIL = false;
+    public static final int RECONNECT_STATE_SUCCESS = 0;
+    public static final int RECONNECT_STATE_FAIL = 1;
+    public static final int RECONNECT_STATE_ING = 2;
     /**
      * 描述冲连接状态的关机子，寄放的intent的关键字
      */

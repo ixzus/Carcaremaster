@@ -76,7 +76,7 @@ public class MyAccountInfoActivity extends BaseActivity {
                                     item.setVisible(false);
                                     break;
                                 case 2:
-                                    item.setVisible(true);
+                                    item.setVisible(false);
                                     break;
                             }
                         }

@@ -13,11 +13,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.QuestionReplyClass;
 import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
-import com.lazycare.carcaremaster.widget.CircularImage;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -73,7 +73,7 @@ public class QuestionReplyAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.item_questionsreply, null);
-			holder.ci_replyuserphoto = (CircularImage) convertView
+			holder.ci_replyuserphoto = (SimpleDraweeView) convertView
 					.findViewById(R.id.ci_replyuserphoto);
 			holder.tv_replyusername = (TextView) convertView
 					.findViewById(R.id.tv_replyusername);
@@ -140,7 +140,7 @@ public class QuestionReplyAdapter extends BaseAdapter {
 	}
 
 	class ViewHolder {
-		CircularImage ci_replyuserphoto;
+		SimpleDraweeView ci_replyuserphoto;
 		TextView tv_replyusername;
 		TextView tv_replytime;
 		TextView tv_replycontent;

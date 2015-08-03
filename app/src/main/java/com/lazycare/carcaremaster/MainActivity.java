@@ -15,12 +15,12 @@ import org.jivesoftware.smack.packet.XMPPError;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,15 +37,18 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.gson.Gson;
 import com.lazycare.carcaremaster.adapter.MenuItemAdapter;
 import com.lazycare.carcaremaster.data.LoginConfig;
 import com.lazycare.carcaremaster.data.MenuClass;
-import com.lazycare.carcaremaster.fragment.ModifyPhotoFragment;
 import com.lazycare.carcaremaster.impl.IBaseActivity;
 import com.lazycare.carcaremaster.receiver.ConnectionChangeReceiver;
 import com.lazycare.carcaremaster.service.QuestionListServices;
-import com.lazycare.carcaremaster.service.QuestionService;
 import com.lazycare.carcaremaster.service.WorkTimeServices;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
@@ -55,8 +58,6 @@ import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.Constant;
 import com.lazycare.carcaremaster.util.XmppConnectionManager;
-import com.lazycare.carcaremaster.widget.CircularImage;
-import com.squareup.picasso.Picasso;
 
 /**
  * 首页
@@ -67,7 +68,7 @@ import com.squareup.picasso.Picasso;
  */
 public class MainActivity extends BaseActivity {
     // 用户信息相关
-    CircularImage ci_headphoto;
+    SimpleDraweeView ci_headphoto;
     TextView tv_username, tv_userrank;
     String id = "";
     private Handler mHandler = new MainLoadHandler(this);
@@ -84,6 +85,7 @@ public class MainActivity extends BaseActivity {
     private String username = "";
     private String remindme = "";
     private LoginConfig loginConfig;
+    private ContacterReceiver receiver = new ContacterReceiver();
 
     @Override
     public void setLayout() {
@@ -104,7 +106,7 @@ public class MainActivity extends BaseActivity {
         id = getSharePreferences().getString(Configuration.ID, "0");
         username = getSharePreferences().getString(Configuration.USERNAME, "");
         adapter = new MenuItemAdapter(MainActivity.this);
-        ci_headphoto = (CircularImage) findViewById(R.id.ci_headphoto);
+        ci_headphoto = (SimpleDraweeView) findViewById(R.id.ci_headphoto);
         tv_username = (TextView) findViewById(R.id.tv_username);
         tv_userrank = (TextView) findViewById(R.id.tv_userrank);
         gridview = (GridView) findViewById(R.id.GridView);
@@ -186,17 +188,20 @@ public class MainActivity extends BaseActivity {
         registerReceiver();
 //        serviceIntent = new Intent(mContext, QuestionService.class);
         //登陆openfire
-        new LoginTask(MainActivity.this, username, "111111").execute();
+//        new LoginTask(MainActivity.this, username, "111111").execute();
     }
 
     /**
      * 注册网络监听器
      */
     private void registerReceiver() {
-        IntentFilter filter = new IntentFilter(
+        IntentFilter mfilter = new IntentFilter(
                 ConnectivityManager.CONNECTIVITY_ACTION);
         myReceiver = new ConnectionChangeReceiver();
-        this.registerReceiver(myReceiver, filter);
+        this.registerReceiver(myReceiver, mfilter);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constant.ACTION_RECONNECT_STATE);
+        registerReceiver(receiver, filter);
     }
 
     private void unregisterReceiver() {
@@ -259,7 +264,7 @@ public class MainActivity extends BaseActivity {
         private WeakReference<MainActivity> mWeak;
 
         public MainLoadHandler(MainActivity activity) {
-            mWeak = new WeakReference<MainActivity>(activity);
+            mWeak = new WeakReference<>(activity);
         }
 
         @Override
@@ -302,9 +307,15 @@ public class MainActivity extends BaseActivity {
                                 tv_username.setText(name);
                                 // tv_userrank.setText(rank_name);
                                 if (!head.equals("") && head != null) {
-                                    Picasso.with(MainActivity.this).load(head)
-                                            .placeholder(R.drawable.defaulthead)
-                                            .into(ci_headphoto);
+                                    ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(head))
+                                            .setAutoRotateEnabled(true)//设置图片智能摆正
+                                            .setProgressiveRenderingEnabled(true)//设置渐进显示
+                                            .build();
+                                    PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                                            .setImageRequest(request)
+                                            .setOldController(ci_headphoto.getController())
+                                            .build();
+                                    ci_headphoto.setController(controller);
                                     getSharePreferencesEditor().putString(
                                             Configuration.HEAD, head).commit();// 先将这个头像存储起来
                                 }
@@ -478,6 +489,29 @@ public class MainActivity extends BaseActivity {
                 }
             } else {
                 return Constant.LOGIN_ERROR;
+            }
+        }
+    }
+
+    private class ContacterReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (Constant.ACTION_RECONNECT_STATE.equals(action)) {
+                int isSuccess = intent.getIntExtra(Constant.RECONNECT_STATE, 1);
+//                dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                switch (isSuccess) {
+                    case Config.RECONNECT_STATE_SUCCESS:
+                        showToast("done");
+                        break;
+                    case Config.RECONNECT_STATE_FAIL:
+                        showToast("fail");
+                        break;
+                    case Config.RECONNECT_STATE_ING:
+                        showToast("reconnect");
+                        break;
+                }
             }
         }
     }

@@ -10,11 +10,8 @@ import java.util.TimerTask;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +21,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.AppointmentClass;
-import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.DateUtil;
-import com.lazycare.carcaremaster.widget.CircularImage;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -87,7 +87,7 @@ public class AppointmentListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(
                     R.layout.item_appointmentlist, null);
-            holder.ci_userphoto = (CircularImage) convertView
+            holder.ci_userphoto = (SimpleDraweeView) convertView
                     .findViewById(R.id.ci_userphoto);
             holder.tv_phonenumber = (TextView) convertView
                     .findViewById(R.id.tv_phonenumber);
@@ -112,7 +112,15 @@ public class AppointmentListAdapter extends BaseAdapter {
 
         AppointmentClass ac = listAppointment.get(position);
         if (ac.getHead() != null && !ac.getHead().equals("")) {
-            Picasso.with(mContext).load(ac.getHead()).into(holder.ci_userphoto);
+            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ac.getHead()))
+                    .setAutoRotateEnabled(true)//设置图片智能摆正
+                    .setProgressiveRenderingEnabled(true)//设置渐进显示
+                    .build();
+            PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                    .setImageRequest(request)
+                    .setOldController(holder.ci_userphoto.getController())
+                    .build();
+            holder.ci_userphoto.setController(controller);
         }
         holder.tv_phonenumber.setText(ac.getMmobile());
         holder.tv_appointstate.setText(ac.getService_state());
@@ -156,7 +164,7 @@ public class AppointmentListAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         //标准单  未付款   时间间隔小于10分钟   （period < Config.PEROID && period >= 0 &&）
-        if ( ac.getPay_state().equals("0") && ac.getStandard().equals("1")) {
+        if (ac.getPay_state().equals("0") && ac.getStandard().equals("1")) {
 //            new TimerClass(holder.tv_servicetime, Config.PEROID - period).schedule();
             holder.tv_servicetime.setText("等待车主支付中...");
         } else {
@@ -166,7 +174,7 @@ public class AppointmentListAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        CircularImage ci_userphoto;
+        SimpleDraweeView ci_userphoto;
         TextView tv_phonenumber;
         TextView tv_servicetime;
         TextView tv_appointstate;
