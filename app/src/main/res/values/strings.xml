@@ -43,12 +43,12 @@
     <integer name="xmpp_port">5222</integer>
 
     <!-- 测试环境-->
-    <string name="xmpp_host">121.40.83.55</string>
-    <string name="xmpp_service_name">121.40.83.55</string>
+    <!--<string name="xmpp_host">121.40.83.55</string>-->
+    <!--<string name="xmpp_service_name">121.40.83.55</string>-->
 
     <!--生产环境-->
-    <!--<string name="xmpp_host">121.43.235.158</string>-->
-    <!--<string name="xmpp_service_name">121.43.235.158</string>-->
+    <string name="xmpp_host">121.43.235.158</string>
+    <string name="xmpp_service_name">121.43.235.158</string>
 
 
     <!-- dialog -->

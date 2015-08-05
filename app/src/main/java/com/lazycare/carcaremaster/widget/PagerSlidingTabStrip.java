@@ -273,6 +273,18 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         popup.show(); //showing popup menu
     }
 
+    public void setTabText(int index, String appandText) {
+        for (int i = 0; i < tabCount; i++) {
+            View v = tabsContainer.getChildAt(i);
+            v.setBackgroundResource(tabBackgroundResId);
+            if (v instanceof TextView) {
+                TextView tab = (TextView) v;
+                if (i == index)
+                    tab.setText(appandText);
+            }
+        }
+    }
+
     private void updateTabStyles() {
 
         for (int i = 0; i < tabCount; i++) {

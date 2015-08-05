@@ -18,7 +18,7 @@ import com.lazycare.carcaremaster.fragment.ModifyPwdFragment;
  */
 public class AccountInfoPageAdapter extends FragmentPagerAdapter {
 
-	private final String[] TITLES = { "修改联系方式", "修改登录密码","sdf"};
+	private final String[] TITLES = { "修改联系方式", "修改登录密码"};
 	private String id;
 	private String username;
 
@@ -49,9 +49,9 @@ public class AccountInfoPageAdapter extends FragmentPagerAdapter {
 		case 1:
 			frag = new ModifyPwdFragment();
 			break;
-		case 2:
-			frag = new ModifyPhotoFragment();
-			break;
+//		case 2:
+//			frag = new ModifyPhotoFragment();
+//			break;
 		default:
 			break;
 		}

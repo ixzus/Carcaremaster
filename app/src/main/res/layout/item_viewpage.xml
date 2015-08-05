@@ -19,12 +19,11 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
     <!--android:scaleType="centerInside" />-->
-    <com.facebook.drawee.view.SimpleDraweeView
+    <com.lazycare.carcaremaster.widget.imageview.PhotoView
         android:id="@+id/imageview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:maxHeight="700dip"
-        fresco:fadeDuration="1000"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         fresco:progressBarImage="@drawable/ic_launcher"

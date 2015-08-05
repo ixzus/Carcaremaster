@@ -33,7 +33,7 @@ import com.lazycare.carcaremaster.data.AppointmentClass;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
+import com.lazycare.carcaremaster.util.Config;
 
 /**
  * 评价的任务
@@ -76,7 +76,7 @@ public class AppraiseListActivity extends BaseActivity implements
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
+		id = getSharePreferences().getString(Config.ID, "0");
 		listView = (ListView) findViewById(R.id.lv_appraise);
 		adapter = new AppointmentListAdapter(AppraiseListActivity.this);
 		listView.setAdapter(adapter);

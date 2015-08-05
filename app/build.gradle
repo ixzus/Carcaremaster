@@ -27,7 +27,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
-    compile files('libs/picasso-2.3.3.jar')
     compile files('libs/umeng-analytics-v5.4.2.jar')
     compile files('libs/httpmime-4.2.5.jar')
     compile files('libs/flame.jar')
@@ -35,4 +34,6 @@ dependencies {
     compile files('libs/asmack-jse-buddycloud-2010.12.11.jar')
     compile 'com.afollestad:material-dialogs:0.7.6.0'
     compile 'com.facebook.fresco:fresco:0.6.0+'
+    //    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.BankClass;
-import com.squareup.picasso.Picasso;
 
 /**
  * bank adapter
@@ -79,7 +78,7 @@ public class BankAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		BankClass qc = listBank.get(position);
-		Picasso.with(mContext).load(qc.getIcon()).into(holder.iv_bankicon);
+//		Picasso.with(mContext).load(qc.getIcon()).into(holder.iv_bankicon);
 		holder.tv_bankname.setText(qc.getBank());
 		holder.tv_bankshortnumber.setText(qc.getTail());
 		// 依据数据填充内容

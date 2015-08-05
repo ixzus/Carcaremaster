@@ -11,7 +11,6 @@ import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.Attachments;
 import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.ObjectUtil;
-import com.squareup.picasso.Picasso;
 
 /**
  * 一个附件时
@@ -106,13 +105,13 @@ public class ImageOneAttachmentsAdapter extends BaseComAdapter {
 				iv_image = (ImageView) view.getTag();
 			if (null == mList || mList.size() == position) {
 				iv_image.setTag(null);
-				Picasso.with(mActivity)
-						.load(String.valueOf(R.drawable.common_phone))
-						.into(iv_image);
+//				Picasso.with(mActivity)
+//						.load(String.valueOf(R.drawable.common_phone))
+//						.into(iv_image);
 			} else {
 				String url = mList.get(position).getFile_path();
 				iv_image.setTag(url);
-				Picasso.with(mActivity).load(url).into(iv_image);
+//				Picasso.with(mActivity).load(url).into(iv_image);
 			}
 		}
 		return view;

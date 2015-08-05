@@ -45,11 +45,11 @@ import com.lazycare.carcaremaster.data.Attachments;
  */
 public class NetworkUtil {
     /* 测试环境 */
-    public static String IP = "test.chudongyangche.cn";
+//    public static String IP = "test.chudongyangche.cn";
     /* 开发环境地址 */
 //    public static String IP = "development.chudongyangche.com";
     /* 生产环境地址 */
-//	 public static String IP = "121.43.235.158/chudongyangche";
+	 public static String IP = "121.43.235.158/chudongyangche";
 
     public static String WSDL_URL = "http://" + IP + "/api/index.php";
     /* menu图片显示的地址 */

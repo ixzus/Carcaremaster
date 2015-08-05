@@ -31,7 +31,6 @@ import com.afollestad.materialdialogs.Theme;
 import com.lazycare.carcaremaster.MessageActivity;
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.util.Config;
-import com.lazycare.carcaremaster.util.Configuration;
 
 /**
  * 自动更新管理类
@@ -205,8 +204,8 @@ public class UpdateManager {
                             @Override
                             public void onNeutral(MaterialDialog dialog) {
                                 //不再启动提醒
-                                mContext.getSharedPreferences(Configuration.USERINFO, 0).edit()
-                                        .putString(Configuration.REMIND_UPDATE, "0")
+                                mContext.getSharedPreferences(Config.USERINFO, 0).edit()
+                                        .putString(Config.REMIND_UPDATE, "0")
                                         .commit();
                             }
                         }).show();
@@ -274,8 +273,8 @@ public class UpdateManager {
     // }
     private void showDownloadDialog() {
         //开启启动提醒
-        mContext.getSharedPreferences(Configuration.USERINFO, 0).edit()
-                .putString(Configuration.REMIND_UPDATE, "1")
+        mContext.getSharedPreferences(Config.USERINFO, 0).edit()
+                .putString(Config.REMIND_UPDATE, "1")
                 .commit();
         new MaterialDialog.Builder(mContext).title(R.string.dialog_now)
                 .contentGravity(GravityEnum.CENTER).progress(false, 100, true)

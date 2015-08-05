@@ -1,20 +1,11 @@
 package com.lazycare.carcaremaster.fragment;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,19 +20,28 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lazycare.carcaremaster.QuestionDetailWithReplyActivity;
-import com.lazycare.carcaremaster.QuestionsListActivity2;
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.adapter.QuestionsAdapter;
 import com.lazycare.carcaremaster.data.QuestionClass;
-import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.service.QuestionListServices;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.DialogUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 import com.lazycare.carcaremaster.widget.AudioPlayer;
+import com.lazycare.carcaremaster.widget.PagerSlidingTabStrip;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 /**
  * 问题列表
@@ -50,26 +50,38 @@ import com.umeng.analytics.MobclickAgent;
  * @mail 2275964276@qq.com
  * @date 2015年6月2日
  */
-public class QuestionsFragment extends BaseFragment {
-    private ListView listView;
-    int dataSize = 0;
+public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+    @Bind(R.id.lv_questions)
+    ListView lvQuestions;
+    @Bind(R.id.swiperefresh)
+    SwipeRefreshLayout swiperefresh;
+
+    @OnItemClick(R.id.lv_questions)
+    void onItemClick(AdapterView<?> parent, View view,
+                     int position, long id) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(),
+                QuestionDetailWithReplyActivity.class);
+        intent.putExtra("question_id",
+                adapter.listQuestion.get(position).getId());
+        intent.putExtra("type", type);
+        startActivity(intent);
+    }
     String id = "";
     public static String TAG = "QuestionsFragment";
-    private Dialog mDialog;
+    int dataSize = 0;
     Handler mHandler;
     QuestionsAdapter adapter = null;
-    List<QuestionClass> lstQuestions = new ArrayList<>();
     public static int flag = 0;// 标志位用来判断返回到问题列表用不用刷新数据 0不刷新 1 刷新
     int start = 0;// 页数
     int limit = 10;// 每页多少个
     int type = 1;// 问题类型 0:群发的 1: 1对1的 2:已完成的
     boolean isLoading = false;
+
     private int pageIndex = 1;
-    private QuestionListServices services = QuestionListServices
-            .getInstance(getActivity());
+    private QuestionListServices services = QuestionListServices.getInstance(getActivity());
     private AudioPlayer player;
 
-    private View view;
     private int mCurIndex = -1;
     /**
      * 标志位，标志已经初始化完成
@@ -79,23 +91,39 @@ public class QuestionsFragment extends BaseFragment {
      * 是否已被加载过一次，第二次就不再去请求数据了
      */
     private boolean mHasLoadedOnce;
+    private static PagerSlidingTabStrip mPagerSlidingTabStrip;
+    private View view;
 
     @Override
     public void onPause() {
-        // TODO Auto-generated method stub
+        if (player != null && player.isPlaying()) {
+            player.pause();
+        }
         super.onPause();
         MobclickAgent.onPageEnd(TAG);
     }
 
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         MobclickAgent.onPageStart(TAG);
+        if (flag == 1) {
+            autoRefresh();
+            flag = 0;
+        }
     }
 
-    public static QuestionsFragment newInstance(int mtype, String mid) {
+    @Override
+    public void onDestroy() {
+        if (player != null && player.isPlaying()) {
+            player.stop();
+        }
+        super.onDestroy();
+    }
+
+    public static QuestionsFragment newInstance(int mtype, String mid, PagerSlidingTabStrip pagerSlidingTabStrip) {
         QuestionsFragment f = new QuestionsFragment();
+        mPagerSlidingTabStrip = pagerSlidingTabStrip;
         Bundle b = new Bundle();
         b.putInt("type", mtype);
         b.putString("id", mid);
@@ -108,9 +136,10 @@ public class QuestionsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_question, null);
+            ButterKnife.bind(this, view);
             id = getArguments().getString("id");
             type = getArguments().getInt("type");
-            InitView(view);
+            initView(view);
             isPrepared = true;
             lazyLoad();
         }
@@ -119,31 +148,36 @@ public class QuestionsFragment extends BaseFragment {
         if (parent != null) {
             parent.removeView(view);
         }
+
+
         return view;
     }
 
-    private void InitView(View view) {
+    private void initView(View view) {
         mHandler = new LoadQuestionsHandler(this);
-        listView = (ListView) view.findViewById(R.id.lv_questions);
-        listView.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                // Toast.makeText(QuestionsListActivity.this, "项目被点击",
-                // Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.setClass(getActivity(),
-                        QuestionDetailWithReplyActivity.class);
-                intent.putExtra("question_id",
-                        adapter.listQuestion.get(position).getId());
-                intent.putExtra("type", type);
-                startActivity(intent);
-            }
-        });
+        player = new AudioPlayer(getActivity(), "right");
+        // 刷新时，指示器旋转后变化的颜色
+        swiperefresh.setColorSchemeResources(R.color.main_blue_light, R.color.main_blue_dark);
+        swiperefresh.setOnRefreshListener(this);
+        adapter = new QuestionsAdapter(getActivity(), player);
+        lvQuestions.setAdapter(adapter);
     }
 
+    /**
+     * 刷新列表页
+     *
+     * @param
+     */
+    private void autoRefresh() {
+        // 刷新数据
+        adapter.removeAll();
+        pageIndex = 1;
+        isPrepared = true;
+        mHasLoadedOnce = false;
+        isVisible = true;
+        Log.e("gmyboy", isPrepared + "  " + isVisible + "   " + mHasLoadedOnce + "  " + type);
+        lazyLoad();
+    }
 
     @Override
     protected void lazyLoad() {
@@ -152,9 +186,8 @@ public class QuestionsFragment extends BaseFragment {
         }
         if (type == 0) {// 抢单不存入本地的
             if (NetworkUtil.isNetworkAvailable(getActivity())) {// 加载网络
-                mDialog = CustomProgressDialog.showCancelable(getActivity(),
-                        "正在加载数据...");
-                Map<String, String> map = new HashMap<String, String>();
+                swiperefresh.setRefreshing(true);
+                Map<String, String> map = new HashMap<>();
                 start = (pageIndex - 1) * limit;
                 map.put("id", id);
                 map.put("start", String.valueOf(start));
@@ -168,9 +201,8 @@ public class QuestionsFragment extends BaseFragment {
             }
         } else {// @我 我的回复
             if (NetworkUtil.isNetworkAvailable(getActivity())) {// 加载网络
-                mDialog = CustomProgressDialog.showCancelable(getActivity(),
-                        "正在加载数据...");
-                Map<String, String> map = new HashMap<String, String>();
+                swiperefresh.setRefreshing(true);
+                Map<String, String> map = new HashMap<>();
                 start = (pageIndex - 1) * limit;
                 map.put("id", id);
                 map.put("start", String.valueOf(start));
@@ -182,14 +214,25 @@ public class QuestionsFragment extends BaseFragment {
 
                 List<QuestionClass> lstQuestion = services.getList(
                         String.valueOf(type), pageIndex - 1, 10, id);
-                adapter = new QuestionsAdapter(lstQuestion, getActivity(),
-                        player);
+                adapter = new QuestionsAdapter(getActivity(), player, lstQuestion);
                 // .setText("@我(" + services.getCount("1") + ")");
                 // rb_public.setText("抢单");
                 // rb_complete.setText("我的回复(" + services.getCount("2") + ")");
-                listView.setAdapter(adapter);
+                lvQuestions.setAdapter(adapter);
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+
+        autoRefresh();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     /**
@@ -214,7 +257,7 @@ public class QuestionsFragment extends BaseFragment {
         private WeakReference<QuestionsFragment> mWeak;
 
         public LoadQuestionsHandler(QuestionsFragment activity) {
-            mWeak = new WeakReference<QuestionsFragment>(activity);
+            mWeak = new WeakReference<>(activity);
         }
 
         @Override
@@ -222,7 +265,7 @@ public class QuestionsFragment extends BaseFragment {
             super.handleMessage(msg);
             QuestionsFragment activity = mWeak.get();
             doAction(activity, msg.what, (String) msg.obj);
-            DialogUtil.dismiss(activity.mDialog);
+            swiperefresh.setRefreshing(false);
         }
 
         /**
@@ -256,38 +299,28 @@ public class QuestionsFragment extends BaseFragment {
                         } else if (type == 2) {
                             dataSize = Integer.parseInt(complate);
                         }
-//                        QuestionsListActivity2.TITLES[0]="@我(" + my + ")";
-//                        QuestionsListActivity2.TITLES[1]="抢单(" + pub + ")";
-//                        QuestionsListActivity2.TITLES[2]="我的回复(" + complate + ")";
-//                        QuestionsListActivity2.adapter.startUpdate();
-                        // rb_private.setTex
-                        List<QuestionClass> temp = gson.fromJson(list,
-                                new TypeToken<List<QuestionClass>>() {
-                                }.getType());
+                        mPagerSlidingTabStrip.setTabText(0, "@我" + "(" + my + ")");
+                        mPagerSlidingTabStrip.setTabText(1, "抢单" + "(" + pub + ")");
+                        mPagerSlidingTabStrip.setTabText(2, "我的回复" + "(" + complate + ")");
+
+                        List<QuestionClass> temp = gson.fromJson(list, new TypeToken<List<QuestionClass>>() {
+                        }.getType());
                         for (QuestionClass qc : temp) {
-                            lstQuestions.add(qc);
-                        }
-                        if (pageIndex == 1) {
-                            adapter = new QuestionsAdapter(lstQuestions,
-                                    getActivity(), player);
-                            listView.setAdapter(adapter);
-                        } else {
-                            adapter.notifyDataSetChanged();
+                            adapter.addNewItem(qc);
                         }
                         mHasLoadedOnce = true;
+                        adapter.notifyDataSetChanged();
                         // 上拉加载更多
-                        listView.setOnScrollListener(new OnScrollListener() {
+                        lvQuestions.setOnScrollListener(new OnScrollListener() {
                             @Override
                             public void onScrollStateChanged(
                                     AbsListView view, int scrollState) {
-                                // TODO Auto-generated method stub
                             }
 
                             @Override
                             public void onScroll(AbsListView view,
                                                  int firstVisibleItem,
                                                  int visibleItemCount, int totalItemCount) {
-                                // TODO Auto-generated method stub
                                 if (totalItemCount == firstVisibleItem
                                         + visibleItemCount) {
                                     if (!isLoading
@@ -300,16 +333,16 @@ public class QuestionsFragment extends BaseFragment {
                                 }
                             }
                         });
-                        if (type != 0) {
-                            // @wo 我的回复 存进本地数据库
-                            services.savaData(lstQuestions, type, id);
-                        }
+//                        if (type != 0) {
+//                            // @wo 我的回复 存进本地数据库
+//                            services.savaData(lstQuestions, type, id);
+//                        }
 
                     } else {
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                     }
-                    // showToast(msg);
                 } catch (Exception e) {
-                    Log.d(TAG, e.getMessage());
+//                    Log.d(TAG, e.getMessage());
                 }
             }
         }

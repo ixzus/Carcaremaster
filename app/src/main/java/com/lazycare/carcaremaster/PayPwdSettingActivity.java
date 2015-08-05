@@ -3,22 +3,13 @@ package com.lazycare.carcaremaster;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
 import android.util.TypedValue;
 import android.view.MenuItem;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.lazycare.carcaremaster.adapter.PaySettingPageAdapter;
-import com.lazycare.carcaremaster.fragment.ForgetPayPwdFragment;
-import com.lazycare.carcaremaster.fragment.ModifyPayPwdFragment;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.widget.PagerSlidingTabStrip;
 
 /**
@@ -34,7 +25,6 @@ public class PayPwdSettingActivity extends BaseActivity  {
 
 	private PagerSlidingTabStrip mPagerSlidingTabStrip;
 	private ViewPager mViewPager;
-	private String id = "";
 
 	@Override
 	public void setLayout() {
@@ -43,7 +33,6 @@ public class PayPwdSettingActivity extends BaseActivity  {
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
 		mPagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(new PaySettingPageAdapter(

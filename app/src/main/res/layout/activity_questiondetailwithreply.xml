@@ -19,6 +19,7 @@
             android:divider="@null"
             android:dividerHeight="10dip"
             android:minHeight="100dip"
+            android:adjustViewBounds="true"
             android:paddingBottom="8dip"
             android:scrollbars="none" />
 

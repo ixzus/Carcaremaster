@@ -1,7 +1,6 @@
 package com.lazycare.carcaremaster.fragment;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +10,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,22 +25,18 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lazycare.carcaremaster.AppointmentDetailActivity;
-import com.lazycare.carcaremaster.AppraiseListActivity;
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.adapter.AppointmentListAdapter;
 import com.lazycare.carcaremaster.data.AppointmentClass;
-import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
-import com.lazycare.carcaremaster.util.Constant;
+import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 
 /**
@@ -55,7 +47,6 @@ import com.lazycare.carcaremaster.util.NetworkUtil;
  * @date 2015年6月2日
  */
 public class AppointmentFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
-    List<AppointmentClass> lstAppointment = new ArrayList<AppointmentClass>();
     private int pageIndex = 1;
     int dataSize = 0;
     AppointmentListAdapter adapter = null;
@@ -72,25 +63,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
     private Dialog mDialog;
     public static int FLAG = 0;// 标志位用来判断返回到列表用不用刷新数据 0不刷新 1 刷新
 
-    // 广播用来接收消息
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (Constant.NEW_APPOINTMENT.equals(action)) {
-                mHasLoadedOnce = false;
-                if (NetworkUtil.isNetworkAvailable(getActivity())) {
-                    adapter.removeAll();
-                    lazyLoad();// 再次加载数据
-                } else {
-                    Toast.makeText(getActivity(), "请检查您的网络", Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-        }
-
-    };
     private View view;
     private int mCurIndex = -1;
     /**
@@ -116,6 +89,11 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if (FLAG == 1) {
@@ -136,8 +114,8 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
                              Bundle savedInstanceState) {
         if (view == null) {
             mCurIndex = getArguments().getInt("POSITION");
-            id = getActivity().getSharedPreferences(Configuration.USERINFO, 0)
-                    .getString(Configuration.ID, "0");
+            id = getActivity().getSharedPreferences(Config.USERINFO, 0)
+                    .getString(Config.ID, "0");
             evaluationType = getArguments().getString("evaluationType");
             switch (mCurIndex) {
                 case 0:
@@ -199,10 +177,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
                 }
             });
         }
-        //注册
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Constant.NEW_APPOINTMENT);
-        getActivity().registerReceiver(receiver, filter);
+
         // 因为共用一个Fragment视图，所以当前这个视图已被加载到Activity中，必须先清除后再加入Activity
         ViewGroup parent = (ViewGroup) view.getParent();
         if (parent != null) {
@@ -263,7 +238,6 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
             super.handleMessage(msg);
             Activity activity = mWeak.get();
             doAction(activity, msg.what, (String) msg.obj);
-            mDialog.dismiss();
             refreshLayout.setRefreshing(false);
         }
 
@@ -283,11 +257,8 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
                             String msg = jb.getString("msg");
                             String data = jb.getString("data");
                             if (error.equals("0")) {
-                                List<AppointmentClass> lstAppointment = gson
-                                        .fromJson(
-                                                data,
-                                                new TypeToken<List<AppointmentClass>>() {
-                                                }.getType());
+                                List<AppointmentClass> lstAppointment = gson.fromJson(data, new TypeToken<List<AppointmentClass>>() {
+                                }.getType());
                                 for (AppointmentClass ac : lstAppointment) {
                                     adapter.addNewItem(ac);
                                 }
@@ -311,9 +282,8 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
-        mDialog = CustomProgressDialog.show(getActivity(),
-                "加载中...");
-        Map<String, String> map = new HashMap<String, String>();
+        refreshLayout.setRefreshing(true);
+        Map<String, String> map = new HashMap<>();
         map.put("id", id);
         if (mCurIndex == 2)
             map.put("evaluation", evaluationType);

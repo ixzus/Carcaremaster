@@ -1,11 +1,11 @@
 package com.lazycare.carcaremaster;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
 
-import com.lazycare.carcaremaster.util.Configuration;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 欢迎页
@@ -14,37 +14,15 @@ import com.lazycare.carcaremaster.util.Configuration;
  * @mail 2275964276@qq.com
  * @date 2015年6月2日
  */
-public class SplashActivity extends BaseActivity {
-    private String username = "";
-    private String id = "";
-    private String pwd = "";
-
+public class SplashActivity extends ActionBarActivity {
     private Class mClass;
+    public String TAG = this.getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-
-
-    }
-
-    @Override
-    public void setLayout() {
         setContentView(R.layout.activity_splash);
-    }
 
-    @Override
-    public void setActionBarOption() {
-
-    }
-
-    @Override
-    public void initView() {
-        // 从share中拿到id
-        id = getSharePreferences().getString(Configuration.ID, "");
-        username = getSharePreferences().getString(Configuration.USERNAME, "");
-        pwd = getSharePreferences().getString(Configuration.PWD, "111111");
 //        if (id.equals("") || username.equals("") || pwd.equals("")) {
 //            mClass = LoginActivity.class;
 //        } else {
@@ -63,4 +41,17 @@ public class SplashActivity extends BaseActivity {
         }, 2000);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+        MobclickAgent.onResume(this);
+    }
 }

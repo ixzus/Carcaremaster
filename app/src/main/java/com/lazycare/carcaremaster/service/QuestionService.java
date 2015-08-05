@@ -34,7 +34,6 @@ import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.Config;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 
 /**
@@ -125,8 +124,8 @@ public class QuestionService extends Service implements Runnable {
 	private void loadMoreData() {
 		if (NetworkUtil.isNetworkAvailable(this)) {
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("id", this.getSharedPreferences(Configuration.USERINFO, 0)
-					.getString(Configuration.ID, "0"));
+			map.put("id", this.getSharedPreferences(Config.USERINFO, 0)
+					.getString(Config.ID, "0"));
 			map.put("start", "0");
 			map.put("limit", "10");
 			map.put("type", "1");
@@ -140,8 +139,8 @@ public class QuestionService extends Service implements Runnable {
 	private void loadMoreData2() {
 		if (NetworkUtil.isNetworkAvailable(this)) {
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("id", this.getSharedPreferences(Configuration.USERINFO, 0)
-					.getString(Configuration.ID, "0"));
+			map.put("id", this.getSharedPreferences(Config.USERINFO, 0)
+					.getString(Config.ID, "0"));
 			map.put("start", "0");
 			map.put("limit", "10");
 			map.put("type", "0");

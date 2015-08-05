@@ -11,10 +11,6 @@ import android.os.Environment;
  */
 public class Config {
     /**
-     * 个信推送
-     */
-    public static final String USERNAME = "username";
-    /**
      * 工时管理显示的天数
      */
     public static int TIME_DAY = 7;
@@ -52,27 +48,6 @@ public class Config {
      * 本地数据库版本
      */
     public static final int DATABASE_VERSION = 5;
-    // 与数据库相关的常量，根据需要配置,错误提示信息
-    /**
-     * 您的网络不好，请稍后重试
-     */
-    public static final String NETWORK_UNCONNECT = "您的网络不好，请稍后重试！";
-    /**
-     * 网络异常
-     */
-    public static final String NETWORK_ERROR = "网络异常";
-    /**
-     * 网络不可用，请使用WiFi/3G/4G网络
-     */
-    public static final String NETWORK_OFF = "网络不可用，请使用WiFi/3G/4G网络";
-    /**
-     * 系统正在建设中
-     */
-    public static final String SYSTEM_CONSTRUCTION = "系统正在建设中......";
-    /**
-     * 错误信息前缀
-     */
-    public static final String ERROR = "error^";
     // 几种时间格式根据需要而变
     /**
      * 订单付款的时间期限(秒)
@@ -116,16 +91,7 @@ public class Config {
     public final static int WHAT_MAX = 0X1001;
     // 动画持续时间
     public final static int SHORT_ANIM_DURATION = 180;
-    /**
-     * 拍照后照片本地的存储路径(需要SD卡)
-     */
-    public static final String LOCAL_IMAGES_PATH = Environment
-            .getExternalStorageDirectory().getAbsolutePath() + "/hzmb/Images/";
-    // 系统标示
-    public static String ANDROID_TIME = "ANDROID_TIME";
-    public static final String USER_INFO = "USER_INFO";
-    public static final String SECT_INFO = "SECT_INFO";
-    // 用于图片获取的头部
+
     /**
      * HTTP头部
      */
@@ -200,9 +166,26 @@ public class Config {
      * 描述冲连接状态的关机子，寄放的intent的关键字
      */
     public static final String RECONNECT_STATE = "reconnect_state";
+
     /**
-     * 是否在线的SharedPreferences名称
+     * 所有关于Preferences的配置信息
      */
+    //user信息
+    public static final String USERINFO = "USERINFO";
+    public static final String ID = "ID";
+    public static final String USERNAME = "USERNAME";
+    public static final String PWD = "PASSWORD";
+    public static final String HEAD = "HEAD";
+    public static final String TOKEN = "TOKEN";
+    public static final String REMIND_UPDATE = "REMIND_UPDATE";//0 不提醒    1提醒
+
+
+    public static final String SPLASH = "";
+    public static final String QIANG = "qiang";
+
+    public static final String TIME = "time";
+    public static final String TIME_UPDATE = "time_update";
+    //是否在线的SharedPreferences名称
     public static final String PREFENCE_USER_STATE = "prefence_user_state";
     public static final String IS_ONLINE = "is_online";
     /**

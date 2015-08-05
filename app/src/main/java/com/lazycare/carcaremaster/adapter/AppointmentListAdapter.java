@@ -29,7 +29,6 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.AppointmentClass;
 import com.lazycare.carcaremaster.util.DateUtil;
-import com.squareup.picasso.Picasso;
 
 /**
  * 预约界面adapter
@@ -40,7 +39,7 @@ import com.squareup.picasso.Picasso;
  */
 public class AppointmentListAdapter extends BaseAdapter {
 
-    public List<AppointmentClass> listAppointment = new ArrayList<AppointmentClass>();
+    public List<AppointmentClass> listAppointment = new ArrayList<>();
     private Context mContext;
 
     public AppointmentListAdapter(Context mContext) {

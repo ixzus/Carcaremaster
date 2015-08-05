@@ -1,5 +1,9 @@
 package com.lazycare.carcaremaster;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -7,9 +11,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.PopupMenu;
 import android.util.TypedValue;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.lazycare.carcaremaster.adapter.AppointmentPageAdapter;
 import com.lazycare.carcaremaster.fragment.AppointmentFragment;
+import com.lazycare.carcaremaster.util.Constant;
+import com.lazycare.carcaremaster.util.NetworkUtil;
 import com.lazycare.carcaremaster.widget.PagerSlidingTabStrip;
 
 /**
@@ -24,6 +31,45 @@ public class AppointmentListActivity extends BaseActivity {
     private ViewPager mViewPager;
     private AppointmentPageAdapter pageAdapter;
     public static String evaluationType = "3";// 评价方式, 1:好评 2:中评 3:差评
+    // 广播用来接收消息
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (Constant.NEW_APPOINTMENT.equals(action)) {
+                switch (mViewPager.getCurrentItem()) {
+                    case 0:
+                        pageAdapter.setFragmentsUpdateFlag(new boolean[]{true, false, false});
+                        break;
+                    case 1:
+                        pageAdapter.setFragmentsUpdateFlag(new boolean[]{false, true, false});
+                        break;
+                    case 2:
+                        pageAdapter.setFragmentsUpdateFlag(new boolean[]{false, false, true});
+                        break;
+                }
+
+
+                pageAdapter.notifyDataSetChanged();
+            }
+        }
+
+    };
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(receiver);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constant.NEW_APPOINTMENT);
+        registerReceiver(receiver, filter);
+    }
 
     @Override
     public void setLayout() {

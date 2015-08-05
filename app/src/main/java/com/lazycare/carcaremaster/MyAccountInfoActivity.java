@@ -2,9 +2,6 @@ package com.lazycare.carcaremaster;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
@@ -12,15 +9,10 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.lazycare.carcaremaster.adapter.AccountInfoPageAdapter;
-import com.lazycare.carcaremaster.fragment.ModifyPhoneFragment;
 import com.lazycare.carcaremaster.fragment.ModifyPhotoFragment;
-import com.lazycare.carcaremaster.fragment.ModifyPwdFragment;
-import com.lazycare.carcaremaster.util.Configuration;
+import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.widget.PagerSlidingTabStrip;
 
 /**
@@ -35,8 +27,6 @@ public class MyAccountInfoActivity extends BaseActivity {
 
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
     private ViewPager mViewPager;
-    private String id = "";
-    private String username = "";
     MenuItem item;
 
     @Override
@@ -47,50 +37,48 @@ public class MyAccountInfoActivity extends BaseActivity {
         bar.setTitle("账号信息");
     }
 
-        @Override
-        public void setLayout () {
-            setContentView(R.layout.activity_myappointment);
-        }
+    @Override
+    public void setLayout() {
+        setContentView(R.layout.activity_myappointment);
+    }
 
 
-        @Override
-        public void initView () {
-            id = getSharePreferences().getString(Configuration.ID, "0");
-            username = getSharePreferences().getString(Configuration.USERNAME, "");
-            mPagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-            mViewPager = (ViewPager) findViewById(R.id.pager);
-            mViewPager.setAdapter(new AccountInfoPageAdapter(
-                    getSupportFragmentManager(), id, username));
-            mViewPager.setOffscreenPageLimit(1);
-            mPagerSlidingTabStrip.setViewPager(mViewPager);
-            mPagerSlidingTabStrip
-                    .setOnPageChangeListener(new OnPageChangeListener() {
+    @Override
+    public void initView() {
+        mPagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(new AccountInfoPageAdapter(
+                getSupportFragmentManager(), id, username));
+        mViewPager.setOffscreenPageLimit(1);
+        mPagerSlidingTabStrip.setViewPager(mViewPager);
+        mPagerSlidingTabStrip
+                .setOnPageChangeListener(new OnPageChangeListener() {
 
-                        @Override
-                        public void onPageSelected(int arg0) {
-                            switch (arg0) {
-                                case 0:
-                                    item.setVisible(false);
-                                    break;
-                                case 1:
-                                    item.setVisible(false);
-                                    break;
-                                case 2:
-                                    item.setVisible(false);
-                                    break;
-                            }
+                    @Override
+                    public void onPageSelected(int arg0) {
+                        switch (arg0) {
+                            case 0:
+                                item.setVisible(false);
+                                break;
+                            case 1:
+                                item.setVisible(false);
+                                break;
+//                                case 2:
+//                                    item.setVisible(false);
+//                                    break;
                         }
+                    }
 
-                        @Override
-                        public void onPageScrolled(int arg0, float arg1, int arg2) {
-                        }
+                    @Override
+                    public void onPageScrolled(int arg0, float arg1, int arg2) {
+                    }
 
-                        @Override
-                        public void onPageScrollStateChanged(int arg0) {
-                        }
-                    });
-            initTabsValue();
-        }
+                    @Override
+                    public void onPageScrollStateChanged(int arg0) {
+                    }
+                });
+        initTabsValue();
+    }
 
     private void initTabsValue() {
         // 底部游标颜色
@@ -100,13 +88,9 @@ public class MyAccountInfoActivity extends BaseActivity {
         // tab背景
         mPagerSlidingTabStrip.setBackgroundColor(Color.parseColor("#ffffff"));
         // tab底线高度
-        mPagerSlidingTabStrip.setUnderlineHeight((int) TypedValue
-                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources()
-                        .getDisplayMetrics()));
+        mPagerSlidingTabStrip.setUnderlineHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
         // 游标高度
-        mPagerSlidingTabStrip.setIndicatorHeight((int) TypedValue
-                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources()
-                        .getDisplayMetrics()));
+        mPagerSlidingTabStrip.setIndicatorHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
         // 选中的文字颜色
         mPagerSlidingTabStrip.setSelectedTextColor(getResources().getColor(R.color.gb_select_textcolor));
         // 正常文字颜色
@@ -117,7 +101,6 @@ public class MyAccountInfoActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
     }
 
@@ -140,7 +123,6 @@ public class MyAccountInfoActivity extends BaseActivity {
                 return false;
             }
         });
-
         return true;
     }
 
@@ -149,7 +131,6 @@ public class MyAccountInfoActivity extends BaseActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 MyAccountInfoActivity.this.finish();
-
                 break;
         }
         return super.onOptionsItemSelected(item);

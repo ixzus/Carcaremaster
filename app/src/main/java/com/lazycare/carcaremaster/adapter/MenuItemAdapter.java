@@ -22,9 +22,9 @@ import com.lazycare.carcaremaster.data.MenuClass;
  * @date 2015年6月2日
  */
 public class MenuItemAdapter extends BaseAdapter {
-	public List<MenuClass> listMenus = new ArrayList<MenuClass>();
+	public List<MenuClass> listMenus = new ArrayList<>();
 	private Context mContext;
-	private List<Integer> res = new ArrayList<Integer>();
+	private List<Integer> res = new ArrayList<>();
 
 	public MenuItemAdapter(Context mContext) {
 		this.mContext = mContext;
@@ -44,19 +44,16 @@ public class MenuItemAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return listMenus.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return listMenus.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
@@ -70,7 +67,6 @@ public class MenuItemAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		ViewHolder holder = null;
 		if (null == convertView) {
 			holder = new ViewHolder();
@@ -87,11 +83,10 @@ public class MenuItemAdapter extends BaseAdapter {
 		}
 		holder.tip.setVisibility(View.GONE);
 		MenuClass mc = listMenus.get(position);
-//		if (position == 0 && mc.getUnread() != 0) {
-//			holder.tip.setVisibility(View.VISIBLE);
-//			holder.tip.setText(String.valueOf(mc.getUnread()));
-//		}
-		// holder.ItemImage.setImageBitmap(mIl.loadImageSync(NetworkUtil.WSDL_IMG_URL+mc.getIcon()));
+		if (position == 0 && mc.getUnread() != 0) {
+			holder.tip.setVisibility(View.VISIBLE);
+			holder.tip.setText(String.valueOf(mc.getUnread()));
+		}
 		holder.ItemImage.setImageResource(res.get(position));
 		holder.ItemText.setText(mc.getName());
 		return convertView;

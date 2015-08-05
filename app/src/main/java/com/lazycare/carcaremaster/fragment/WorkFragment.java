@@ -23,8 +23,8 @@ import android.widget.Toast;
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.WorkHoursActivity;
 import com.lazycare.carcaremaster.adapter.WorkHourAdapter;
+import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.Config;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 import com.umeng.analytics.MobclickAgent;
 
@@ -65,8 +65,8 @@ public class WorkFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_workhours, null);
 		checkBox = (CheckBox) view.findViewById(R.id.btn_all);
-		id = getActivity().getSharedPreferences(Configuration.USERINFO, 0)
-				.getString(Configuration.ID, "1");
+		id = getActivity().getSharedPreferences(Config.USERINFO, 0)
+				.getString(Config.ID, "1");
 		key = getArguments().getInt("key");
 		list_temp = (List<Boolean>) getArguments().getSerializable("data");
 		// 判断刚开始是否已经全选
@@ -108,8 +108,7 @@ public class WorkFragment extends Fragment {
 						adapter.notifyDataSetChanged();
 					}
 				} else {
-					Toast.makeText(getActivity(), "您还没联网哦,亲",
-							Toast.LENGTH_SHORT).show();
+					CommonUtil.showToast(getActivity(),"您还没联网哦,亲");
 				}
 			}
 		});
@@ -138,30 +137,17 @@ public class WorkFragment extends Fragment {
 						txt.setTextColor(Color.BLACK);
 						txt1.setTextColor(Color.BLACK);
 						list_temp.set(position, false);
-						WorkHoursActivity.setState(position + Config.TIME_HOURS
-								* key, false);
-						for (int i = 0; i < WorkHoursActivity.list.size(); i++) {
-							Log.d("gmyboy",
-									i + "   " + WorkHoursActivity.list.get(i)
-											+ "");
-						}
+						WorkHoursActivity.setState(position + Config.TIME_HOURS * key, false);
 					} else {
 						view.setBackgroundResource(R.color.light_blue);
 						txt.setText("已安排");
 						txt.setTextColor(Color.WHITE);
 						txt1.setTextColor(Color.WHITE);
 						list_temp.set(position, true);
-						WorkHoursActivity.setState(position + Config.TIME_HOURS
-								* key, true);
-						for (int i = 0; i < WorkHoursActivity.list.size(); i++) {
-							Log.d("gmyboy",
-									i + "   " + WorkHoursActivity.list.get(i)
-											+ "");
-						}
+						WorkHoursActivity.setState(position + Config.TIME_HOURS * key, true);
 					}
 				} else {
-					Toast.makeText(getActivity(), "您还没联网哦,亲",
-							Toast.LENGTH_SHORT).show();
+					CommonUtil.showToast(getActivity(), "您还没联网哦,亲");
 				}
 
 			}

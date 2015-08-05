@@ -1,27 +1,8 @@
 package com.lazycare.carcaremaster;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.jivesoftware.smack.RosterEntry;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Presence;
-import org.jivesoftware.smack.packet.XMPPError;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -30,9 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,11 +22,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lazycare.carcaremaster.adapter.MenuItemAdapter;
-import com.lazycare.carcaremaster.data.LoginConfig;
 import com.lazycare.carcaremaster.data.MenuClass;
-import com.lazycare.carcaremaster.impl.IBaseActivity;
-import com.lazycare.carcaremaster.receiver.ConnectionChangeReceiver;
 import com.lazycare.carcaremaster.service.QuestionListServices;
 import com.lazycare.carcaremaster.service.WorkTimeServices;
 import com.lazycare.carcaremaster.thread.DataRunnable;
@@ -55,9 +32,17 @@ import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.thread.UpdateManager;
 import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.Config;
-import com.lazycare.carcaremaster.util.Configuration;
-import com.lazycare.carcaremaster.util.Constant;
-import com.lazycare.carcaremaster.util.XmppConnectionManager;
+
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * 首页
@@ -67,25 +52,70 @@ import com.lazycare.carcaremaster.util.XmppConnectionManager;
  * @date 2015年6月2日
  */
 public class MainActivity extends BaseActivity {
-    // 用户信息相关
-    SimpleDraweeView ci_headphoto;
-    TextView tv_username, tv_userrank;
-    String id = "";
+    @Bind(R.id.sdv_headphoto)
+    SimpleDraweeView sdvHeadphoto;
+    @Bind(R.id.tv_username)
+    TextView tvUsername;
+    @Bind(R.id.tv_userrank)
+    TextView tvUserrank;
+    @Bind(R.id.gv_menu)
+    GridView gvMenu;
+
+    @OnClick(R.id.sdv_headphoto)
+    void goQiPei() {
+        Intent intent = new Intent();
+        // intent.setClass(MainActivity.this, UserInfoActivity.class);
+        intent.setClass(MainActivity.this, QiPeiActivity.class);
+        startActivity(intent);
+    }
+
+    @OnItemClick(R.id.gv_menu)
+    void onItemClick(AdapterView<?> parent, View view,
+                     int position, long id) {
+        Intent intent = new Intent();
+        switch (position) {
+            case 0:// 车主问题
+//                        intent.setClass(MainActivity.this,
+//                                QuestionsListActivity.class);
+                intent.setClass(MainActivity.this, QuestionsListActivity.class);
+                startActivity(intent);
+                break;
+            case 1:// 我的预约
+                intent.setClass(MainActivity.this, AppointmentListActivity.class);
+                startActivity(intent);
+                break;
+            case 2:// 工时管理
+                // intent.setClass(MainActivity.this,
+                // MyWorkHoursActivity.class);
+                intent.setClass(MainActivity.this, WorkHoursActivity.class);
+                startActivity(intent);
+                break;
+            case 3:// 账号信息
+                intent.setClass(MainActivity.this, MyAccountInfoActivity.class);
+                startActivity(intent);
+                break;
+            case 4:// 系统消息
+                intent.setClass(MainActivity.this, MessageActivity.class);
+                // intent.setClass(MainActivity.this,
+                // TestRecordActivity.class);
+                startActivity(intent);
+                break;
+            case 5:// 我要提现
+                intent.setClass(MainActivity.this, ExchangeMoneyActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
     private Handler mHandler = new MainLoadHandler(this);
     MenuItemAdapter adapter = null;
-    GridView gridview;
-    //    Intent serviceIntent;
-    private ConnectionChangeReceiver myReceiver;
     private List<MenuClass> lstMenu;
     private String[] names = {"车主问题", "我的预约", "工时管理", "账号信息", "系统消息", "我要提现"};
     private static long date = 0;
     private QuestionListServices services_question = QuestionListServices
             .getInstance(this);
     private WorkTimeServices services_time = WorkTimeServices.getInstance(this);
-    private String username = "";
     private String remindme = "";
-    private LoginConfig loginConfig;
-    private ContacterReceiver receiver = new ContacterReceiver();
 
     @Override
     public void setLayout() {
@@ -103,143 +133,35 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         setTwiceExit(true);
-        id = getSharePreferences().getString(Configuration.ID, "0");
-        username = getSharePreferences().getString(Configuration.USERNAME, "");
         adapter = new MenuItemAdapter(MainActivity.this);
-        ci_headphoto = (SimpleDraweeView) findViewById(R.id.ci_headphoto);
-        tv_username = (TextView) findViewById(R.id.tv_username);
-        tv_userrank = (TextView) findViewById(R.id.tv_userrank);
-        gridview = (GridView) findViewById(R.id.GridView);
         // 添加Item到网格中
-        gridview.setAdapter(adapter);
-        lstMenu = new ArrayList<MenuClass>();
-        MenuClass menuClass = null;
-        for (int i = 0; i < 6; i++) {
-            menuClass = new MenuClass();
-            menuClass.setName(names[i]);
-            lstMenu.add(menuClass);
-            menuClass = null;
-        }
-        for (MenuClass mc : lstMenu) {
-            adapter.addNewItem(mc);
-        }
-        // 跳转源泰搜汽配
-        ci_headphoto.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                // intent.setClass(MainActivity.this, UserInfoActivity.class);
-                intent.setClass(MainActivity.this, QiPeiActivity.class);
-                startActivity(intent);
-            }
-        });
-        gridview.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent();
-                switch (position) {
-                    case 0:// 车主问题
-                        intent.setClass(MainActivity.this,
-                                QuestionsListActivity.class);
-//					 intent.setClass(MainActivity.this,
-//					 QuestionsListActivity2.class);
-                        startActivity(intent);
-                        break;
-                    case 1:// 我的预约
-                        intent.setClass(MainActivity.this,
-                                AppointmentListActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 2:// 工时管理
-                        // intent.setClass(MainActivity.this,
-                        // MyWorkHoursActivity.class);
-                        intent.setClass(MainActivity.this, WorkHoursActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 3:// 账号信息
-                        intent.setClass(MainActivity.this,
-                                MyAccountInfoActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 4:// 系统消息
-                        intent.setClass(MainActivity.this, MessageActivity.class);
-                        // intent.setClass(MainActivity.this,
-                        // TestRecordActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 5:// 我要提现
-                        intent.setClass(MainActivity.this,
-                                ExchangeMoneyActivity.class);
-                        startActivity(intent);
-                        break;
-                }
-                // System.out.println("click index:"+id);
-            }
-        });
+        gvMenu.setAdapter(adapter);
+//        lstMenu = new ArrayList<>();
+//        MenuClass menuClass = null;
+//        for (int i = 0; i < 6; i++) {
+//            menuClass = new MenuClass();
+//            menuClass.setName(names[i]);
+//            lstMenu.add(menuClass);
+//            menuClass = null;
+//        }
+//        for (MenuClass mc : lstMenu) {
+//            adapter.addNewItem(mc);
+//        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getArtifiInfo();
-        registerReceiver();
-//        serviceIntent = new Intent(mContext, QuestionService.class);
-        //登陆openfire
-//        new LoginTask(MainActivity.this, username, "111111").execute();
-    }
-
-    /**
-     * 注册网络监听器
-     */
-    private void registerReceiver() {
-        IntentFilter mfilter = new IntentFilter(
-                ConnectivityManager.CONNECTIVITY_ACTION);
-        myReceiver = new ConnectionChangeReceiver();
-        this.registerReceiver(myReceiver, mfilter);
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Constant.ACTION_RECONNECT_STATE);
-        registerReceiver(receiver, filter);
-    }
-
-    private void unregisterReceiver() {
-        this.unregisterReceiver(myReceiver);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d("gmyboy", TAG + "---------onRestart-----------");
-        startService();
-        if (!ConnectionChangeReceiver.FLAG2) {
-            getArtifiInfo();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        this.unregisterReceiver(myReceiver);
-        stopService();
-        Log.d("gmyboy", TAG + "---------onDestroy-----------");
-        super.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        stopService();
     }
 
     /**
      * 获取数据信息
      */
     private void getArtifiInfo() {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("id", id);
-        TaskExecutor
-                .Execute(new DataRunnable(this, "/Index/get", mHandler, Config.WHAT_ONE, map));
+        TaskExecutor.Execute(new DataRunnable(this, "/Index/get", mHandler, Config.WHAT_ONE, map));
     }
 
     /**
@@ -272,7 +194,6 @@ public class MainActivity extends BaseActivity {
             super.handleMessage(msg);
             MainActivity activity = mWeak.get();
             doAction(activity, msg.what, (String) msg.obj);
-            // DialogUtil.dismiss(activity.mDialog);
         }
 
         /**
@@ -298,14 +219,11 @@ public class MainActivity extends BaseActivity {
                                 // 师傅信息
                                 String head = ju.getString("head");// 需要将图像加载进来
                                 String name = ju.getString("name");
-                                // String rank = ju.getString("rank");
                                 String order_num = ju.getString("order_num");
                                 String ok_num = ju.getString("ok_num");
-                                // String rank_name = ju.getString("rank_name");
-                                tv_userrank.setText("接单数  " + order_num + "，好评数  "
+                                tvUserrank.setText("接单数  " + order_num + "，好评数  "
                                         + ok_num);
-                                tv_username.setText(name);
-                                // tv_userrank.setText(rank_name);
+                                tvUsername.setText(name);
                                 if (!head.equals("") && head != null) {
                                     ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(head))
                                             .setAutoRotateEnabled(true)//设置图片智能摆正
@@ -313,29 +231,23 @@ public class MainActivity extends BaseActivity {
                                             .build();
                                     PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
                                             .setImageRequest(request)
-                                            .setOldController(ci_headphoto.getController())
+                                            .setOldController(sdvHeadphoto.getController())
                                             .build();
-                                    ci_headphoto.setController(controller);
+                                    sdvHeadphoto.setController(controller);
                                     getSharePreferencesEditor().putString(
-                                            Configuration.HEAD, head).commit();// 先将这个头像存储起来
+                                            Config.HEAD, head).commit();// 先将这个头像存储起来
                                 }
 
-                                // List<MenuClass> lstMenu = gson.fromJson(menus,
-                                // new TypeToken<List<MenuClass>>() {
-                                // }.getType());
-                                // // 避免重复加载
-                                // if (!ConnectionChangeReceiver.FLAG2) {
-                                // adapter.removeAllItem();
-                                // ConnectionChangeReceiver.FLAG2 = true;
-                                // }
-                                // for (MenuClass mc : lstMenu) {
-                                // adapter.addNewItem(mc);
-                                // }
-                                // if (lstMenu.size() > 0) {
-                                // gridview.setAdapter(adapter);
-                                // }
+                                List<MenuClass> lstMenu = gson.fromJson(menus,
+                                        new TypeToken<List<MenuClass>>() {
+                                        }.getType());
+                                for (MenuClass mc : lstMenu) {
+                                    adapter.addNewItem(mc);
+                                }
+                                if (lstMenu.size() > 0) {
+                                    gvMenu.setAdapter(adapter);
+                                }
                                 checkNewVersion();
-//                                startService(serviceIntent);
                             } else
                                 Toast.makeText(MainActivity.this, msg,
                                         Toast.LENGTH_SHORT).show();
@@ -355,7 +267,7 @@ public class MainActivity extends BaseActivity {
                                 JSONObject jd = new JSONObject(data);
                                 String versionCode = jd.getString("copyright");
                                 String url = jd.getString("download");
-                                remindme = getSharePreferences().getString(Configuration.REMIND_UPDATE, "1");//默认提醒用户
+                                remindme = getSharePreferences().getString(Config.REMIND_UPDATE, "1");//默认提醒用户
                                 if (versionCode != null && !versionCode.equals("") && remindme.equals("1")) {
                                     UpdateManager manager = new UpdateManager(
                                             mContext, url);
@@ -414,105 +326,5 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class LoginTask extends AsyncTask<String, Integer, Integer> {
-        private IBaseActivity baseactivity;
 
-        public LoginTask(IBaseActivity baseactivity, String name, String pwd) {
-            super();
-            this.baseactivity = baseactivity;
-            loginConfig = getLoginConfig(name, pwd);
-            XmppConnectionManager.getInstance().init(loginConfig);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Integer doInBackground(String... params) {
-            return login();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-        }
-    }
-
-    // 登录
-    private Integer login() {
-        String username = loginConfig.getUsername();
-        String password = loginConfig.getPassword();
-        try {
-            XMPPConnection connection = XmppConnectionManager.getInstance()
-                    .getConnection();
-            connection.connect();
-            connection.login(username, password); // 登录
-            // OfflineMsgManager.getInstance(activitySupport).dealOfflineMsg(connection);//处理离线消息
-            connection.sendPacket(new Presence(Presence.Type.available));
-            if (loginConfig.isNovisible()) {// 隐身登录
-                Presence presence = new Presence(Presence.Type.unavailable);
-                Collection<RosterEntry> rosters = connection.getRoster()
-                        .getEntries();
-                for (RosterEntry rosterEntry : rosters) {
-                    presence.setTo(rosterEntry.getUser());
-                    connection.sendPacket(presence);
-                }
-            }
-            loginConfig.setUsername(username);
-            if (loginConfig.isRemember()) {// 保存密码
-                loginConfig.setPassword(password);
-            } else {
-                loginConfig.setPassword("");
-            }
-            loginConfig.setOnline(true);
-            return Constant.LOGIN_SECCESS;
-        } catch (Exception xee) {
-            if (xee instanceof XMPPException) {
-                XMPPException xe = (XMPPException) xee;
-                final XMPPError error = xe.getXMPPError();
-                int errorCode = 0;
-                if (error != null) {
-                    errorCode = error.getCode();
-                }
-                if (errorCode == 401) {
-                    return Constant.LOGIN_ERROR_ACCOUNT_PASS;
-                } else if (errorCode == 403) {
-                    return Constant.LOGIN_ERROR_ACCOUNT_PASS;
-                } else {
-                    return Constant.SERVER_UNAVAILABLE;
-                }
-            } else {
-                return Constant.LOGIN_ERROR;
-            }
-        }
-    }
-
-    private class ContacterReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (Constant.ACTION_RECONNECT_STATE.equals(action)) {
-                int isSuccess = intent.getIntExtra(Constant.RECONNECT_STATE, 1);
-//                dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-                switch (isSuccess) {
-                    case Config.RECONNECT_STATE_SUCCESS:
-                        showToast("done");
-                        break;
-                    case Config.RECONNECT_STATE_FAIL:
-                        showToast("fail");
-                        break;
-                    case Config.RECONNECT_STATE_ING:
-                        showToast("reconnect");
-                        break;
-                }
-            }
-        }
-    }
 }

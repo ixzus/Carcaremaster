@@ -42,7 +42,6 @@ import com.lazycare.carcaremaster.data.Attachments;
 import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.Config;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.DateUtil;
 import com.lazycare.carcaremaster.util.DialogUtil;
 import com.lazycare.carcaremaster.util.ImageUtil;
@@ -159,8 +158,8 @@ public class ModifyPhotoFragment extends Fragment implements OnClickListener,
 	}
 
 	private void initView(View view) {
-		id = getActivity().getSharedPreferences(Configuration.USERINFO, 0)
-				.getString(Configuration.ID, "0");
+		id = getActivity().getSharedPreferences(Config.USERINFO, 0)
+				.getString(Config.ID, "0");
 		btn_certain = (Button) view.findViewById(R.id.btn_picture_certain);// 确定
 		layout_root = (LinearLayout) view
 				.findViewById(R.id.responsetouchContainer);

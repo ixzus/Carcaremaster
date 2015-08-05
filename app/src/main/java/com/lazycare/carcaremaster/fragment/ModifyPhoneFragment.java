@@ -41,7 +41,7 @@ import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
+import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.DialogUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -310,9 +310,9 @@ public class ModifyPhoneFragment extends Fragment implements OnClickListener {
 						Toast.makeText(getActivity(), "联系方式修改成功，请记好哦",
 								Toast.LENGTH_SHORT).show();
 						getActivity()
-								.getSharedPreferences(Configuration.USERINFO, 0)
+								.getSharedPreferences(Config.USERINFO, 0)
 								.edit()
-								.putString(Configuration.USERNAME,
+								.putString(Config.USERNAME,
 										et1.getText().toString().trim())
 								.commit();// 先将这个iD存储起来
 						txt.setText(et1.getText());

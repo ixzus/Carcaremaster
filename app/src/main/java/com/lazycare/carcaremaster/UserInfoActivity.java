@@ -3,7 +3,7 @@ package com.lazycare.carcaremaster;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
-import com.lazycare.carcaremaster.util.Configuration;
+import com.lazycare.carcaremaster.util.Config;
 
 /**
  * 用户个人信息
@@ -38,7 +38,7 @@ public class UserInfoActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
+		id = getSharePreferences().getString(Config.ID, "0");
 
 	}
 

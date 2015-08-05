@@ -7,7 +7,6 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,7 +28,6 @@ import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.DialogUtil;
 
 /**
@@ -40,15 +38,12 @@ import com.lazycare.carcaremaster.util.DialogUtil;
  * @date 2015年6月2日
  */
 public class AddBankCardActivity extends BaseActivity {
-	String TAG = "AddBankCardActivity";
 	EditText txt_name, txt_account, txt_open_bank;
 	TextView tv_bankname;
 	Button btn_ok;
 	String bank_id = "", bank_name = "";
-	String id = "";
 	private Handler mHandler = new AddBankCardHandler(this);
 	/** 进度条 */
-	private Dialog mDialog;
 	RelativeLayout rl_bankname;
 	static int GETBANKNAME = 1;
 
@@ -59,7 +54,6 @@ public class AddBankCardActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
 		rl_bankname = (RelativeLayout) findViewById(R.id.rl_bankname);
 		rl_bankname.setOnClickListener(new View.OnClickListener() {
 
@@ -171,7 +165,7 @@ public class AddBankCardActivity extends BaseActivity {
 		private WeakReference<AddBankCardActivity> mWeak;
 
 		public AddBankCardHandler(AddBankCardActivity activity) {
-			mWeak = new WeakReference<AddBankCardActivity>(activity);
+			mWeak = new WeakReference<>(activity);
 		}
 
 		@Override

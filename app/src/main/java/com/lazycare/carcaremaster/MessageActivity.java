@@ -9,7 +9,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 
 import com.lazycare.carcaremaster.adapter.MessagePageAdapter;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.widget.PagerSlidingTabStrip;
 
 /**
@@ -29,8 +28,7 @@ public class MessageActivity extends BaseActivity {
 
 	private PagerSlidingTabStrip mPagerSlidingTabStrip;
 	private ViewPager mViewPager;
-	private String id = "";
-	private String username = "";
+
 
 	@Override
 	public void setLayout() {
@@ -39,8 +37,6 @@ public class MessageActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
-		username = getSharePreferences().getString(Configuration.USERNAME, "");
 		mPagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(new MessagePageAdapter(

@@ -40,7 +40,7 @@ import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
+import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.DialogUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -134,8 +134,8 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 		initView(view);
 		smsObserver = new SmsObserver(getActivity(), handler);
 		username = getActivity()
-				.getSharedPreferences(Configuration.USERINFO, 0).getString(
-						Configuration.USERNAME, "");
+				.getSharedPreferences(Config.USERINFO, 0).getString(
+						Config.USERNAME, "");
 		getActivity().getContentResolver().registerContentObserver(SMS_INBOX,
 				true, smsObserver);
 		return view;

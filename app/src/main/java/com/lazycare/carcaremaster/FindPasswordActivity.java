@@ -38,7 +38,7 @@ import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
+import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.DialogUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 
@@ -122,8 +122,8 @@ public class FindPasswordActivity extends BaseActivity implements
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
-		username = getSharePreferences().getString(Configuration.USERNAME, "1");
+		id = getSharePreferences().getString(Config.ID, "0");
+		username = getSharePreferences().getString(Config.USERNAME, "1");
 		smsObserver = new SmsObserver(this, handler);
 		this.getContentResolver().registerContentObserver(SMS_INBOX, true,
 				smsObserver);

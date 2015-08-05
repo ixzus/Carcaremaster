@@ -18,7 +18,6 @@ import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.QuestionReplyClass;
 import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
-import com.squareup.picasso.Picasso;
 
 /**
  * 车主问题回复adapter
@@ -108,9 +107,9 @@ public class QuestionReplyAdapter extends BaseAdapter {
 		if (qrc.getPhotos() != null && !qrc.getPhotos().equals("")) {
 			holder.imageView.setVisibility(View.VISIBLE);
 			holder.tv_replycontent.setVisibility(View.GONE);
-			Picasso.with(mContext)
-					.load(NetworkUtil.MAIN_UPLOAD + "/images/"
-							+ qrc.getPhotos()).into(holder.imageView);
+//			Picasso.with(mContext)
+//					.load(NetworkUtil.MAIN_UPLOAD + "/images/"
+//							+ qrc.getPhotos()).into(holder.imageView);
 			holder.imageView.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -123,9 +122,9 @@ public class QuestionReplyAdapter extends BaseAdapter {
 		if (qrc.getAudio() != null && !qrc.getAudio().equals("")) {
 			holder.imageView.setVisibility(View.VISIBLE);
 			holder.tv_replycontent.setVisibility(View.GONE);
-			Picasso.with(mContext)
-					.load(R.drawable.compose_photo_video_highlighted)
-					.centerCrop().resize(30, 30).into(holder.imageView);
+//			Picasso.with(mContext)
+//					.load(R.drawable.compose_photo_video_highlighted)
+//					.centerCrop().resize(30, 30).into(holder.imageView);
 			// mIl.displayImage(qrc.getPhotos(), holder.imageView);
 			holder.imageView.setOnClickListener(new OnClickListener() {
 

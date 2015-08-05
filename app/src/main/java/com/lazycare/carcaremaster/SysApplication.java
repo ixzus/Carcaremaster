@@ -1,8 +1,6 @@
 package com.lazycare.carcaremaster;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 
 import android.app.Activity;
@@ -14,7 +12,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.lazycare.carcaremaster.handler.ErrorHandler;
 import com.lazycare.carcaremaster.util.Config;
 
 /**
@@ -123,6 +120,7 @@ public class SysApplication extends Application {
         if (!dir.exists()) {
             dir.mkdirs();
         }
+
         wifiNeverDormancy(this);
     }
 

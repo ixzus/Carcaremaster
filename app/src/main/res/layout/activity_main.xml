@@ -10,7 +10,7 @@
         android:id="@+id/rl_userinfo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_top_height"
-        android:background="@drawable/userinfo_bg">
+        android:background="@color/statusbar_bg">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/ci_headphoto"
+                android:id="@+id/sdv_headphoto"
                 android:layout_width="@dimen/main_top_content_height"
                 android:layout_height="@dimen/main_top_content_height"
                 fresco:failureImage="@drawable/defaulthead"
@@ -74,7 +74,7 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <GridView
-            android:id="@+id/GridView"
+            android:id="@+id/gv_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:columnWidth="@dimen/item_width"

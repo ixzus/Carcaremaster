@@ -27,7 +27,7 @@ import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
+import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.DialogUtil;
 import com.umeng.analytics.MobclickAgent;
 
@@ -48,14 +48,12 @@ public class ModifyPwdFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		MobclickAgent.onPageEnd(TAG);
 	}
 
 	@Override
 	public void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		MobclickAgent.onPageStart(TAG);
 	}
@@ -64,8 +62,7 @@ public class ModifyPwdFragment extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		id = getArguments().getString("id");
-		View view = inflater.inflate(R.layout.fragment_accountinfo_password,
-				null);
+		View view = inflater.inflate(R.layout.fragment_accountinfo_password, null);
 		initView(view);
 		return view;
 	}
@@ -82,16 +79,12 @@ public class ModifyPwdFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		String old = et1.getText().toString().trim(), newp = et2.getText()
 				.toString().trim(), newp2 = et3.getText().toString().trim();
-		if (et1.getText() == null || et2.getText() == null
-				|| et3.getText() == null || old.equals("") || newp.equals("")
-				|| newp2.equals("")) {
-			Toast.makeText(getActivity(), "输入项不能有空", Toast.LENGTH_SHORT).show();
+		if (et1.getText() == null || et2.getText() == null || et3.getText() == null || old.equals("") || newp.equals("") || newp2.equals("")) {
+			CommonUtil.showToast(getActivity(),"输入项不能有空");
 		} else if (old.equals(newp)) {
-			Toast.makeText(getActivity(), "新密码不能和旧密码相同", Toast.LENGTH_SHORT)
-					.show();
+			CommonUtil.showToast(getActivity(), "新密码不能和旧密码相同");
 		} else if (!newp.equals(newp2)) {
-			Toast.makeText(getActivity(), "两次输入新密码不一致", Toast.LENGTH_SHORT)
-					.show();
+			CommonUtil.showToast(getActivity(), "两次输入新密码不一致");
 		} else {
 			postData(old, newp);
 		}
@@ -119,7 +112,7 @@ public class ModifyPwdFragment extends Fragment implements OnClickListener {
 		private WeakReference<Activity> mWeak;
 
 		public PwdHandler(Activity activity) {
-			mWeak = new WeakReference<Activity>(activity);
+			mWeak = new WeakReference<>(activity);
 		}
 
 		@Override
@@ -144,18 +137,14 @@ public class ModifyPwdFragment extends Fragment implements OnClickListener {
 					String msg = jb.getString("msg");
 					String data = jb.getString("data");
 					if (error.equals("0")) {
-						Toast.makeText(getActivity(), "密码修改成功，请记好哦",
-								Toast.LENGTH_SHORT).show();
+						CommonUtil.showToast(getActivity(),"密码修改成功，请记好哦");
 						// 保存最新的密码
-						getActivity()
-								.getSharedPreferences(Configuration.USERINFO, 0)
+						getActivity().getSharedPreferences(Config.USERINFO, 0)
 								.edit()
-								.putString(Configuration.PWD,
-										et3.getText().toString().trim())
+								.putString(Config.PWD, et3.getText().toString().trim())
 								.commit();
 					} else
-						Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT)
-								.show();
+					CommonUtil.showToast(getActivity(),msg);
 				} catch (Exception e) {
 					Log.d(TAG, e.getMessage());
 				} finally {

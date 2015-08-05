@@ -32,7 +32,6 @@ import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.DialogUtil;
 
 /**
@@ -43,14 +42,10 @@ import com.lazycare.carcaremaster.util.DialogUtil;
  * @date 2015年6月2日
  */
 public class BankListActivity extends BaseActivity {
-	String TAG = "BankListActivity";
 	private ListView listView;
 	BankAdapter adapter = null;
 	RelativeLayout rlAddBank;
-	/** 进度条 */
-	private Dialog mDialog;
 	Handler mHandler = new BankListHandler(this);
-	String id = "";
 	private Intent intent;
 
 	@Override
@@ -70,7 +65,6 @@ public class BankListActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
 		intent = getIntent();
 		rlAddBank = (RelativeLayout) findViewById(R.id.rl_addbank);
 		rlAddBank.setOnClickListener(new View.OnClickListener() {

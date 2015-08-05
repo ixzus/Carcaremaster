@@ -6,7 +6,11 @@
         <item name="colorAccent">@color/material_pink_500</item>
     </style>
 
-    <style name="FullTaeme" parent="Theme.AppCompat.NoActionBar"></style>
+    <style name="FullScreenTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 
     <style name="translucent_theme" parent="@android:style/Theme.NoTitleBar">
         <item name="android:windowBackground">@color/white</item>

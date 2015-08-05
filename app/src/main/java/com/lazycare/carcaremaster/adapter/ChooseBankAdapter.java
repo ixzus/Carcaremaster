@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.ChooseBankClass;
-import com.squareup.picasso.Picasso;
 
 /**
  * bank adapter
@@ -77,7 +76,7 @@ public class ChooseBankAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		ChooseBankClass qc = listBank.get(position);
-		Picasso.with(mContext).load(R.drawable.icon_bank).into(holder.iv_bankicon);
+//		Picasso.with(mContext).load(R.drawable.icon_bank).into(holder.iv_bankicon);
 		holder.tv_bankname.setText(qc.getName());
 		// 依据数据填充内容
 		return convertView;

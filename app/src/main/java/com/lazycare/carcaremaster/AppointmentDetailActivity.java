@@ -33,7 +33,6 @@ import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.Config;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.DialogUtil;
 
 /**
@@ -44,20 +43,16 @@ import com.lazycare.carcaremaster.util.DialogUtil;
  * @date 2015年6月2日
  */
 public class AppointmentDetailActivity extends BaseActivity implements OnClickListener {
-    String TAG = "QuestionDetailActivity";
     Button btn_completeorder, btn_startservice, btn_modifyprice;
     RelativeLayout rl_arrow;
     /**
      * 进度条
      */
-    private Dialog mDialog;
-    String id = "";
     String order_id = "";
     Handler mHandler = new LoadQuestionDetailHandler(this);
     TextView tv_title, tv_consignee, tv_mobile, tv_car, tv_service_state,
             tv_pack, tv_total, tv_book_time, tv_sn, tv_add_time, tv_remark,
             tv_carnum;
-    // EditText txt_modifyprice;
     HashMap<String, String> hmservice_state = new HashMap<String, String>();
     private String list;// 存放左右配件信息(未解析)
     private boolean isServiceStarted = false;
@@ -81,7 +76,6 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
 
     @Override
     public void initView() {
-        id = getSharePreferences().getString(Configuration.ID, "0");
         order_id = getIntent().getStringExtra("order_id");
         standard = getIntent().getStringExtra("standard");
         hmservice_state.put("0", "未服务");
@@ -93,14 +87,12 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
         tv_car = (TextView) findViewById(R.id.tv_car);
         tv_carnum = (TextView) this.findViewById(R.id.tv_car_num);
         tv_service_state = (TextView) findViewById(R.id.tv_service_state);
-        // tv_pack = (TextView) findViewById(R.id.tv_pack);
         tv_total = (TextView) findViewById(R.id.tv_total);
         tv_book_time = (TextView) findViewById(R.id.tv_book_time);
         tv_sn = (TextView) findViewById(R.id.tv_sn);
         tv_add_time = (TextView) findViewById(R.id.tv_add_time);
         tv_remark = (TextView) findViewById(R.id.tv_remark);
         rl_arrow = (RelativeLayout) findViewById(R.id.detail_arrow);
-        // txt_modifyprice = (EditText)findViewById(R.id.txt_modifyprice);
         btn_completeorder = (Button) findViewById(R.id.btn_completeorder);
         btn_completeorder.setOnClickListener(this);
         btn_startservice = (Button) findViewById(R.id.btn_startservice);

@@ -22,7 +22,6 @@ import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.Attachments;
 import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.ObjectUtil;
-import com.squareup.picasso.Picasso;
 
 /**
  * 一张图片时显示

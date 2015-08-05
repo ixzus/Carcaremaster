@@ -41,39 +41,38 @@ import com.lazycare.carcaremaster.widget.ScrollGridView;
  */
 public class QuestionsAdapter extends BaseAdapter {
 
-    public List<QuestionClass> listQuestion;
+    public List<QuestionClass> listQuestion=new ArrayList<>();
     private Activity mContext;
     private AudioPlayer player;
 
-    public QuestionsAdapter(List<QuestionClass> mList, Activity mContext,
-                            AudioPlayer player) {
+    public QuestionsAdapter(Activity mContext, AudioPlayer player) {
         super();
-        this.listQuestion = mList;
         this.mContext = mContext;
         this.player = player;
     }
 
+    public QuestionsAdapter(Activity mContext, AudioPlayer player, List<QuestionClass> listQuestion) {
+        this(mContext, player);
+        this.listQuestion = listQuestion;
+    }
+
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
         return listQuestion.size();
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return listQuestion.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
     public void addNewItem(QuestionClass newItem) {
         listQuestion.add(newItem);
-        notifyDataSetChanged();
     }
 
     public void removeAll() {
@@ -83,7 +82,6 @@ public class QuestionsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         ViewHolder holder = null;
         List<String> lstPhoto;// 所有图片的url
         final QuestionClass qc;
@@ -225,7 +223,7 @@ public class QuestionsAdapter extends BaseAdapter {
             intent.putExtra("pos", position + "");
             intent.putExtra("type", "1");// 网络
             mContext.startActivity(intent);
-            mContext.overridePendingTransition(R.anim.scale_in,android.R.anim.fade_out);
+            mContext.overridePendingTransition(R.anim.scale_in, android.R.anim.fade_out);
         }
     }
 

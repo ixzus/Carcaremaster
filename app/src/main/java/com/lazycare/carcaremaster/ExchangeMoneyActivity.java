@@ -26,7 +26,6 @@ import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.DialogUtil;
 
 /**
@@ -38,13 +37,9 @@ import com.lazycare.carcaremaster.util.DialogUtil;
  */
 public class ExchangeMoneyActivity extends BaseActivity implements
 		OnClickListener {
-	String TAG = "ExchangeMoneyActivity";
 	RelativeLayout rlBank, rlPay;
 	Button btnExchange;
 	LoadExchangeMoneyHandler mHandler = new LoadExchangeMoneyHandler(this);
-	/** 进度条 */
-	private Dialog mDialog;
-	String id = "";
 	TextView tv_money_all, tv_money_kjs_all, tv_money_wjs_all, tv_money_wjs_at,
 			tv_money_wjs_qd, tv_money_wjs_yw, tv_money_kjs_at, tv_money_kjs_qd,
 			tv_money_kjs_yw;
@@ -77,7 +72,6 @@ public class ExchangeMoneyActivity extends BaseActivity implements
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
 		ex_txt = (TextView) this.findViewById(R.id.ex_txt);
 		ex_txt1 = (TextView) this.findViewById(R.id.ex_txt1);
 

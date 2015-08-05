@@ -290,7 +290,7 @@
     <!-- 暗绿色 -->
     <color name="darkgreen">#006400</color>
     <!-- 蓝色 -->
-    <color name="blue">#0000FF</color>
+    <color name="blue">#0187D0</color>
     <!-- 中兰色 -->
     <color name="mediumblue">#0000CD</color>
     <!-- 暗蓝色 -->
@@ -310,7 +310,7 @@
     <color name="fab_color_pressed">#007787</color>
     <color name="fab_color_shadow">#44000000</color>
     <color name="style_color_accent">#01bcd5</color>
-    <color name="statusbar_bg">#ffffff</color>
+    <color name="statusbar_bg">#02A8F3</color>
     <color name="fab_status">#FE432A</color>
     <color name="fab_status_trans">#99FE432A</color>
     <color name="item_press">#F1F1F1</color>

@@ -43,7 +43,6 @@ public class AppointmentServiceDeviceActivity extends BaseActivity {
 	private ListView listview;
 	private String serviceID = "";
 	Handler mHandler = new LoadDeviceHandler(this);
-	private Dialog mDialog;
 	private TextView nodata;
 
 	@Override

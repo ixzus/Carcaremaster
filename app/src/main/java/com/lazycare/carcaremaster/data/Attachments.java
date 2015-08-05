@@ -1,10 +1,11 @@
 package com.lazycare.carcaremaster.data;
 
-import com.lazycare.carcaremaster.util.Configuration;
-
 /*
  * <Auto Created by fd.CreateTable> 不得擅自修改！
  */
+
+import com.lazycare.carcaremaster.util.Config;
+
 /**
  * 上传附件
  * 
@@ -23,7 +24,7 @@ public class Attachments {
 	private String filesize; // 文件大小
 	private String audio_time = "";
 	private String url;
-	private int flag = Configuration.FLAG_SERVER; // 标示，从哪获取资源,默认为0
+	private int flag = Config.FLAG_SERVER; // 标示，从哪获取资源,默认为0
 
 	public String getUrl() {
 		return url;

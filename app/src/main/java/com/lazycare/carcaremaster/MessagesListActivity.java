@@ -30,7 +30,6 @@ import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.DialogUtil;
 
 /**
@@ -42,11 +41,10 @@ import com.lazycare.carcaremaster.util.DialogUtil;
  */
 public class MessagesListActivity extends BaseActivity {
 	private ListView listView;
-	List<SysMessage> lstQuestions = new ArrayList<SysMessage>();
+	List<SysMessage> lstQuestions = new ArrayList<>();
 	int dataSize = 0;
 	SysMessageAdapter adapter = null;
 	boolean isLoading = false;
-	String id = "";
 
 	Handler mHandler = new DataLoadHandler(this);
 	private Dialog mDialog;
@@ -68,7 +66,6 @@ public class MessagesListActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		id = getSharePreferences().getString(Configuration.ID, "0");
 		adapter = new SysMessageAdapter(MessagesListActivity.this);
 		listView = (ListView) findViewById(R.id.lv_questions);
 		listView.setAdapter(adapter);

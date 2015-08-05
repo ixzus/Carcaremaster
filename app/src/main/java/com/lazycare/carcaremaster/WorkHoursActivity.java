@@ -39,7 +39,6 @@ import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.Config;
-import com.lazycare.carcaremaster.util.Configuration;
 import com.lazycare.carcaremaster.util.NetworkUtil;
 
 /**
@@ -54,15 +53,11 @@ public class WorkHoursActivity extends BaseActivity {
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     private List<String> lstDate;
-    HashMap<Integer, Integer> hmWorkHours = new HashMap<Integer, Integer>();// 11\7个数据
-    public static HashMap<Integer, Boolean> hmWorkStates = new HashMap<Integer, Boolean>();// 11\7个数据
+    HashMap<Integer, Integer> hmWorkHours = new HashMap<>();// 11\7个数据
+    public static HashMap<Integer, Boolean> hmWorkStates = new HashMap<>();// 11\7个数据
     public static List<Boolean> list = new ArrayList<Boolean>(); // true为已预约
-    LoadMyWorkHoursHandler mHandler = new LoadMyWorkHoursHandler(
-            WorkHoursActivity.this);
-    // List<Map<Integer, Boolean>> list;
-    String id = "0";
+    LoadMyWorkHoursHandler mHandler = new LoadMyWorkHoursHandler(WorkHoursActivity.this);
     private Button btn_save;
-    private Dialog mDialog;
     private SysApplication app;
     private String curTime = "";
     private WorkTimeServices service;
@@ -92,10 +87,10 @@ public class WorkHoursActivity extends BaseActivity {
     @Override
     public void initView() {
         app = (SysApplication) getApplication();
-        curTime = getSharePreferences().getString(Configuration.TIME,
+        curTime = getSharePreferences().getString(Config.TIME,
                 "2015-05-18");
         service = WorkTimeServices.getInstance(mContext);
-        id = getSharePreferences().getString(Configuration.ID, "0");
+        id = getSharePreferences().getString(Config.ID, "0");
         lstDate = CommonUtil.getDateList(curTime);
         btn_save = (Button) this.findViewById(R.id.btn_save);
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -339,9 +334,9 @@ public class WorkHoursActivity extends BaseActivity {
             @Override
             public void run() {
                 service.savaData(list);
-                Message message=new Message();
-                message.what=Config.WHAT_THREE;
-                message.obj=str;
+                Message message = new Message();
+                message.what = Config.WHAT_THREE;
+                message.obj = str;
                 mHandler.sendMessage(message);
             }
         }).start();

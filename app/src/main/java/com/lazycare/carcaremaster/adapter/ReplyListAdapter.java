@@ -1,6 +1,5 @@
 package com.lazycare.carcaremaster.adapter;
 
-import java.io.File;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +27,9 @@ import com.lazycare.carcaremaster.ImagesShowActivity;
 import com.lazycare.carcaremaster.R;
 import com.lazycare.carcaremaster.data.QuestionReplyClass;
 import com.lazycare.carcaremaster.util.CommonUtil;
-import com.lazycare.carcaremaster.util.Configuration;
+import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.DateUtil;
-import com.lazycare.carcaremaster.util.StringUtil;
 import com.lazycare.carcaremaster.widget.AudioPlayer;
-import com.squareup.picasso.Picasso;
 
 /**
  * 车主问题回复adapter 带聊天界面
@@ -301,8 +298,8 @@ public class ReplyListAdapter extends BaseAdapter {
         viewHolderRight.rightVoice.setVisibility(View.GONE);
         if (msg.getArtificer_head() != null
                 && !msg.getArtificer_head().equals("")) {
-            String head = context.getSharedPreferences(Configuration.USERINFO,
-                    0).getString(Configuration.HEAD, "");
+            String head = context.getSharedPreferences(Config.USERINFO,
+                    0).getString(Config.HEAD, "");
             if (!head.equals("")) {
                 ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(head))
                         .setAutoRotateEnabled(true)//设置图片智能摆正
