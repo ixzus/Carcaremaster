@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="main_top_height">160dip</dimen>
+    <dimen name="main_top_height">180dip</dimen>
     <dimen name="main_top_content_height">80dip</dimen>
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="activity_vertical_margin">10dp</dimen>
@@ -23,7 +23,7 @@
     <dimen name="padding_bottom">13dip</dimen>
     <dimen name="userphoto_width">80dip</dimen>
     <dimen name="userphoto_height">80dip</dimen>
-    <dimen name="username_fontsize">14sp</dimen>
+    <dimen name="username_fontsize">13sp</dimen>
     <dimen name="usertech_bg_padding">10dip</dimen>
     <dimen name="detail_padding">1dip</dimen>
     <dimen name="questionlist_item_titlec_height">60dip</dimen>
@@ -61,5 +61,5 @@
     <dimen name="picture_pull_to_refresh_last_update_time_text_size">10dp</dimen>
     <dimen name="picture_pull_to_refresh_last_update_time_top_margin">6dp</dimen>
     <dimen name="picture_pull_to_refresh_footer_height">40dp</dimen>
-
+    <dimen name="fab_margin">0dp</dimen>
 </resources>

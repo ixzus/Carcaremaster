@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightgrey"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/view_questionitem_bg"
+        android:paddingBottom="15dip"
         android:paddingLeft="5dip"
         android:paddingRight="5dip"
-        android:orientation="vertical" >
+        android:paddingTop="15dip">
 
         <TextView
             android:id="@+id/app_txt_name"
@@ -19,9 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="15dip"
             android:layout_marginLeft="10dip"
-            android:layout_marginTop="15dip"
             android:gravity="center_vertical"
             android:text="sdsfdsfdsfdsfdsfdsfdsf"
             android:textColor="@color/black"
@@ -32,9 +31,7 @@
             android:layout_height="24dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="15dip"
             android:layout_marginRight="10dip"
-            android:layout_marginTop="15dip"
             android:background="@drawable/ic_keyboard_arrow_right_grey600_36dp"
             android:clickable="false"
             android:duplicateParentState="true"

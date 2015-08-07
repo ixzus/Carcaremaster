@@ -18,6 +18,8 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.lazycare.carcaremaster.R;
+import com.lazycare.carcaremaster.util.CommonUtil;
+import com.lazycare.carcaremaster.util.NetworkUtil;
 
 /**
  * 播放音频
@@ -106,7 +108,7 @@ public class AudioPlayer implements OnBufferingUpdateListener,
     }
 
     public void playUrl(String videoUrl) {
-        if (requestAudioFocus()) {
+        if (requestAudioFocus()&& NetworkUtil.isNetworkAvailable(context)) {
 
             try {
                 // 开始动画
@@ -125,7 +127,8 @@ public class AudioPlayer implements OnBufferingUpdateListener,
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
+        }else
+            CommonUtil.showToast(context,"请检查您的网络");
     }
 
     public void pause() {

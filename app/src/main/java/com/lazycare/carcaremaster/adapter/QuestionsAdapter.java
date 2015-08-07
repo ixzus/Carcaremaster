@@ -1,11 +1,14 @@
 package com.lazycare.carcaremaster.adapter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,7 +44,7 @@ import com.lazycare.carcaremaster.widget.ScrollGridView;
  */
 public class QuestionsAdapter extends BaseAdapter {
 
-    public List<QuestionClass> listQuestion=new ArrayList<>();
+    public List<QuestionClass> listQuestion = new ArrayList<>();
     private Activity mContext;
     private AudioPlayer player;
 
@@ -71,8 +74,43 @@ public class QuestionsAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     * 默认不会刷新
+     *
+     * @param newItem
+     */
     public void addNewItem(QuestionClass newItem) {
         listQuestion.add(newItem);
+    }
+
+    public void swipeItem(List<QuestionClass> temp) {
+        List<QuestionClass> set = new ArrayList<>();
+        for (QuestionClass qc : listQuestion) {
+//            set.add(qc);
+            Log.e("gmyboy", qc.getId());
+        }
+//        for (QuestionClass qc : temp) {
+//            if (set.contains(qc)) {
+//                set.remove(qc);
+//            } else {
+//                set.add(qc);
+//            }
+//        }
+        for (int i = 0; i < temp.size(); i++) {
+            if (listQuestion.contains(temp.get(i))) {
+                listQuestion.set(i,temp.get(i));
+            } else {
+                listQuestion.add(i,temp.get(i));
+            }
+        }
+        for (QuestionClass qc : listQuestion) {
+//            set.add(qc);
+            Log.e("gmyboy", "---"+qc.getId());
+        }
+//        for (int i = 0; i < set.size(); i++) {
+//            Log.e("gmyboy","---"+ set.get(i).getId());
+//            listQuestion.set(i, set.get(i));
+//        }
     }
 
     public void removeAll() {

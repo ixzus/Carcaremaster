@@ -2,20 +2,25 @@ package com.lazycare.carcaremaster;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.lazycare.carcaremaster.service.IMChatService;
+import com.lazycare.carcaremaster.service.CoreService;
 import com.lazycare.carcaremaster.service.ReConnectService;
 import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.Constant;
+import com.lazycare.carcaremaster.util.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
@@ -40,9 +45,10 @@ public abstract class BaseActivity extends ActionBarActivity {
     public Context mContext = this;
     private String IMEI = "";
     protected SharedPreferences preferences;
-    private static IMChatService mService = new IMChatService();
+    private static CoreService mService = new CoreService();
     private static ReConnectService mReConnectService = new ReConnectService();
-
+    public Toolbar mToolbar;
+    private ReconnectReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +63,19 @@ public abstract class BaseActivity extends ActionBarActivity {
         id = getSharedPreferences(Config.USERINFO, 0).getString(Config.ID, "0");
         username = getSharedPreferences(Config.USERINFO, 0).getString(Config.USERNAME, "");
         password = getSharedPreferences(Config.USERINFO, 0).getString(Config.PWD, "111111");
-
         preferences = getSharedPreferences(Constant.LOGIN_SET, 0);
-        setActionBarOption();
         setLayout();
+        setActionBarOption();
         ButterKnife.bind(this);
         //initView之前
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//			setTranslucentStatus(true);
-//		}
-//		SystemBarTintManager tintManager = new SystemBarTintManager(this);
-//		tintManager.setStatusBarTintEnabled(true);
-//		tintManager.setStatusBarTintResource(android.R.color.background_dark);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.statusbar_bg);
         initView();
+        receiver = new ReconnectReceiver();
         //获取imei码
 //        TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
 //        IMEI = tm.getDeviceId();
@@ -121,6 +127,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     @Override
     protected void onPause() {
+        // 卸载广播接收器
+        unregisterReceiver(receiver);
         super.onPause();
         MobclickAgent.onPageEnd(TAG);
         MobclickAgent.onPause(this);
@@ -131,7 +139,9 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onResume();
         MobclickAgent.onPageStart(TAG);
         MobclickAgent.onResume(this);
-
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Config.ACTION_RECONNECT_STATE);
+        registerReceiver(receiver, filter);
     }
 
     public SharedPreferences getSharePreferences() {
@@ -143,15 +153,21 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     /**
-     * 销毁服务.
+     * 销毁核心服务.
      */
     public void stopService() {
         // 聊天服务
-        Intent chatServer = new Intent(mContext, IMChatService.class);
+        Intent chatServer = new Intent(mContext, CoreService.class);
         mContext.stopService(chatServer);
-        // 自动恢复连接服务
-        Intent reConnectService = new Intent(mContext, ReConnectService.class);
-        mContext.stopService(reConnectService);
+    }
+
+    /**
+     * 开启核心服务
+     */
+    public void startService() {
+        // 聊天服务
+        Intent chatServer = new Intent(mContext, CoreService.class);
+        mContext.startService(chatServer);
     }
 
     /**
@@ -199,5 +215,25 @@ public abstract class BaseActivity extends ActionBarActivity {
      */
     public void showToast(String massage) {
         Toast.makeText(this, massage, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 定义接收消息的广播
+     *
+     * @author GMY
+     * @mail 2275964276@qq.com
+     * @date 2015年6月4日
+     */
+    private class ReconnectReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            // 收到重连成功的消息
+            if (Config.ACTION_RECONNECT_STATE.equals(action)) {
+                showToast("重连成功了");
+                startService();
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.lazycare.carcaremaster.service.IMChatService;
+import com.lazycare.carcaremaster.service.CoreService;
 import com.lazycare.carcaremaster.service.ReConnectService;
 
 public class BootBroadcastReceiver extends BroadcastReceiver {
@@ -12,7 +12,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// 聊天服务
-		Intent chatServer = new Intent(context, IMChatService.class);
+		Intent chatServer = new Intent(context, CoreService.class);
 		context.startService(chatServer);
 		// 自动恢复连接服务
 		Intent reConnectService = new Intent(context, ReConnectService.class);

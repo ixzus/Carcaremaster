@@ -11,7 +11,9 @@ import java.util.List;
 import u.aly.cu;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 /**
@@ -243,5 +245,15 @@ public class CommonUtil {
 
     public static void showToast(Context context, String massage) {
         Toast.makeText(context, massage, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showSnack(View view, String message) {
+        Snackbar.make(view,message, Snackbar.LENGTH_SHORT)
+                .setAction("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .show();
     }
 }

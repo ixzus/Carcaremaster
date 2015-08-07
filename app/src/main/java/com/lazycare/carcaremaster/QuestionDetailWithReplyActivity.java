@@ -30,8 +30,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -73,6 +75,7 @@ import com.lazycare.carcaremaster.impl.RecordStrategy;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.AudioRecorder2Mp3Util;
+import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.Constant;
 import com.lazycare.carcaremaster.util.DateUtil;
@@ -91,10 +94,7 @@ import com.lazycare.carcaremaster.widget.ScrollGridView;
  * @mail 2275964276@qq.com
  * @date 2015年6月2日
  */
-public class QuestionDetailWithReplyActivity extends BaseActivity implements
-        OnClickListener,
-        ModelPopup.OnDialogListener,
-        TextWatcher {
+public class QuestionDetailWithReplyActivity extends BaseActivity implements OnClickListener, ModelPopup.OnDialogListener, TextWatcher {
     private LinearLayout layout_more, layout_emo;//更多布局，
     private ViewPager pager_emo;// 表情页面
     private ControlView mCv = new ControlView();
@@ -107,7 +107,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
      * 使用相册中的图片
      */
     public static final int SELECT_PIC_BY_PICK_PHOTO = 2;
-    private RelativeLayout main_layout;
+    private LinearLayout main_layout;
 
     private Button voiceOrTextButton;//录音文字切换按钮
     private RecordButton voiceButton;// 回复声音
@@ -129,17 +129,17 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
         RelativeLayout rlvoice;
     }
 
-    List<QuestionReplyClass> lstQuestionReply = new ArrayList<>();
+    private List<QuestionReplyClass> lstQuestionReply = new ArrayList<>();
     private int pageIndex = 1;
-    int dataSize = 0;
+    private int dataSize = 0;
     private ListView listView;
-    ReplyListAdapter adapter;
+    private ReplyListAdapter adapter;
     boolean isLoading = false;
-    PopupWindow popReply = null;
-    View layout = null;
-    String  question_id = "", member_id = "";
-    Handler mHandler = new LoadQuestionDetailWithReplyHandler(this);
-    String replyContentType = "1";// 1纯文字，2音频 ,3:图片 4:视频
+    private PopupWindow popReply = null;
+    private View layout = null;
+    private String question_id = "", member_id = "";
+    private Handler mHandler = new LoadQuestionDetailWithReplyHandler(this);
+    private String replyContentType = "1";// 1纯文字，2音频 ,3:图片 4:视频
     private int type = 1;
     private int unread = 0;// 列表页传来的未读数目
     private boolean temp = false;
@@ -147,13 +147,13 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
     private RelativeLayout morebtn1, morebtn2;
     private Uri mOutPutFileUri = null;// 临时存放拍照获取图片
     private File file = null;
-    private Button qiang;
+    private FloatingActionButton qiang;
     private LinearLayout second_layout;
     //录音相关
     private String audio = "";
     private String audio_time = "0";
     private AudioPlayer player;
-    AnimationDrawable rocketAnimation;
+    private AnimationDrawable rocketAnimation;
     // IM
     private String to = "";
     private Chat chat = null;
@@ -169,8 +169,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (Constant.NEW_MESSAGE_ACTION.equals(action)) {
-                IMMessage message = intent
-                        .getParcelableExtra(IMMessage.IMMESSAGE_KEY);
+                IMMessage message = intent.getParcelableExtra(IMMessage.IMMESSAGE_KEY);
                 questionReplyClass = new QuestionReplyClass();
                 String[] lstMsg = message.getContent().split("\\/-");
                 if (lstMsg != null && lstMsg.length == 4) {
@@ -241,11 +240,10 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
 
     @Override
     public void setActionBarOption() {
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayShowTitleEnabled(true);
-        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setTitle("问题详情");
-
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("问题详情");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -260,11 +258,11 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
         voiceOrTextButton = (Button) this.findViewById(R.id.voiceOrTextButton);
         voiceButton = (RecordButton) this.findViewById(R.id.voiceButton);
         popup = new ModelPopup(QuestionDetailWithReplyActivity.this, this);
-        main_layout = (RelativeLayout) this.findViewById(R.id.main_layout);
+        main_layout = (LinearLayout) this.findViewById(R.id.main_layout);
         mList = new ArrayList<>();
         morebtn1 = (RelativeLayout) this.findViewById(R.id.more_btn1);
         morebtn2 = (RelativeLayout) this.findViewById(R.id.more_btn2);
-        qiang = (Button) this.findViewById(R.id.qiang);
+        qiang = (FloatingActionButton) this.findViewById(R.id.qiang);
         second_layout = (LinearLayout) this.findViewById(R.id.second_layout);
         View view = getLayoutInflater().inflate(R.layout.view_reply_header, null);
         mCv.ciUserPhoto = (SimpleDraweeView) view.findViewById(R.id.ci_userphoto);
@@ -305,20 +303,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
         sendButton.setOnClickListener(this);
         qiang.setOnClickListener(this);
         mCv.rlvoice.setOnClickListener(this);
-        listView.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                // Toast.makeText(QuestionDetailWithReplyActivity.this, "点击项",
-                // Toast.LENGTH_SHORT).show();
-                // Intent intent = new Intent();
-                // intent.setClass(QuestionDetailWithReplyActivity.this,
-                // QuestionDetailActivity.class);
-                // startActivity(intent);
-            }
-        });
         // 录音事件监听
         voiceButton.setAudioRecord(new RecordStrategy() {
             private String fileFolder = Config.RECORD_PATH;
@@ -371,9 +356,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                 }
                 fileName = getCurrentDate();
                 if (audioRecoder == null) {
-                    audioRecoder = new AudioRecorder2Mp3Util(null,
-                            getFilePath() + fileName + ".raw", getFilePath()
-                            + fileName + ".mp3");
+                    audioRecoder = new AudioRecorder2Mp3Util(null, getFilePath() + fileName + ".raw", getFilePath() + fileName + ".mp3");
                 }
 
             }
@@ -463,7 +446,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
             case R.id.sendButton:
                 String content = chat_content.getText().toString().trim();
                 if (content.equals("")) {
-                    showToast("回复内容不能为空!");
+                    CommonUtil.showSnack(main_layout, "回复内容不能为空!");
                 } else {
                     replyContentType = "1";
                     sendMsg(content);
@@ -509,12 +492,10 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
      * 隐藏软键盘
      */
     public void hideSoftInputView() {
-        InputMethodManager manager = ((InputMethodManager) this
-                .getSystemService(Activity.INPUT_METHOD_SERVICE));
+        InputMethodManager manager = ((InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE));
         if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
             if (getCurrentFocus() != null)
-                manager.hideSoftInputFromWindow(getCurrentFocus()
-                        .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
@@ -522,8 +503,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
      * 显示软键盘
      */
     public void showSoftInputView() {
-        InputMethodManager manager = ((InputMethodManager) this
-                .getSystemService(Activity.INPUT_METHOD_SERVICE));
+        InputMethodManager manager = ((InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE));
         if (getWindow().getAttributes().softInputMode == WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
             manager.showSoftInput(chat_content, InputMethodManager.SHOW_FORCED);
         }
@@ -534,22 +514,20 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
      */
     private void loadMoreData() {
         mDialog = CustomProgressDialog.showCancelable(mContext, "加载中...");
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("type", type + "");
         map.put("artificer_id", id);
         map.put("question_id", question_id);
-        TaskExecutor.Execute(new DataRunnable(this, "/Questions/get", mHandler,
-                Config.WHAT_ONE, map));
+        TaskExecutor.Execute(new DataRunnable(this, "/Questions/get", mHandler, Config.WHAT_ONE, map));
     }
 
     /**
      * 设置回复内容为已读
      */
     private void setRead(String replayID) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("answer", replayID);
-        TaskExecutor.Execute(new DataRunnable(this, "/Answers/setRead",
-                mHandler, Config.WHAT_FOUR, map));
+        TaskExecutor.Execute(new DataRunnable(this, "/Answers/setRead", mHandler, Config.WHAT_FOUR, map));
     }
 
     /**
@@ -557,13 +535,12 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
      */
     private void qiangSeccuss() {
         mDialog = CustomProgressDialog.showCancelable(mContext, "正在拼命的抢...");
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("artificer", id);
         map.put("from", username);
         map.put("to", to);
         map.put("question", question_id);
-        TaskExecutor.Execute(new DataRunnable(this, "/Questions/grab",
-                mHandler, Config.WHAT_THREE, map));
+        TaskExecutor.Execute(new DataRunnable(this, "/Questions/grab", mHandler, Config.WHAT_THREE, map));
     }
 
     /**
@@ -663,30 +640,21 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                             mCv.tvCarDescribtion.setText(car);
                             mCv.tvContent.setText(content);
                             mCv.tvDate.setText(mdate);
-                            List<String> lstPhoto = gson.fromJson(mphotos,
-                                    new TypeToken<List<String>>() {
-                                    }.getType());
+                            List<String> lstPhoto = gson.fromJson(mphotos, new TypeToken<List<String>>() {
+                            }.getType());
                             if (!ObjectUtil.isEmpty(lstPhoto)) {
-
                                 mCv.gvImage.setVisibility(View.VISIBLE);
                                 ImageOneAdapter adapter_image;
                                 if (1 == lstPhoto.size()) {
                                     mCv.gvImage.setNumColumns(1);
-                                    adapter_image = new ImageOneAdapter(
-                                            QuestionDetailWithReplyActivity.this,
-                                            lstPhoto, R.layout.view_one_iv_com);
+                                    adapter_image = new ImageOneAdapter(QuestionDetailWithReplyActivity.this, lstPhoto, R.layout.view_one_iv_com);
                                 } else {
                                     mCv.gvImage.setNumColumns(4);
-                                    adapter_image = new ImageOneAdapter(
-                                            QuestionDetailWithReplyActivity.this,
-                                            lstPhoto);
+                                    adapter_image = new ImageOneAdapter(QuestionDetailWithReplyActivity.this, lstPhoto);
                                 }
                                 mCv.gvImage.setAdapter(adapter_image);
-                                mCv.gvImage
-                                        .setSelector(android.R.color.transparent);
-                                mCv.gvImage
-                                        .setOnItemClickListener(new OnItemListener(
-                                                lstPhoto));
+                                mCv.gvImage.setSelector(android.R.color.transparent);
+                                mCv.gvImage.setOnItemClickListener(new OnItemListener(lstPhoto));
                                 // mCv.gvImage.setOnItemClickListener(new
                                 // OnItemListener(lstPhoto));
                             } else
@@ -703,14 +671,10 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                                 }
 
                                 @Override
-                                public void onScroll(AbsListView view,
-                                                     int firstVisibleItem, int visibleItemCount,
-                                                     int totalItemCount) {
+                                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                                     // TODO Auto-generated method stub
-                                    if (totalItemCount == firstVisibleItem
-                                            + visibleItemCount) {
-                                        if (!isLoading && adapter.getCount() != 0
-                                                && adapter.getCount() < dataSize) {
+                                    if (totalItemCount == firstVisibleItem + visibleItemCount) {
+                                        if (!isLoading && adapter.getCount() != 0 && adapter.getCount() < dataSize) {
                                             pageIndex++;
                                             isLoading = true;
                                             loadMoreData();// 再次加载数据
@@ -723,9 +687,8 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                                 setFlag();
                             }
                         } else
-                            showToast(msg);
+                            CommonUtil.showSnack(main_layout, msg);
                     } catch (Exception e) {
-                        // Log.d(TAG, e.getMessage());
                     }
                     break;
                 case Config.WHAT_TWO:// 回复
@@ -735,7 +698,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                         String error = jb.getString("error");
                         String msg = jb.getString("msg");
                         if (error.equals("0")) {
-                            showToast("回复成功");
+                            CommonUtil.showSnack(main_layout, "回复成功");
                             questionReplyClass = new QuestionReplyClass();
                             questionReplyClass.setBelong("1");
                             questionReplyClass.setArtificer_name("");
@@ -753,7 +716,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                             addNewMsg(questionReplyClass);
                             setFlag();
                         } else
-                            showToast("回复失败");
+                        CommonUtil.showSnack(main_layout, "回复失败");
                     } catch (Exception e) {
                     }
                     break;
@@ -763,14 +726,13 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                         JSONObject jb = new JSONObject(json);
                         String error = jb.getString("error");
                         String msg = jb.getString("msg");
+                        CommonUtil.showSnack(main_layout, msg);
                         if (error.equals("0")) {
-                            showToast(msg);
                             qiang.setVisibility(View.GONE);
                             second_layout.setVisibility(View.VISIBLE);
                             setFlag();
                         } else {
                             // 问题被别人抢走了
-                            showToast(msg);
                             setFlag();
                             finish();
                         }
@@ -839,7 +801,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
                         mList.clear();
                         mList.add(att);
                     } else {
-                        showToast("sdcard不可读");
+                        CommonUtil.showSnack(main_layout, "sdcard不可读");
                     }
                     break;
                 case SELECT_PIC_BY_PICK_PHOTO:
@@ -904,7 +866,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
 
     private void sendMsg(String content) {
         mDialog = CustomProgressDialog.showCancelable(mContext, "发送回复中...");
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         replyContentType = "1";
         map.put("member_id", member_id);
         map.put("from", username);
@@ -913,9 +875,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
         map.put("question_id", question_id);
         map.put("type", replyContentType);
         map.put("content", URLEncoder.encode(content));
-        TaskExecutor.Execute(new DataRunnable(
-                QuestionDetailWithReplyActivity.this, "/Answers/add", mHandler,
-                Config.WHAT_TWO, map));
+        TaskExecutor.Execute(new DataRunnable(QuestionDetailWithReplyActivity.this, "/Answers/add", mHandler, Config.WHAT_TWO, map));
 
     }
 
@@ -926,7 +886,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements
             public void run() {
                 Message msg = mHandler.obtainMessage();
                 msg.what = Config.WHAT_TWO;
-                HashMap<String, String> map = new HashMap<String, String>();
+                HashMap<String, String> map = new HashMap<>();
                 map.put("member_id", member_id);// 这个需要修改
                 map.put("from", username);
                 map.put("to", to);

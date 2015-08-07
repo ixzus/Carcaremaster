@@ -173,10 +173,10 @@
 
 
         <!-- 聊天服务 -->
-        <service android:name="com.lazycare.carcaremaster.service.IMChatService"></service>
+        <service android:name=".service.CoreService"></service>
 
         <!-- 重连接服务 -->
-        <service android:name="com.lazycare.carcaremaster.service.ReConnectService"></service>
+        <!--<service android:name="com.lazycare.carcaremaster.service.ReConnectService"></service>-->
         <!-- 监听开机广播 -->
         <!--
        <receiver android:name="com.lazycare.carcaremaster.receiver.BootBroadcastReceiver" >

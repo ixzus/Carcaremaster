@@ -58,18 +58,12 @@ public class NetworkUtil {
 
     /* 测试机 */
     public static final String WXZJ_URL = "http://www.962121.net/hmfmstest/wyfeemp/wyfeemp/commumication/billmsg";
-    /* 生产 */
-    // public static String WXZJ_URL = "http://www.962121.net/wyweb/houapp";
     // 需要可供升级的软件放的位置及相关变量
     public static final String UPDATE_SERVER = WSDL_URL + "/apkVerCode/";
     public static final String UPDATE_VER = "lazycare.json";
     public static final String UPDATE_APKNAME = "lazycare.apk";
     public static final String UPDATE_SAVENAME = "lazycare.apk";
 
-    // public static String accountSid = "aaf98f894c5a7f75014c68e50e1b06cc";
-    // public static String authToken = "3d4cac3bb35c4f79ac2d382e101dfd7f";
-    // public static String appid = "8a48b5514c5a99c9014c68e5b48906dc";
-    // public static String templateid="1";
     // 验证码相关接口
     public static String accountSid = "aaf98f894a188342014a237b6ae005c3";
     public static String authToken = "81c9f710c09b4363b9168575c41f1661";
@@ -82,7 +76,7 @@ public class NetworkUtil {
      * 判断网络是否可用
      *
      * @param
-     * @return
+   0  * @return
      */
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager) context

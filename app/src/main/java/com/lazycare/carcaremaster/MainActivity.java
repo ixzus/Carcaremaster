@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -124,10 +125,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setActionBarOption() {
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayShowTitleEnabled(true);
-        bar.setTitle("首页");
-
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("首页");
+        setSupportActionBar(mToolbar);
     }
 
     @Override

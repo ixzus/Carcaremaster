@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 
@@ -61,10 +62,10 @@ public class QuestionsListActivity extends BaseActivity {
 
     @Override
     public void setActionBarOption() {
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayShowTitleEnabled(true);
-        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setTitle("问题列表");
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("问题列表");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -106,19 +107,19 @@ public class QuestionsListActivity extends BaseActivity {
      */
     private void initTabsValue() {
         // 底部游标颜色
-        tabs.setIndicatorColor(Color.parseColor("#fa5f19"));
+        tabs.setIndicatorColor(getResources().getColor(R.color.tab_indicator));
         // tab的分割线颜色
         tabs.setDividerColor(Color.TRANSPARENT);
         // tab背景
-        tabs.setBackgroundColor(Color.parseColor("#ffffff"));
+        tabs.setBackgroundColor(getResources().getColor(R.color.statusbar_bg));
         // tab底线高度
         tabs.setUnderlineHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
         // 游标高度
         tabs.setIndicatorHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
         // 选中的文字颜色
-        tabs.setSelectedTextColor(getResources().getColor(R.color.gb_select_textcolor));
+        tabs.setSelectedTextColor(getResources().getColor(R.color.tab_txt_selected));
         // 正常文字颜色
-        tabs.setTextColor(Color.BLACK);
+        tabs.setTextColor(getResources().getColor(R.color.tab_txt_normal));
         tabs.setTextSize(getResources().getDimensionPixelOffset(R.dimen.username_fontsize));
         tabs.setShouldExpand(true);
     }

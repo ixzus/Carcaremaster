@@ -19,28 +19,49 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.RectF;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
+import android.widget.ImageView;
 
+import com.facebook.common.references.CloseableReference;
+import com.facebook.datasource.DataSource;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.DraweeHolder;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.image.CloseableImage;
+import com.facebook.imagepipeline.image.CloseableStaticBitmap;
+import com.facebook.imagepipeline.image.ImageInfo;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.lazycare.carcaremaster.R;
 
+public class PhotoView extends ImageView implements IPhotoView {
 
-public class PhotoView extends SimpleDraweeView implements IPhotoView {
-    private DraweeHolder mDraweeHolder;
     private PhotoViewAttacher mAttacher;
+
     private ScaleType mPendingScaleType;
+
+    DraweeHolder<GenericDraweeHierarchy> mDraweeHolder;
+    private CloseableReference<CloseableImage> imageReference = null;
+
 
     public PhotoView(Context context) {
         this(context, null);
+        init();
     }
 
     public PhotoView(Context context, AttributeSet attr) {
         this(context, attr, 0);
+        init();
     }
 
     public PhotoView(Context context, AttributeSet attr, int defStyle) {
@@ -50,16 +71,24 @@ public class PhotoView extends SimpleDraweeView implements IPhotoView {
     }
 
     protected void init() {
-        GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(getResources()).build();
-        mDraweeHolder = DraweeHolder.create(hierarchy, getContext());
         if (null == mAttacher || null == mAttacher.getImageView()) {
             mAttacher = new PhotoViewAttacher(this);
         }
+
         if (null != mPendingScaleType) {
             setScaleType(mPendingScaleType);
             mPendingScaleType = null;
         }
 
+        if (mDraweeHolder == null) {
+            GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(getResources())
+                    .setFadeDuration(800)
+                    .setProgressBarImage(getResources().getDrawable(R.drawable.ic_launcher))
+                    .setFailureImage(getResources().getDrawable(R.mipmap.pic_failure))
+                    .setRetryImage(getResources().getDrawable(R.mipmap.pic_failure))
+                    .build();
+            mDraweeHolder = DraweeHolder.create(hierarchy, getContext());
+        }
     }
 
 
@@ -207,29 +236,90 @@ public class PhotoView extends SimpleDraweeView implements IPhotoView {
     @Override
     public void setImageURI(Uri uri) {
         super.setImageURI(uri);
-//        DraweeController controller = Fresco.newDraweeControllerBuilder()
-//                .setUri(uri)
-//                .setOldController(mDraweeHolder.getController())
-//                .build();
-
         if (null != mAttacher) {
             mAttacher.update();
         }
-//        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-//                .setAutoRotateEnabled(true)//设置图片智能摆正
-//                .setProgressiveRenderingEnabled(true)//设置渐进显示
-//                .build();
-//        PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-//                .setImageRequest(request)
-//                .setOldController(mDraweeHolder.getController())
-//                .build();
-//        mDraweeHolder.setController(controller);
-//        Drawable drawable = mDraweeHolder.getHierarchy().getTopLevelDrawable();
-//        drawable.setBounds(10,10,10,10);
-//        setImageDrawable(drawable);
     }
 
+    public void setImageUri(String url) {
+        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
+                .setAutoRotateEnabled(true)
+                .setProgressiveRenderingEnabled(true)
+                .build();
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        final DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, this);
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setOldController(mDraweeHolder.getController())
+                .setImageRequest(imageRequest)
+                .setControllerListener(new BaseControllerListener<ImageInfo>() {
+                    @Override
+                    public void onFinalImageSet(String s, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
+                        try {
+                            imageReference = dataSource.getResult();
+                            if (imageReference != null) {
+                                CloseableImage image = imageReference.get();
+                                // do something with the image
+                                if (image != null && image instanceof CloseableStaticBitmap) {
+                                    CloseableStaticBitmap closeableStaticBitmap = (CloseableStaticBitmap) image;
+                                    Bitmap bitmap = closeableStaticBitmap.getUnderlyingBitmap();
+                                    if (bitmap != null) {
+                                        setImageBitmap(bitmap);
+                                    }
+                                }
+                            }
+                        } finally {
+                            dataSource.close();
+                            CloseableReference.closeSafely(imageReference);
+                        }
+                    }
+                })
+                .setTapToRetryEnabled(true)
+                .build();
+        mDraweeHolder.setController(controller);
+    }
 
+    /**
+     * 设置图片url+resize的宽高
+     *
+     * @param uri
+     * @param width
+     * @param height
+     */
+    public void setImageUri(String uri, int width, int height) {
+        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(uri))
+                .setAutoRotateEnabled(true)
+                .setResizeOptions(new ResizeOptions(width, height))
+                .build();
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        final DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, this);
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setOldController(mDraweeHolder.getController())
+                .setImageRequest(imageRequest)
+                .setControllerListener(new BaseControllerListener<ImageInfo>() {
+                    @Override
+                    public void onFinalImageSet(String s, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
+                        try {
+                            imageReference = dataSource.getResult();
+                            if (imageReference != null) {
+                                CloseableImage image = imageReference.get();
+                                if (image != null && image instanceof CloseableStaticBitmap) {
+                                    CloseableStaticBitmap closeableStaticBitmap = (CloseableStaticBitmap) image;
+                                    Bitmap bitmap = closeableStaticBitmap.getUnderlyingBitmap();
+                                    if (bitmap != null) {
+                                        setImageBitmap(bitmap);
+                                    }
+                                }
+                            }
+                        } finally {
+                            dataSource.close();
+                            CloseableReference.closeSafely(imageReference);
+                        }
+                    }
+                })
+                .setTapToRetryEnabled(true)
+                .build();
+        mDraweeHolder.setController(controller);
+    }
 
     @Override
     public void setOnMatrixChangeListener(PhotoViewAttacher.OnMatrixChangedListener listener) {
@@ -318,15 +408,23 @@ public class PhotoView extends SimpleDraweeView implements IPhotoView {
     @Override
     protected void onDetachedFromWindow() {
         mAttacher.cleanup();
-        super.onDetachedFromWindow();
         mDraweeHolder.onDetach();
+        super.onDetachedFromWindow();
     }
 
     @Override
     protected void onAttachedToWindow() {
         init();
-        super.onAttachedToWindow();
         mDraweeHolder.onAttach();
+        super.onAttachedToWindow();
+    }
+
+    @Override
+    protected boolean verifyDrawable(Drawable dr) {
+        if (dr == mDraweeHolder.getHierarchy().getTopLevelDrawable()) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -340,4 +438,6 @@ public class PhotoView extends SimpleDraweeView implements IPhotoView {
         super.onFinishTemporaryDetach();
         mDraweeHolder.onAttach();
     }
+
+
 }

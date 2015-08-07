@@ -1,6 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/statusbar_bg</item>
         <item name="colorPrimaryDark">@color/red</item>
         <item name="colorAccent">@color/material_pink_500</item>

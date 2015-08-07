@@ -5,14 +5,18 @@
     android:background="@color/lightgrey"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/exchangemoney_item_height"
         android:background="@drawable/view_questionitem_bg"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +40,7 @@
         android:layout_marginTop="1dip"
         android:background="@drawable/view_questionitem_bg"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,13 +48,13 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -75,14 +79,14 @@
                 android:background="@drawable/case_can"
                 android:orientation="vertical"
                 android:paddingBottom="8dip"
-                android:paddingRight="15dip" >
+                android:paddingRight="15dip">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:layout_marginTop="8dip"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/ex_txt"
@@ -107,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:layout_marginTop="8dip"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -131,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:layout_marginTop="8dip"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -155,7 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dip"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -182,14 +186,14 @@
                 android:background="@drawable/case_can"
                 android:orientation="vertical"
                 android:paddingBottom="8dip"
-                android:paddingRight="15dip" >
+                android:paddingRight="15dip">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:layout_marginTop="8dip"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/ex_txt1"
@@ -214,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:layout_marginTop="8dip"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -238,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:layout_marginTop="8dip"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -265,7 +269,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:gravity="center" >
+            android:gravity="center">
 
             <Button
                 android:id="@+id/btn_exchange"
@@ -286,7 +290,7 @@
         android:layout_marginTop="@dimen/common_height"
 
         android:gravity="center_vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_bankicon"
@@ -322,7 +326,7 @@
         android:layout_height="@dimen/exchangemoney_item_height"
         android:layout_marginTop="@dimen/common_height"
         android:background="@drawable/view_questionitem_bg"
-        android:gravity="center_vertical" >
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/iv_payicon"

@@ -38,6 +38,8 @@ import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.NetworkUtil;
+import com.lazycare.carcaremaster.widget.RefreshLayout;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 问题列表
@@ -46,7 +48,8 @@ import com.lazycare.carcaremaster.util.NetworkUtil;
  * @mail 2275964276@qq.com
  * @date 2015年6月2日
  */
-public class AppointmentFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class AppointmentFragment extends BaseFragment implements RefreshLayout.OnRefreshListener, RefreshLayout.OnLoadListener {
+    private static final String TAG = "AppointmentFragment";
     private int pageIndex = 1;
     int dataSize = 0;
     AppointmentListAdapter adapter = null;
@@ -77,7 +80,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
     //评价
     public static String evaluationType = "";// 评价方式, 3:好评 2:中评 1:差评
     //刷新布局
-    private SwipeRefreshLayout refreshLayout;
+    private RefreshLayout refreshLayout;
 
     public static AppointmentFragment newInstance(int position, String evaluationType) {
         AppointmentFragment f = new AppointmentFragment();
@@ -96,17 +99,24 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart(TAG);
         if (FLAG == 1) {
             mHasLoadedOnce = false;
             if (NetworkUtil.isNetworkAvailable(getActivity())) {
                 adapter.removeAll();
                 lazyLoad();// 再次加载数据
             } else {
-                Toast.makeText(getActivity(), "请检查您的网络", Toast.LENGTH_SHORT)
-                        .show();
+                CommonUtil.showSnack(refreshLayout, "您还没联网哦,亲");
             }
             FLAG = 0;
         }
+    }
+
+    @Override
+    public void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
     }
 
     @Override
@@ -132,35 +142,16 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
             }
             view = inflater.inflate(R.layout.fragment_app_tab, null);
             adapter = new AppointmentListAdapter(getActivity());
-            refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+            refreshLayout = (RefreshLayout) view.findViewById(R.id.swiperefresh);
             listView = (ListView) view.findViewById(R.id.lv_appointments);
             listView.setAdapter(adapter);
             isPrepared = true;
             // 刷新时，指示器旋转后变化的颜色
             refreshLayout.setColorSchemeResources(R.color.main_blue_light, R.color.main_blue_dark);
+            refreshLayout.setFooterView(getActivity(), listView, R.layout.view_refresh_footer);
             refreshLayout.setOnRefreshListener(this);
+            refreshLayout.setOnLoadListener(this);
             lazyLoad();
-            listView.setOnScrollListener(new OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(AbsListView view, int scrollState) {
-                }
-
-                @Override
-                public void onScroll(AbsListView view,
-                                     int firstVisibleItem, int visibleItemCount,
-                                     int totalItemCount) {
-                    // TODO Auto-generated method stub
-                    if (totalItemCount == firstVisibleItem
-                            + visibleItemCount) {
-                        if (!isLoading && adapter.getCount() != 0
-                                && adapter.getCount() < dataSize) {
-                            pageIndex++;
-                            isLoading = true;
-                            lazyLoad();// 再次加载数据
-                        }
-                    }
-                }
-            });
             listView.setOnItemClickListener(new OnItemClickListener() {
 
                 @Override
@@ -194,17 +185,27 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
             if (!isPrepared || !isVisible || mHasLoadedOnce) {
                 return;
             }
-            Map<String, String> map = new HashMap<String, String>();
+            Map<String, String> map = new HashMap<>();
             map.put("id", id);
             if (mCurIndex == 2)
                 map.put("evaluation", evaluationType);
             map.put("order", orderType);
-            TaskExecutor.Execute(new DataRunnable(getActivity(),
-                    "/Order/getOrderList", mHandler, map));
+            TaskExecutor.Execute(new DataRunnable(getActivity(), "/Order/getOrderList", mHandler, map));
         } else {
-            Toast.makeText(getActivity(), "请检查您的网络", Toast.LENGTH_SHORT)
-                    .show();
+            CommonUtil.showSnack(refreshLayout, "您还没联网哦,亲");
             refreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onLoad() {
+        if (!isLoading && adapter.getCount() != 0
+                && adapter.getCount() < dataSize) {
+            pageIndex++;
+            isLoading = true;
+            isPrepared = true;
+            mHasLoadedOnce = false;
+            lazyLoad();// 再次加载数据
         }
     }
 
@@ -230,7 +231,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
         private WeakReference<Activity> mWeak;
 
         public LoadMyAppointmentHandler(Activity activity) {
-            mWeak = new WeakReference<Activity>(activity);
+            mWeak = new WeakReference<>(activity);
         }
 
         @Override
@@ -239,6 +240,7 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
             Activity activity = mWeak.get();
             doAction(activity, msg.what, (String) msg.obj);
             refreshLayout.setRefreshing(false);
+            refreshLayout.setLoading(false);
         }
 
         /**
@@ -259,16 +261,19 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
                             if (error.equals("0")) {
                                 List<AppointmentClass> lstAppointment = gson.fromJson(data, new TypeToken<List<AppointmentClass>>() {
                                 }.getType());
-                                for (AppointmentClass ac : lstAppointment) {
-                                    adapter.addNewItem(ac);
+                                //没有数据时显示提示
+                                if (lstAppointment.size() == 0) {
+                                    CommonUtil.showSnack(refreshLayout, "空空如也");
+                                } else {
+                                    for (AppointmentClass ac : lstAppointment) {
+                                        adapter.addNewItem(ac);
+                                    }
+                                    adapter.notifyDataSetChanged();
                                 }
                                 mHasLoadedOnce = true;
-                                adapter.notifyDataSetChanged();
                             } else
-                                Toast.makeText(getActivity(), msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(refreshLayout, msg);
                         } catch (Exception e) {
-                            Log.d("gmy", e.getMessage());
                         }
 
                     }
@@ -282,14 +287,14 @@ public class AppointmentFragment extends BaseFragment implements SwipeRefreshLay
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
-        refreshLayout.setRefreshing(true);
+        if (refreshLayout != null)
+            refreshLayout.setRefreshing(true);
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
         if (mCurIndex == 2)
             map.put("evaluation", evaluationType);
         map.put("order", orderType);
-        TaskExecutor.Execute(new DataRunnable(getActivity(),
-                "/Order/getOrderList", mHandler, map));
+        TaskExecutor.Execute(new DataRunnable(getActivity(), "/Order/getOrderList", mHandler, map));
     }
 
 }

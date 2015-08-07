@@ -36,4 +36,5 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.6.0+'
     //    compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:design:22.2.0'
 }

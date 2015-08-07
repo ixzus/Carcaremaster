@@ -30,6 +30,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -53,6 +54,7 @@ import com.umeng.analytics.MobclickAgent;
  * @date 2015年6月2日
  */
 public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
+	private LinearLayout llMain;
 	private Uri SMS_INBOX = Uri.parse("content://sms/");
 	private EditText et1, et2, et3;
 	private Button btn1, btn_certain;
@@ -74,8 +76,7 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 			} else if (msg.what == 2) {
 				btn1.setText("获取验证码");
 				btn1.setClickable(true);
-				Toast.makeText(getActivity(), "验证码失效", Toast.LENGTH_LONG)
-						.show();
+				CommonUtil.showSnack(llMain, "验证码失效");
 			} else if (msg.what == 3) {
 				if ("000000".equals(resultData)) {
 					// 防止重复点击
@@ -100,8 +101,7 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 						}
 					}, 1000, 1000);
 				} else {
-					Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
-							.show();
+					CommonUtil.showSnack(llMain,"请求失败");
 					// 测试发送短信
 					// SmsManager smsManager = SmsManager.getDefault();
 					// smsManager.sendTextMessage("5556", null,
@@ -142,6 +142,7 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 	}
 
 	private void initView(View view) {
+		llMain=(LinearLayout)view.findViewById(R.id.ll_forgetpwd);
 		et1 = (EditText) view.findViewById(R.id.tv_forget_newpwd);// 新密码
 		et2 = (EditText) view.findViewById(R.id.tv_forget_newpwd_certain);// 确认新密码
 		et3 = (EditText) view.findViewById(R.id.tv_forget_captche);// 验证码输入框
@@ -158,17 +159,12 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 			newp = et1.getText().toString().trim();
 			newp2 = et2.getText().toString().trim();
 			captche = et3.getText().toString().trim();
-			if (et1.getText() == null || et2.getText() == null
-					|| et3.getText() == null || newp.equals("")
-					|| newp2.equals("") || captche.equals("")) {
-				Toast.makeText(getActivity(), "输入项不能有空", Toast.LENGTH_SHORT)
-						.show();
+			if (et1.getText() == null || et2.getText() == null || et3.getText() == null || newp.equals("") || newp2.equals("") || captche.equals("")) {
+				CommonUtil.showSnack(llMain,"输入不能有空");
 			} else if (!newp.equals(newp2)) {
-				Toast.makeText(getActivity(), "两次输入新号码不一致", Toast.LENGTH_SHORT)
-						.show();
+				CommonUtil.showSnack(llMain, "两次输入新号码不一致");
 			} else if (!captche.equals(captche_temp)) {
-				Toast.makeText(getActivity(), "验证码不正确", Toast.LENGTH_SHORT)
-						.show();
+				CommonUtil.showSnack(llMain, "验证码不正确");
 			} else {
 				postData(newp, captche);
 			}
@@ -185,8 +181,7 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 						@Override
 						public void onPositive(MaterialDialog dialog) {
 							if (username != null && !username.equals("")) {
-								mDialog = CustomProgressDialog.showCancelable(
-										getActivity(), "请求中...");
+								mDialog = CustomProgressDialog.showCancelable(getActivity(), "请求中...");
 								captche_temp = generateRandomNum();
 								new Thread() {
 									public void run() {
@@ -197,8 +192,7 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 									;
 								}.start();
 							} else {
-								Toast.makeText(getActivity(), "请输入手机号",
-										Toast.LENGTH_SHORT).show();
+								CommonUtil.showSnack(llMain, "请输入手机号");
 							}
 						}
 					}).show();
@@ -242,12 +236,11 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 
 	private void postData(String num, String captche) {
 		mDialog = CustomProgressDialog.showCancelable(getActivity(), "密码修改中...");
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
 		map.put("safe_pass", num);
 		map.put("confirm_ safe_pass", num);
-		TaskExecutor.Execute(new DataRunnable(getActivity(),
-				"/Artificer/setSafePass", mHandler, map));
+		TaskExecutor.Execute(new DataRunnable(getActivity(), "/Artificer/setSafePass", mHandler, map));
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -256,7 +249,7 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 		private WeakReference<Activity> mWeak;
 
 		public ForgetPwdHandler(Activity activity) {
-			mWeak = new WeakReference<Activity>(activity);
+			mWeak = new WeakReference<>(activity);
 		}
 
 		@Override
@@ -281,11 +274,9 @@ public class ForgetPayPwdFragment extends Fragment implements OnClickListener {
 					String msg = jb.getString("msg");
 					String data = jb.getString("data");
 					if (error.equals("0")) {
-						Toast.makeText(getActivity(), "支付密码修改成功，请记好哦",
-								Toast.LENGTH_SHORT).show();
+						CommonUtil.showSnack(llMain, "支付密码修改成功，请牢记哒");
 					} else
-						Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT)
-								.show();
+						CommonUtil.showSnack(llMain, msg);
 				} catch (Exception e) {
 					Log.d(TAG, e.getMessage());
 				} finally {

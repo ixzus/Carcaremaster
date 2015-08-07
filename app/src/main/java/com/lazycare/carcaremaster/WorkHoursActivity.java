@@ -21,11 +21,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -50,6 +52,7 @@ import com.lazycare.carcaremaster.util.NetworkUtil;
  */
 @SuppressLint("NewApi")
 public class WorkHoursActivity extends BaseActivity {
+    private LinearLayout llWokrmain;
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     private List<String> lstDate;
@@ -72,23 +75,21 @@ public class WorkHoursActivity extends BaseActivity {
     @Override
     public void setLayout() {
         setContentView(R.layout.activity_workhours);
-
     }
 
     @Override
     public void setActionBarOption() {
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayShowTitleEnabled(true);
-        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setTitle("工时管理");
-
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("工时管理");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public void initView() {
         app = (SysApplication) getApplication();
-        curTime = getSharePreferences().getString(Config.TIME,
-                "2015-05-18");
+        llWokrmain=(LinearLayout)findViewById(R.id.ll_workmain);
+        curTime = getSharePreferences().getString(Config.TIME, "2015-05-18");
         service = WorkTimeServices.getInstance(mContext);
         id = getSharePreferences().getString(Config.ID, "0");
         lstDate = CommonUtil.getDateList(curTime);
@@ -120,17 +121,14 @@ public class WorkHoursActivity extends BaseActivity {
             public void onClick(View v) {
                 if (NetworkUtil.isNetworkAvailable(mContext)) {
                     String selectTime = CommonUtil.getInBusyTime(curTime, list);
-                    mDialog = CustomProgressDialog.showCancelable(mContext,
-                            "保存中...");
-                    Map<String, String> map = new HashMap<String, String>();
+                    mDialog = CustomProgressDialog.showCancelable(mContext, "保存中...");
+                    Map<String, String> map = new HashMap<>();
                     map.put("id", id);
                     map.put("start_time", selectTime);
                     Log.d(TAG, "selectTime:" + selectTime);
-                    TaskExecutor.Execute(new DataRunnable(
-                            WorkHoursActivity.this, "/ArtificerFilterTime/add",
-                            mHandler, Config.WHAT_TWO, map));
+                    TaskExecutor.Execute(new DataRunnable(WorkHoursActivity.this, "/ArtificerFilterTime/add", mHandler, Config.WHAT_TWO, map));
                 } else {
-                    showToast("您还没联网哦,亲");
+                    CommonUtil.showSnack(llWokrmain,"您还没联网哦,亲");
                 }
 
             }
@@ -172,13 +170,10 @@ public class WorkHoursActivity extends BaseActivity {
                 // }
             } else {
                 // 获取网络数据
-                mDialog = CustomProgressDialog.showCancelable(mContext,
-                        "加载中...");
-                Map<String, String> map = new HashMap<String, String>();
+                mDialog = CustomProgressDialog.showCancelable(mContext, "加载中...");
+                Map<String, String> map = new HashMap<>();
                 map.put("artificer", id);
-                TaskExecutor.Execute(new DataRunnable(WorkHoursActivity.this,
-                        "/ArtificerCalendar/get", mHandler, Config.WHAT_ONE,
-                        map));
+                TaskExecutor.Execute(new DataRunnable(WorkHoursActivity.this, "/ArtificerCalendar/get", mHandler, Config.WHAT_ONE, map));
             }
         } else {
             if (service.hasData()) {
@@ -188,7 +183,7 @@ public class WorkHoursActivity extends BaseActivity {
                         getSupportFragmentManager(), list);
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             } else {
-                showToast("您还没联网哦,亲");
+                CommonUtil.showSnack(llWokrmain, "您还没联网哦,亲");
             }
         }
     }
@@ -216,7 +211,7 @@ public class WorkHoursActivity extends BaseActivity {
         private String TAG;
 
         public LoadMyWorkHoursHandler(Activity activity) {
-            mWeak = new WeakReference<Activity>(activity);
+            mWeak = new WeakReference<>(activity);
         }
 
         @Override
@@ -247,45 +242,32 @@ public class WorkHoursActivity extends BaseActivity {
 
                             if (error.equals("0")) {
                                 List<ArtificerFilterTimeClass> lstAFTC = new ArrayList<>();
-                                lstAFTC = gson
-                                        .fromJson(
-                                                data,
-                                                new TypeToken<List<ArtificerFilterTimeClass>>() {
-                                                }.getType());
-                                Log.i("gmyboy", "lstAFTC" + lstAFTC.size());
+                                lstAFTC = gson.fromJson(data, new TypeToken<List<ArtificerFilterTimeClass>>() { }.getType());
                                 // 取出所有true/false 放入list
                                 for (ArtificerFilterTimeClass aftc : lstAFTC) {
                                     List<Temp> temp = aftc.getTime();
-                                    Log.i("gmyboy", "temp" + temp.size());
                                     for (Temp t : temp) {
-
                                         if (t.getStatus().equals("1")) {
                                             list.add(false);
                                         } else {
                                             list.add(true);
                                         }
-
                                     }
                                 }
                                 // 存进数据库
                                 saveData2Local("load");
                                 // mSectionsPagerAdapter.notifyDataSetChanged();
-
-
                             } else {
                                 // 初始化一个空的
-                                Toast.makeText(WorkHoursActivity.this, msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(llWokrmain, msg);
                                 for (int i = 0; i < Config.TIME_HOURS
                                         * Config.TIME_DAY; i++) {
                                     list.set(i, false);
                                 }
-                                mSectionsPagerAdapter = new SectionsPagerAdapter(
-                                        getSupportFragmentManager(), list);
+                                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), list);
                                 mViewPager.setAdapter(mSectionsPagerAdapter);
                                 mDialog.dismiss();
                             }
-
                         } else
                             mDialog.dismiss();
                     } catch (Exception e) {
@@ -305,20 +287,18 @@ public class WorkHoursActivity extends BaseActivity {
                         } else {// 保存出错
                             mDialog.dismiss();
                             LoadData(); // 重新加载ui
-                            showToast(msg);
+                            CommonUtil.showSnack(llWokrmain, msg);
                         }
                     } catch (Exception e) {
-                        showToast("保存出错");
+                        CommonUtil.showSnack(llWokrmain, "保存出错");
                         mDialog.dismiss();
                     }
                     break;
                 case Config.WHAT_THREE://存入数据库延时操作
                     if (json.equals("save")) {
-                        showToast("保存成功");
+                        CommonUtil.showSnack(llWokrmain, "保存成功");
                     } else {
-                        mSectionsPagerAdapter = new SectionsPagerAdapter(
-                                getSupportFragmentManager(), list);
-
+                        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), list);
                         mViewPager.setAdapter(mSectionsPagerAdapter);
                     }
                     mDialog.dismiss();
@@ -358,7 +338,7 @@ public class WorkHoursActivity extends BaseActivity {
 
             fragment = new WorkFragment();
 
-            list_temp = new ArrayList<Boolean>();
+            list_temp = new ArrayList<>();
             for (int i = Config.TIME_HOURS * position; i < Config.TIME_HOURS
                     * (position + 1); i++) {
                 list_temp.add(list.get(i));

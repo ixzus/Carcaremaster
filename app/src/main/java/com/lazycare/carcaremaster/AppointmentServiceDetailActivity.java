@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,10 +37,10 @@ public class AppointmentServiceDetailActivity extends BaseActivity {
 
 	@Override
 	public void setActionBarOption() {
-		ActionBar bar = getSupportActionBar();
-		bar.setDisplayShowTitleEnabled(true);
-		bar.setDisplayHomeAsUpEnabled(true);
-		bar.setTitle("服务详情");
+		mToolbar = (Toolbar) findViewById(R.id.toolbar);
+		mToolbar.setTitle("服务详情");
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

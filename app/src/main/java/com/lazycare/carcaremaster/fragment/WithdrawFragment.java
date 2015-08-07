@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class WithdrawFragment extends BaseFragment {
      * 是否已被加载过一次，第二次就不再去请求数据了
      */
     // private boolean mHasLoadedOnce;
+    private LinearLayout llMain_alipay, llMain_bank;
     EditText txt_money, txt_safePass, txt_name;
     Button btn_submit;
     private Handler mHandler = new WithdrawMoneyHandler(this);
@@ -101,7 +103,7 @@ public class WithdrawFragment extends BaseFragment {
                     btn_submit = (Button) view.findViewById(R.id.btn_ok);
                     txt_safePass = (EditText) view.findViewById(R.id.txt_safePass);
                     txt_name = (EditText) view.findViewById(R.id.txt_moneyname);
-
+                    llMain_alipay = (LinearLayout) view.findViewById(R.id.with_alipay_main);
                     txt_alipaynum = (EditText) view.findViewById(R.id.txt_card);//支付宝账号
                     txt_money.setEnabled(false);
                     if (!money.equals("")) {
@@ -123,7 +125,7 @@ public class WithdrawFragment extends BaseFragment {
                     txt_name = (EditText) view.findViewById(R.id.txt_moneyname);
                     txt_safePass = (EditText) view.findViewById(R.id.txt_safePass);
                     btn_submit = (Button) view.findViewById(R.id.btn_ok);//提交
-
+                    llMain_bank = (LinearLayout) view.findViewById(R.id.with_bank_main);
                     txt_account = (EditText) view.findViewById(R.id.txt_yhcard);//提现账户
                     rl_bank = (RelativeLayout) view.findViewById(R.id.rl_bank);//选择银行
                     rl_where = (RelativeLayout) view.findViewById(R.id.rl_where);//选择开户地
@@ -259,52 +261,50 @@ public class WithdrawFragment extends BaseFragment {
             Pattern pattern = Pattern.compile("^\\d{16}|\\d{19}$", Pattern.LITERAL);
             Matcher matcher = pattern.matcher(account);
             if (name.equals("") || name == null) {
-                Toast.makeText(getActivity(), "收款人不能为空!!", Toast.LENGTH_SHORT).show();
+                CommonUtil.showSnack(llMain_bank, "收款人不能为空!!");
             } else if (account == null || account.equals("")) {
-                Toast.makeText(getActivity(), "银行卡号不能为空!!", Toast.LENGTH_SHORT).show();
+                CommonUtil.showSnack(llMain_bank, "银行卡号不能为空!!");
             }
 //        else if (!matcher.matches()) {
 //            Toast.makeText(getActivity(), "银行卡号格式不对!!", Toast.LENGTH_SHORT).show();
 //        }
             else if (bank == null || bank.equals("")) {
-                Toast.makeText(getActivity(), "银行不能为空!!", Toast.LENGTH_SHORT).show();
+                CommonUtil.showSnack(llMain_bank, "银行不能为空!!");
             } else if (open_bank == null || open_bank.equals("")) {
-                Toast.makeText(getActivity(), "银行开户地不能为空!!", Toast.LENGTH_SHORT).show();
+                CommonUtil.showSnack(llMain_bank, "银行开户地不能为空!!");
             } else if (safePass == null || safePass.equals("")) {
-                Toast.makeText(getActivity(), "请填写提现密码!!", Toast.LENGTH_SHORT).show();
+                CommonUtil.showSnack(llMain_bank, "请填写提现密码!!");
             } else {
 
                 mDialog = CustomProgressDialog.showCancelable(getActivity(), "正在进行取现操作...");
-                Map<String, String> map = new HashMap<String, String>();
+                Map<String, String> map = new HashMap<>();
                 map.put("artificer_id", id);
                 map.put("safePass", safePass);
                 map.put("account", account);
                 map.put("name", name);
                 map.put("open_bank", open_bank);
                 map.put("bank", bank);
-                TaskExecutor.Execute(new DataRunnable(getActivity(),
-                        "/Artificer/enchashment", mHandler, Config.WHAT_TWO, map));
+                TaskExecutor.Execute(new DataRunnable(getActivity(), "/Artificer/enchashment", mHandler, Config.WHAT_TWO, map));
             }
         } else {
             account = txt_alipaynum.getText().toString().trim();
 
             if (name.equals("") || name == null) {
-                Toast.makeText(getActivity(), "收款人不能为空!!", Toast.LENGTH_SHORT).show();
+                CommonUtil.showSnack(llMain_alipay, "收款人不能为空!!");
             } else if (account == null || account.equals("")) {
-                Toast.makeText(getActivity(), "银行卡号不能为空!!", Toast.LENGTH_SHORT).show();
+                CommonUtil.showSnack(llMain_alipay, "银行卡号不能为空!!");
             } else if (safePass == null || safePass.equals("")) {
-                Toast.makeText(getActivity(), "请填写提现密码!!", Toast.LENGTH_SHORT).show();
+                CommonUtil.showSnack(llMain_alipay, "请填写提现密码!!");
             } else {
 
                 mDialog = CustomProgressDialog.showCancelable(getActivity(), "正在进行取现操作...");
-                Map<String, String> map = new HashMap<String, String>();
+                Map<String, String> map = new HashMap<>();
                 map.put("artificer_id", id);
                 map.put("safePass", safePass);
                 map.put("account", account);
                 map.put("name", name);
                 map.put("bank", bank);
-                TaskExecutor.Execute(new DataRunnable(getActivity(),
-                        "/Artificer/enchashment", mHandler, Config.WHAT_TWO, map));
+                TaskExecutor.Execute(new DataRunnable(getActivity(), "/Artificer/enchashment", mHandler, Config.WHAT_TWO, map));
             }
 
 
@@ -361,15 +361,12 @@ public class WithdrawFragment extends BaseFragment {
                             String data = jb.getString("data");
                             if (error.equals("0")) {
                                 //返回并刷新
-                                Toast.makeText(getActivity(),
-                                        "您的取现申请已提交到客服!", Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(mCurIndex == 1 ? llMain_bank : llMain_alipay, "您的取现申请已提交到客服!");
                                 getActivity().finish();
                                 ExchangeMoneyActivity.withdrawDone = true;
                             } else
-                                Toast.makeText(getActivity(), msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(mCurIndex == 1 ? llMain_bank : llMain_alipay, msg);
                         } catch (Exception e) {
-//                            Log.d(TAG, e.getMessage());
                         }
 
                     }

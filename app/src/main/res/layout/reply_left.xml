@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:clickable="false"
     android:descendantFocusability="afterDescendants"
+    android:background="@color/lightgrey"
     android:focusable="false"
     android:padding="5dp">
 

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,17 +45,15 @@ import com.lazycare.carcaremaster.util.DialogUtil;
  * @date 2015年6月2日
  */
 public class AppointmentDetailActivity extends BaseActivity implements OnClickListener {
+    private LinearLayout llMain;
     Button btn_completeorder, btn_startservice, btn_modifyprice;
     RelativeLayout rl_arrow;
-    /**
-     * 进度条
-     */
     String order_id = "";
     Handler mHandler = new LoadQuestionDetailHandler(this);
     TextView tv_title, tv_consignee, tv_mobile, tv_car, tv_service_state,
             tv_pack, tv_total, tv_book_time, tv_sn, tv_add_time, tv_remark,
             tv_carnum;
-    HashMap<String, String> hmservice_state = new HashMap<String, String>();
+    HashMap<String, String> hmservice_state = new HashMap<>();
     private String list;// 存放左右配件信息(未解析)
     private boolean isServiceStarted = false;
     EditText passwordInput;
@@ -63,15 +63,14 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
     @Override
     public void setLayout() {
         setContentView(R.layout.activity_appointmentdetail);
-
     }
 
     @Override
     public void setActionBarOption() {
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayShowTitleEnabled(true);
-        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setTitle("订单详情");
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("订单详情");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -81,6 +80,7 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
         hmservice_state.put("0", "未服务");
         hmservice_state.put("1", "服务中");
         hmservice_state.put("2", "已完成");
+        llMain = (LinearLayout) findViewById(R.id.app_main_layout);
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_consignee = (TextView) findViewById(R.id.tv_consignee);
         tv_mobile = (TextView) findViewById(R.id.tv_mobile);
@@ -127,17 +127,16 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
 
     private void loadMoreData() {
         mDialog = CustomProgressDialog.showCancelable(this, "加载中...");
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("artificer_id", id);
         map.put("order_id", order_id);
-        TaskExecutor.Execute(new DataRunnable(this, "/Order/get", mHandler,
-                Config.WHAT_ONE, map));
+        TaskExecutor.Execute(new DataRunnable(this, "/Order/get", mHandler, Config.WHAT_ONE, map));
     }
 
     @Override
     public void onClick(View v) {
         //动态再去获取pay_state
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("artificer_id", id);
         map.put("order_id", order_id);
         switch (v.getId()) {
@@ -208,16 +207,12 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                             if (error.equals("0")) {
                                 setFlag();
                                 isServiceStarted = true;
-                                Map<String, String> map = new HashMap<String, String>();
+                                Map<String, String> map = new HashMap<>();
                                 map.put("artificer_id", id);
                                 map.put("order_id", order_id);
-                                TaskExecutor.Execute(new DataRunnable(
-                                        AppointmentDetailActivity.this,
-                                        "/Order/get", mHandler, Config.WHAT_ONE,
-                                        map));
+                                TaskExecutor.Execute(new DataRunnable(AppointmentDetailActivity.this, "/Order/get", mHandler, Config.WHAT_ONE, map));
                             } else
-                                Toast.makeText(AppointmentDetailActivity.this, msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(llMain, msg);
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }
@@ -236,8 +231,7 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                             if (error.equals("0")) {
                                 tv_total.setText(passwordInput.getText() + "元");
                             } else
-                                Toast.makeText(AppointmentDetailActivity.this, msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(llMain, msg);
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }
@@ -256,20 +250,29 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                             // isLoading = false;
                             if (error.equals("0")) {
                                 JSONObject jd = new JSONObject(data);
-                                String consignee = jd.getString("consignee");
-                                String mobile = jd.getString("mobile");
-                                String car = jd.getString("car");
-                                String car_num = jd.getString("license");
-                                String service_state = jd
-                                        .getString("service_state");
-                                // String service = jd.getString("service");
-                                String total = jd.getString("total") + "元";
-                                String book_time = jd.getString("book_time");
-                                String sn = jd.getString("sn");
-                                String add_time = jd.getString("add_time");
-                                String remark = jd.getString("remark");
+                                String consignee = "", mobile = "", car = "", car_num = "", service_state = "", total = "", book_time = "", sn = "", add_time = "", remark = "";
+                                //备注
+                                consignee = jd.getString("consignee");
+                                //手机
+                                mobile = jd.getString("mobile");
+                                //车型
+                                car = jd.getString("car");
+                                //车牌
+                                car_num = jd.getString("license");
+                                //服务状态
+                                service_state = jd.getString("service_state");
+                                //总价
+                                total = jd.getString("total") + "元";
+                                //预约时间
+                                book_time = jd.getString("book_time");
+                                //订单号
+                                sn = jd.getString("sn");
+                                //添加时间
+                                add_time = jd.getString("add_time");
+                                remark = jd.getString("remark");
+                                //支付状态
                                 pay_state = jd.getString("pay_state");
-                                // 获取服务订单
+                                // 获取服务订单配件详情
                                 list = jd.getString("services");
 
                                 tv_carnum.setText(car_num);// 车牌号
@@ -277,8 +280,7 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                 tv_consignee.setText(consignee);
                                 tv_mobile.setText(mobile);// 联系方式
                                 tv_car.setText(car);// 车型
-                                tv_service_state.setText(hmservice_state
-                                        .get(service_state));// 服务状态
+                                tv_service_state.setText(hmservice_state.get(service_state));// 服务状态
                                 if (service_state.equals("0")) {
                                     isServiceStarted = false;
                                 } else {
@@ -287,7 +289,7 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                 // tv_pack.setText(service);//
                                 tv_total.setText(total);// 总价格
                                 tv_sn.setText(sn);// 订单编号
-                                tv_remark.setText(remark);
+                                tv_remark.setText(remark.equals("") ? "" : remark);
                                 if (service_state.equals("0")) {
                                     btn_modifyprice.setVisibility(View.VISIBLE);
                                     btn_startservice.setVisibility(View.VISIBLE);
@@ -305,15 +307,13 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                 if (!book_time.equals("")) {
                                     String formatDate = "MM-dd hh:mm:ss";
                                     float at = Float.parseFloat(book_time);
-                                    String fr = CommonUtil.FormatTime(formatDate,
-                                            at);
+                                    String fr = CommonUtil.FormatTime(formatDate, at);
                                     tv_book_time.setText(fr);// 预约时间
                                 }
                                 if (!add_time.equals("")) {
                                     String formatDate = "MM-dd hh:mm:ss";
                                     float at = Float.parseFloat(add_time);
-                                    String fr = CommonUtil.FormatTime(formatDate,
-                                            at);
+                                    String fr = CommonUtil.FormatTime(formatDate, at);
                                     tv_add_time.setText(fr);// 下单时间
                                 }
                                 rl_arrow.setOnClickListener(new OnClickListener() {
@@ -321,22 +321,18 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                     @Override
                                     public void onClick(View v) {
                                         if (list.equals("")) {
-                                            showToast("没有配件信息");
+                                            CommonUtil.showSnack(llMain, "没有配件信息");
                                         } else {
                                             Intent intent = new Intent();
-                                            intent.setClass(
-                                                    mContext,
-                                                    AppointmentServiceDetailActivity.class);
+                                            intent.setClass(mContext, AppointmentServiceDetailActivity.class);
                                             intent.putExtra("service", list);
                                             startActivity(intent);
                                         }
-
                                     }
                                 });
 
                             } else
-                                Toast.makeText(AppointmentDetailActivity.this, msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(llMain, msg);
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }
@@ -355,9 +351,9 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                 pay_state = jd.getString("pay_state");
                                 //未付款并且是标准单
                                 if (pay_state.equals("0") && standard.equals("1")) {
-                                    showToast("请耐心等待车主付款");
+                                    CommonUtil.showSnack(llMain, "请耐心等待车主付款");
                                 } else if (!isServiceStarted) {
-                                    showToast("请先开启服务");
+                                    CommonUtil.showSnack(llMain, "请先开启服务");
                                 } else
                                     // 完成订单
                                     new MaterialDialog.Builder(mContext)
@@ -369,25 +365,17 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                             .callback(new ButtonCallback() {
                                                 @Override
                                                 public void onPositive(MaterialDialog dialog) {
-                                                    // TODO Auto-generated method stub
-                                                    mDialog = CustomProgressDialog
-                                                            .showCancelable(
-                                                                    AppointmentDetailActivity.this,
-                                                                    "完成订单中...");
+                                                    mDialog = CustomProgressDialog.showCancelable(AppointmentDetailActivity.this, "完成订单中...");
                                                     Map<String, String> map;
-                                                    map = new HashMap<String, String>();
+                                                    map = new HashMap<>();
                                                     map.put("artificer_id", id);
                                                     map.put("order_id", order_id);
                                                     map.put("service_state", "2");//
-                                                    TaskExecutor.Execute(new DataRunnable(
-                                                            AppointmentDetailActivity.this,
-                                                            "/Order/setServiceState", mHandler,
-                                                            Config.WHAT_TWO, map));
+                                                    TaskExecutor.Execute(new DataRunnable(AppointmentDetailActivity.this, "/Order/setServiceState", mHandler, Config.WHAT_TWO, map));
                                                 }
                                             }).show();
                             } else
-                                Toast.makeText(AppointmentDetailActivity.this, msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(llMain, msg);
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }
@@ -406,7 +394,7 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                 pay_state = jd.getString("pay_state");
                                 //为付款并且是标准单
                                 if (pay_state.equals("0") && standard.equals("1")) {
-                                    showToast("请耐心等待车主付款");
+                                    CommonUtil.showSnack(llMain, "请耐心等待车主付款");
                                 } else
                                     // 开启服务
                                     new MaterialDialog.Builder(mContext)
@@ -416,23 +404,17 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                             .callback(new ButtonCallback() {
                                                 @Override
                                                 public void onPositive(MaterialDialog dialog) {
-                                                    mDialog = CustomProgressDialog.showCancelable(
-                                                            AppointmentDetailActivity.this,
-                                                            "服务开启中...");
+                                                    mDialog = CustomProgressDialog.showCancelable(AppointmentDetailActivity.this, "服务开启中...");
                                                     Map<String, String> map;
-                                                    map = new HashMap<String, String>();
+                                                    map = new HashMap<>();
                                                     map.put("artificer_id", id);
                                                     map.put("order_id", order_id);
                                                     map.put("service_state", "1");// 进入服务中
-                                                    TaskExecutor.Execute(new DataRunnable(
-                                                            AppointmentDetailActivity.this,
-                                                            "/Order/setServiceState", mHandler,
-                                                            Config.WHAT_TWO, map));
+                                                    TaskExecutor.Execute(new DataRunnable(AppointmentDetailActivity.this, "/Order/setServiceState", mHandler, Config.WHAT_TWO, map));
                                                 }
                                             }).show();
                             } else
-                                Toast.makeText(AppointmentDetailActivity.this, msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(llMain, msg);
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }
@@ -451,7 +433,7 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                 pay_state = jd.getString("pay_state");
 
                                 if (pay_state.equals("1")) {
-                                    showToast("车主已付完款,无法再做更改");
+                                    CommonUtil.showSnack(llMain, "车主已付完款,无法再做更改");
                                 } else {
                                     // 弹出一个输入框，来完成修改
                                     MaterialDialog dialog = new MaterialDialog.Builder(mContext)
@@ -464,22 +446,15 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                             .callback(new MaterialDialog.ButtonCallback() {
                                                 @Override
                                                 public void onPositive(MaterialDialog dialog) {
-                                                    String input = passwordInput.getText()
-                                                            .toString();
+                                                    String input = passwordInput.getText().toString();
                                                     if (input != null && !input.equals("")) {
-                                                        mDialog = CustomProgressDialog
-                                                                .showCancelable(
-                                                                        AppointmentDetailActivity.this,
-                                                                        "价格修改中...");
+                                                        mDialog = CustomProgressDialog.showCancelable(AppointmentDetailActivity.this, "价格修改中...");
                                                         Map<String, String> map;
-                                                        map = new HashMap<String, String>();
+                                                        map = new HashMap<>();
                                                         map.put("artificer_id", id);
                                                         map.put("order_id", order_id);
                                                         map.put("price", input);// 需要改
-                                                        TaskExecutor.Execute(new DataRunnable(
-                                                                AppointmentDetailActivity.this,
-                                                                "/Order/setPrice", mHandler,
-                                                                Config.WHAT_THREE, map));
+                                                        TaskExecutor.Execute(new DataRunnable(AppointmentDetailActivity.this, "/Order/setPrice", mHandler, Config.WHAT_THREE, map));
                                                     }
                                                 }
                                             }).build();
@@ -525,8 +500,7 @@ public class AppointmentDetailActivity extends BaseActivity implements OnClickLi
                                     dialog.show();
                                 }
                             } else
-                                Toast.makeText(AppointmentDetailActivity.this, msg,
-                                        Toast.LENGTH_SHORT).show();
+                                CommonUtil.showSnack(llMain, msg);
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }

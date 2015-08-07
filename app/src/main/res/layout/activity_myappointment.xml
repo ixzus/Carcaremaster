@@ -3,8 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
 
     <com.lazycare.carcaremaster.widget.PagerSlidingTabStrip
         android:id="@+id/tabs"

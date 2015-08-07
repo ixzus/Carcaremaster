@@ -185,7 +185,6 @@ public class ImagesShowActivity extends BaseActivity {
                 }
 
             };
-            Log.d("gmyboy", "---------------" + res.get(position));
             ControllerListener listener = new BaseControllerListener();
             if (!res.get(position).equals("")) {
 //                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(res.get(position)))
@@ -201,8 +200,7 @@ public class ImagesShowActivity extends BaseActivity {
 //                        .build();
 //                img.setController(controller);
                 img.setZoomable(true);
-                img.setImageURI(Uri.parse(res.get(position)));
-//                img.setImageDrawable(getResources().getDrawable(R.drawable.splash));
+                img.setImageUri(res.get(position));
             }
             img.setOnClickListener(new OnClickListener() {
                 @Override

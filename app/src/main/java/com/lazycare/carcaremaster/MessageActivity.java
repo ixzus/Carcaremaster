@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 
@@ -66,23 +67,19 @@ public class MessageActivity extends BaseActivity {
 	 */
 	private void initTabsValue() {
 		// 底部游标颜色
-		mPagerSlidingTabStrip.setIndicatorColor(Color.parseColor("#fa5f19"));
+		mPagerSlidingTabStrip.setIndicatorColor(getResources().getColor(R.color.tab_indicator));
 		// tab的分割线颜色
 		mPagerSlidingTabStrip.setDividerColor(Color.TRANSPARENT);
 		// tab背景
-		mPagerSlidingTabStrip.setBackgroundColor(Color.parseColor("#ffffff"));
+		mPagerSlidingTabStrip.setBackgroundColor(getResources().getColor(R.color.statusbar_bg));
 		// tab底线高度
-		mPagerSlidingTabStrip.setUnderlineHeight((int) TypedValue
-				.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources()
-						.getDisplayMetrics()));
+		mPagerSlidingTabStrip.setUnderlineHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
 		// 游标高度
-		mPagerSlidingTabStrip.setIndicatorHeight((int) TypedValue
-				.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources()
-						.getDisplayMetrics()));
+		mPagerSlidingTabStrip.setIndicatorHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
 		// 选中的文字颜色
-		mPagerSlidingTabStrip.setSelectedTextColor(getResources().getColor(R.color.gb_select_textcolor));
+		mPagerSlidingTabStrip.setSelectedTextColor(getResources().getColor(R.color.tab_txt_selected));
 		// 正常文字颜色
-		mPagerSlidingTabStrip.setTextColor(Color.BLACK);
+		mPagerSlidingTabStrip.setTextColor(getResources().getColor(R.color.tab_txt_normal));
 		mPagerSlidingTabStrip.setTextSize(getResources().getDimensionPixelOffset(R.dimen.username_fontsize));
 		mPagerSlidingTabStrip.setShouldExpand(true);
 	}
@@ -109,11 +106,10 @@ public class MessageActivity extends BaseActivity {
 
 	@Override
 	public void setActionBarOption() {
-		ActionBar bar = getSupportActionBar();
-		bar.setDisplayShowTitleEnabled(true);
-		bar.setDisplayHomeAsUpEnabled(true);
-		bar.setTitle("系统消息");
-
+		mToolbar = (Toolbar) findViewById(R.id.toolbar);
+		mToolbar.setTitle("系统消息");
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 }

@@ -1,179 +1,184 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/second_layout"
-        android:layout_alignParentTop="true">
+        android:layout_height="match_parent">
 
         <ListView
             android:id="@+id/lv_replys"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:adjustViewBounds="true"
             android:divider="@null"
             android:dividerHeight="10dip"
             android:minHeight="100dip"
-            android:adjustViewBounds="true"
-            android:paddingBottom="8dip"
+            android:paddingBottom="44dip"
             android:scrollbars="none" />
 
-        <Button
-            android:id="@+id/qiang"
-            android:layout_width="70dip"
-            android:layout_height="70dip"
-            android:layout_gravity="right|bottom"
-            android:layout_marginBottom="5dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/btn_fab_default"
-            android:text="抢"
-            android:textColor="#ffffff" />
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/second_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <RelativeLayout
-            android:id="@+id/ques_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="44dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/view_questiondetail_input_bg"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/voiceOrTextButton"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:background="@drawable/voice" />
-
-            <EditText
-                android:id="@+id/chat_content"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="3dip"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="3dip"
-                android:layout_toLeftOf="@+id/multiMediaButton"
-                android:layout_toRightOf="@+id/voiceOrTextButton"
-                android:background="@drawable/et_questiondetail_input_bg"
-                android:clickable="true"
-                android:paddingLeft="5dip"
-                android:hint="请输入内容"
-                android:imeOptions="actionSend"
-                android:text=""
-                android:textSize="14sp" />
-
-            <com.lazycare.carcaremaster.widget.RecordButton
-                android:id="@+id/voiceButton"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="3dip"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="3dip"
-                android:layout_toLeftOf="@+id/multiMediaButton"
-                android:layout_toRightOf="@+id/voiceOrTextButton"
-                android:background="@drawable/btn_questiondetail_record_bg"
-                android:text="按住说话"
-                android:textColor="@color/grey"
-                android:textSize="14sp"
-                android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/multiMediaButton"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/multimedia" />
-
-            <Button
-                android:id="@+id/sendButton"
-                android:layout_width="40dp"
-                android:layout_height="35dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/btn_login_bg"
-                android:text="发送"
-                android:textColor="#ffffff"
-                android:textSize="12sp"
-                android:visibility="gone" />
-        </RelativeLayout>
-
         <LinearLayout
-            android:id="@+id/layout_more"
+            android:id="@+id/second_layout"
             android:layout_width="match_parent"
-            android:layout_height="140dip"
-            android:layout_gravity="bottom"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
             android:orientation="vertical"
-            android:background="@color/questiondetail_input_bg"
             android:visibility="gone">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dip"
-                android:layout_marginLeft="20dip"
-                android:layout_marginTop="8dip">
+                android:id="@+id/ques_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="44dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/view_questiondetail_input_bg"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:id="@+id/more_btn1"
-                    android:layout_width="60dp"
-                    android:layout_height="60dip"
+                <Button
+                    android:id="@+id/voiceOrTextButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/view_questionitem_bg"
-                    android:clickable="true">
+                    android:layout_marginLeft="5dip"
+                    android:background="@drawable/voice" />
 
-                    <Button
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/aa8"
-                        android:clickable="false"
-                        android:duplicateParentState="true" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/more_btn2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                <EditText
+                    android:id="@+id/chat_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dip"
-                    android:layout_toRightOf="@+id/more_btn1"
-                    android:background="@drawable/view_questionitem_bg"
+                    android:layout_marginBottom="3dip"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="3dip"
+                    android:layout_toLeftOf="@+id/multiMediaButton"
+                    android:layout_toRightOf="@+id/voiceOrTextButton"
+                    android:background="@drawable/et_questiondetail_input_bg"
                     android:clickable="true"
-                    android:visibility="gone">
+                    android:hint="请输入内容"
+                    android:imeOptions="actionSend"
+                    android:paddingLeft="5dip"
+                    android:text=""
+                    android:textSize="14sp" />
 
-                    <Button
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/aad"
-                        android:clickable="false"
-                        android:duplicateParentState="true" />
-                </RelativeLayout>
+                <com.lazycare.carcaremaster.widget.RecordButton
+                    android:id="@+id/voiceButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="3dip"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="3dip"
+                    android:layout_toLeftOf="@+id/multiMediaButton"
+                    android:layout_toRightOf="@+id/voiceOrTextButton"
+                    android:background="@drawable/btn_questiondetail_record_bg"
+                    android:text="按住说话"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/multiMediaButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/multimedia" />
+
+                <Button
+                    android:id="@+id/sendButton"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_login_bg"
+                    android:text="发送"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
             </RelativeLayout>
-        </LinearLayout>
-    </LinearLayout>
 
-</RelativeLayout>
+            <LinearLayout
+                android:id="@+id/layout_more"
+                android:layout_width="match_parent"
+                android:layout_height="140dip"
+                android:layout_gravity="bottom"
+                android:background="@color/questiondetail_input_bg"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dip"
+                    android:layout_marginLeft="20dip"
+                    android:layout_marginTop="8dip">
+
+                    <RelativeLayout
+                        android:id="@+id/more_btn1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dip"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/view_questionitem_bg"
+                        android:clickable="true">
+
+                        <Button
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/aa8"
+                            android:clickable="false"
+                            android:duplicateParentState="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/more_btn2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dip"
+                        android:layout_toRightOf="@+id/more_btn1"
+                        android:background="@drawable/view_questionitem_bg"
+                        android:clickable="true"
+                        android:visibility="gone">
+
+                        <Button
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/aad"
+                            android:clickable="false"
+                            android:duplicateParentState="true" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/qiang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@mipmap/qiang"
+            app:borderWidth="0dp"
+            app:fabSize="normal" />
+    </FrameLayout>
+
+
+</LinearLayout>

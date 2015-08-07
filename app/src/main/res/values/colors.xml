@@ -322,9 +322,13 @@
     <color name="material_pink_500">#fa5f19</color>
     <color name="choose_bg">#EEEEEE</color>
     <color name="choose_bg_press">#dcdcdc</color>
-
+    <color name="fab_red">#FF4081</color>
 
 
     <color name="main_blue_light">#3190E8</color>
     <color name="main_blue_dark">#3F56B5</color>
+
+    <color name="tab_txt_normal">#9ADCFA</color>
+    <color name="tab_txt_selected">#ffffff</color>
+    <color name="tab_indicator">#fa5f19</color>
 </resources>

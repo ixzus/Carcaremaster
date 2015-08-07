@@ -1,18 +1,22 @@
 package com.lazycare.carcaremaster;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,8 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.lazycare.carcaremaster.data.ArtificerFilterTimeClass;
 import com.lazycare.carcaremaster.data.LoginConfig;
 import com.lazycare.carcaremaster.dialog.CustomProgressDialog;
-import com.lazycare.carcaremaster.service.IMChatService;
-import com.lazycare.carcaremaster.service.ReConnectService;
+import com.lazycare.carcaremaster.service.CoreService;
 import com.lazycare.carcaremaster.thread.DataRunnable;
 import com.lazycare.carcaremaster.thread.TaskExecutor;
 import com.lazycare.carcaremaster.util.CommonUtil;
@@ -31,6 +34,7 @@ import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.Constant;
 import com.lazycare.carcaremaster.util.DateUtil;
 import com.lazycare.carcaremaster.util.NetworkUtil;
+import com.lazycare.carcaremaster.util.SystemBarTintManager;
 import com.lazycare.carcaremaster.util.XmppConnectionManager;
 
 import org.jivesoftware.smack.RosterEntry;
@@ -107,6 +111,7 @@ public class LoginActivity extends ActionBarActivity {
     private String username = "";
     private String id = "";
     private String pwd = "";
+    private Toolbar toolbar;
 
     public void initView() {
         preferences = getSharedPreferences(Constant.LOGIN_SET, 0);
@@ -124,10 +129,29 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayShowTitleEnabled(true);
-        bar.setTitle("登录");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.statusbar_bg);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("登录");
+        setSupportActionBar(toolbar);
         initView();
+    }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     @Override
@@ -372,7 +396,7 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     private void getServerDate(String id) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("artificer", id);
         TaskExecutor.Execute(new DataRunnable(mContext, "/ArtificerCalendar/get", mHandler, Config.WHAT_TWO, map));
     }
@@ -383,7 +407,6 @@ public class LoginActivity extends ActionBarActivity {
         String b = getResources().getString(R.string.xmpp_host);
         loginConfig.setXmppHost(preferences.getString(Constant.XMPP_HOST, getResources().getString(R.string.xmpp_host)));
         loginConfig.setXmppPort(preferences.getInt(Constant.XMPP_PORT, getResources().getInteger(R.integer.xmpp_port)));
-        //
         loginConfig.setUsername(name);
         loginConfig.setPassword(password);
         loginConfig.setXmppServiceName(preferences.getString(Constant.XMPP_SEIVICE_NAME, getResources().getString(R.string.xmpp_service_name)));
@@ -392,11 +415,11 @@ public class LoginActivity extends ActionBarActivity {
 
     public void startService() {
         // 聊天服务
-        Intent chatServer = new Intent(mContext, IMChatService.class);
+        Intent chatServer = new Intent(mContext, CoreService.class);
         mContext.startService(chatServer);
         // 自动恢复连接服务
-        Intent reConnectService = new Intent(mContext, ReConnectService.class);
-        mContext.startService(reConnectService);
+//        Intent reConnectService = new Intent(mContext, ReConnectService.class);
+//        mContext.startService(reConnectService);
     }
 
 
@@ -406,11 +429,11 @@ public class LoginActivity extends ActionBarActivity {
     public void stopService() {
 
         // 聊天服务
-        Intent chatServer = new Intent(mContext, IMChatService.class);
+        Intent chatServer = new Intent(mContext, CoreService.class);
         mContext.stopService(chatServer);
         // 自动恢复连接服务
-        Intent reConnectService = new Intent(mContext, ReConnectService.class);
-        mContext.stopService(reConnectService);
+//        Intent reConnectService = new Intent(mContext, ReConnectService.class);
+//        mContext.stopService(reConnectService);
 
     }
 }
