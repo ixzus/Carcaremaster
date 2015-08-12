@@ -1,191 +1,168 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightgrey"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_marginLeft="5dip"
+    android:layout_marginRight="5dip"
+    android:background="@drawable/view_questionitem_bg"
+    android:orientation="vertical"
+    android:padding="6dip">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="3dip"
-        android:layout_marginRight="3dip"
-        android:background="@drawable/view_questionitem_bg"
-        android:orientation="vertical"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip">
+        android:minHeight="@dimen/questionlist_item_titlec_height">
 
-        <LinearLayout
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ci_userphoto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:padding="3dip"
+            fresco:failureImage="@drawable/defaulthead"
+            fresco:failureImageScaleType="centerInside"
+            fresco:placeholderImage="@drawable/defaulthead"
+            fresco:placeholderImageScaleType="fitCenter" />
+
+        <Button
+            android:id="@+id/item_tip"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_tip"
+            android:gravity="center"
+            android:text="12"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_phonenumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginTop="8dip"
+            android:layout_toLeftOf="@+id/item_tip"
+            android:layout_toRightOf="@id/ci_userphoto"
+            android:gravity="center_vertical"
+            android:text="1327122****" />
+
+        <TextView
+            android:id="@+id/tv_cardescribtion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_phonenumber"
+            android:layout_marginLeft="5dip"
+            android:layout_marginTop="2dip"
+            android:layout_toLeftOf="@+id/item_tip"
+            android:layout_toRightOf="@id/ci_userphoto"
+            android:gravity="center_vertical"
+            android:text="宝马 5系 2013款 5系 2.0T 手自一体 豪华型"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/username_fontsize" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:layout_below="@+id/ci_userphoto"
+            android:layout_marginTop="3dip"
+            android:background="@color/lightgrey" />
+
+        <TextView
+            android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_top"
-            android:layout_marginLeft="@dimen/margin_left"
-            android:layout_marginRight="@dimen/margin_right"
-            android:orientation="vertical">
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="15dip"
+            android:layout_marginTop="3dip"
+            android:minHeight="@dimen/questionlist_item_phone_height"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/margin_right"
-                android:layout_marginTop="@dimen/margin_top"
-                android:minHeight="@dimen/questionlist_item_titlec_height">
+        <com.lazycare.carcaremaster.widget.ScrollGridView
+            android:id="@+id/gv_image_qa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="40dip"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:visibility="gone" />
+    </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_userphoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_horizontal">
 
-                    <com.facebook.drawee.view.SimpleDraweeView
-                        android:id="@+id/ci_userphoto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        fresco:failureImage="@drawable/defaulthead"
-                        fresco:failureImageScaleType="centerInside"
-                        fresco:placeholderImage="@drawable/defaulthead"
-                        fresco:placeholderImageScaleType="fitCenter" />
-                </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/layout_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_left"
+        android:layout_marginLeft="15dip"
+        android:layout_marginTop="4dip"
+        android:background="@drawable/btn_verifi_bg"
+        android:clickable="true"
+        android:padding="3dip"
+        android:visibility="gone">
 
-                <LinearLayout
-                    android:id="@+id/ll_usertip"
-                    android:layout_width="20dip"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
+        <ImageView
+            android:id="@+id/iv_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="left"
+            android:layout_marginLeft="6dip"
+            android:clickable="false"
+            android:focusable="false" />
 
-                    <Button
-                        android:id="@+id/item_tip"
-                        android:layout_width="20dip"
-                        android:layout_height="20dip"
-                        android:layout_gravity="center"
-                        android:background="@drawable/btn_tip"
-                        android:gravity="center"
-                        android:text="12"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
+        <TextView
+            android:id="@+id/view_tv_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="60dip"
+            android:layout_toRightOf="@+id/iv_imageview"
+            android:text="4s"
+            android:textColor="#f79d17"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_left"
-                    android:layout_marginRight="@dimen/margin_right"
-                    android:layout_toLeftOf="@+id/ll_usertip"
-                    android:layout_toRightOf="@id/ll_userphoto"
-                    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_top"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/questionlist_item_phone_height">
 
-                    <TextView
-                        android:id="@+id/tv_phonenumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="1327122****" />
+        <TextView
+            android:id="@+id/tv_replaytime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
 
-                    <TextView
-                        android:id="@+id/tv_cardescribtion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="宝马 5系 2013款 5系 2.0T 手自一体 豪华型"
-                        android:textColor="@color/grey"
-                        android:textSize="@dimen/username_fontsize" />
-                </LinearLayout>
-            </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_replaycount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="(1)"
+            android:textColor="@color/grey" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0.7dip"
-                android:background="@color/lightgrey" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:layout_toLeftOf="@id/tv_replaycount"
+            android:background="@drawable/icon_replay"
+            android:duplicateParentState="false" />
+    </RelativeLayout>
+</LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:layout_marginTop="3dip"
-                android:minHeight="@dimen/questionlist_item_phone_height"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:visibility="gone" />
-
-            <com.lazycare.carcaremaster.widget.ScrollGridView
-                android:id="@+id/gv_image_qa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="40dip"
-                android:numColumns="4"
-                android:scrollbars="none"
-                android:visibility="gone" />
-
-            <RelativeLayout
-                android:id="@+id/layout_audio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_left"
-                android:layout_marginLeft="10dip"
-                android:layout_marginTop="4dip"
-                android:background="@drawable/btn_verifi_bg"
-                android:clickable="true"
-                android:padding="3dip"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/iv_imageview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="6dip"
-                    android:clickable="false"
-                    android:focusable="false" />
-
-                <TextView
-                    android:id="@+id/view_tv_audio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dip"
-                    android:layout_marginRight="60dip"
-                    android:layout_toRightOf="@+id/iv_imageview"
-                    android:text="4s"
-                    android:textColor="#f79d17"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:minHeight="@dimen/questionlist_item_phone_height">
-
-                <TextView
-                    android:id="@+id/tv_replaytime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true" />
-
-                <TextView
-                    android:id="@+id/tv_replaycount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="(1)"
-                    android:textColor="@color/grey" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dip"
-                    android:layout_toLeftOf="@id/tv_replaycount"
-                    android:background="@drawable/icon_replay"
-                    android:duplicateParentState="false" />
-            </RelativeLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-</RelativeLayout>

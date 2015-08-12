@@ -49,7 +49,7 @@ public class ModelPopup extends PopupWindow implements OnClickListener {
 		// 设置SelectPicPopupWindow弹出窗体动画效果
 		this.setAnimationStyle(R.style.PopupAnimation);
 		// 实例化一个ColorDrawable颜色为半透明
-		ColorDrawable dw = new ColorDrawable(0xb0000000);// 0xb0000000
+		ColorDrawable dw = new ColorDrawable(0xb0187D0);// 0xb0000000
 		// 设置SelectPicPopupWindow弹出窗体的背景
 		this.setBackgroundDrawable(dw);// 半透明颜色
 	}

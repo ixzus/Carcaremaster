@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height"
+    android:background="@drawable/imt_item_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:paddingBottom="@dimen/padding_bottom">
+
+        <ImageView
+            android:id="@+id/ItemImage"
+            android:layout_width="@dimen/menuitem_width"
+            android:layout_height="@dimen/menuitem_height"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="27dip" />
+
+        <TextView
+            android:id="@+id/ItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ItemImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dip"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:paddingBottom="@dimen/padding_bottom">
+
+        <TextView
+            android:id="@+id/main_tip"
+            android:layout_width="10dip"
+            android:layout_height="10dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="18dip"
+            android:background="@drawable/btn_tip_roal"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="center" />
+    </RelativeLayout>
+
+</FrameLayout>

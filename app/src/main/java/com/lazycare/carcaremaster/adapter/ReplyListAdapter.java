@@ -1,11 +1,15 @@
 package com.lazycare.carcaremaster.adapter;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.util.Log;
@@ -29,6 +33,7 @@ import com.lazycare.carcaremaster.data.QuestionReplyClass;
 import com.lazycare.carcaremaster.util.CommonUtil;
 import com.lazycare.carcaremaster.util.Config;
 import com.lazycare.carcaremaster.util.DateUtil;
+import com.lazycare.carcaremaster.util.StringUtil;
 import com.lazycare.carcaremaster.widget.AudioPlayer;
 
 /**
@@ -231,7 +236,7 @@ public class ReplyListAdapter extends BaseAdapter {
         if (msg.getMphotos() != null && msg.getMphotos().size() != 0) {
             viewHolderLeft.leftPhoto.setVisibility(View.VISIBLE);
             ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(msg.getMphotos().get(0)))
-                    .setResizeOptions(new ResizeOptions(400, 400))
+                    .setResizeOptions(new ResizeOptions(200, 200))
                     .setAutoRotateEnabled(true)//设置图片智能摆正
                     .setProgressiveRenderingEnabled(true)//设置渐进显示
                     .build();
@@ -242,19 +247,19 @@ public class ReplyListAdapter extends BaseAdapter {
             viewHolderLeft.leftPhoto.setController(controller);
             // 图片点击动作
             viewHolderLeft.leftPhoto.setTag(msg.getMphotos().get(0));
+
             viewHolderLeft.leftPhoto.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
 
-                    ArrayList<String> list = new ArrayList<String>();
+                    ArrayList<String> list = new ArrayList<>();
                     list.add((String) v.getTag());
                     if (DateUtil.isFastDoubleClick())
                         return;
                     Intent intent = new Intent(context,
                             ImagesShowActivity.class);
-                    intent.putStringArrayListExtra("mlist",
-                            (ArrayList<String>) list);
+                    intent.putStringArrayListExtra("mlist", list);
                     intent.putExtra("pos", 0 + "");
                     intent.putExtra("type", "1");// 网络
                     context.startActivity(intent);
@@ -268,8 +273,7 @@ public class ReplyListAdapter extends BaseAdapter {
             viewHolderLeft.leftVoice.setVisibility(View.VISIBLE);
             viewHolderLeft.leftVoice
                     .setBackgroundResource(R.drawable.chatfrom_voice_playing);
-            // player = new AudioPlayer(context, viewHolderLeft.leftVoice,
-            // "right");// 朝向右边的控件
+
             viewHolderLeft.leftVoice.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -316,7 +320,7 @@ public class ReplyListAdapter extends BaseAdapter {
             viewHolderRight.rightPhoto.setVisibility(View.VISIBLE);
             String urlOrPath = msg.getMphotos().get(0);
             ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(urlOrPath))
-                    .setResizeOptions(new ResizeOptions(400, 400))
+                    .setResizeOptions(new ResizeOptions(200, 200))
                     .setAutoRotateEnabled(true)//设置图片智能摆正
                     .setProgressiveRenderingEnabled(true)//设置渐进显示
                     .build();
@@ -325,6 +329,7 @@ public class ReplyListAdapter extends BaseAdapter {
                     .setOldController(viewHolderRight.rightPhoto.getController())
                     .build();
             viewHolderRight.rightPhoto.setController(controller);
+
             viewHolderRight.rightPhoto.setTag(urlOrPath);
             viewHolderRight.rightPhoto
                     .setOnClickListener(new OnClickListener() {
@@ -332,14 +337,12 @@ public class ReplyListAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
 
-                            ArrayList<String> list = new ArrayList<String>();
+                            ArrayList<String> list = new ArrayList<>();
                             list.add((String) v.getTag());
                             if (DateUtil.isFastDoubleClick())
                                 return;
-                            Intent intent = new Intent(context,
-                                    ImagesShowActivity.class);
-                            intent.putStringArrayListExtra("mlist",
-                                    (ArrayList<String>) list);
+                            Intent intent = new Intent(context, ImagesShowActivity.class);
+                            intent.putStringArrayListExtra("mlist", list);
                             intent.putExtra("pos", 0 + "");//当前点击的位置
                             intent.putExtra("type", "1");// 网络
                             context.startActivity(intent);
@@ -350,11 +353,7 @@ public class ReplyListAdapter extends BaseAdapter {
         if (!msg.getAudio().equals("")) {
             viewHolderRight.rightVoice.setTag(msg.getAudio());
             viewHolderRight.rightVoice.setVisibility(View.VISIBLE);
-            viewHolderRight.rightVoice
-                    .setBackgroundResource(R.drawable.chatto_voice_playing_f3);
-            // 初始化音频播放控件
-            // player = new AudioPlayer(context, viewHolderRight.rightVoice,
-            // "left");
+            viewHolderRight.rightVoice.setBackgroundResource(R.drawable.chatto_voice_playing_f3);
             viewHolderRight.rightVoice
                     .setOnClickListener(new OnClickListener() {
                         @Override
@@ -376,7 +375,6 @@ public class ReplyListAdapter extends BaseAdapter {
             viewHolderRight.rightText.setText(msg.getContent());
         }
 
-        // displayName(position, viewHolderRight.rightNickname);
         viewHolderRight.rightNickname.setVisibility(View.VISIBLE);
         viewHolderRight.rightNickname.setText("我");
         // 右边的name，直接显示我

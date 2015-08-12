@@ -34,6 +34,7 @@
     <string name="questionlist_tab1">&#640;我</string>
     <string name="questionlist_tab2">&#160;抢单</string>
     <string name="questionlist_tab3">我的回复</string>
+    <string name="tip_str"></string>
     <string name="dir">/lanrenyangche</string>
     <string name="db_dir">/database</string>
     <string name="imcoming_message_ticker_text">新的消息: <xliff:g id="text">%0$s</xliff:g></string>

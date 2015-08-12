@@ -49,6 +49,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     private static ReConnectService mReConnectService = new ReConnectService();
     public Toolbar mToolbar;
     private ReconnectReceiver receiver;
+    private boolean isFullScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,10 @@ public abstract class BaseActivity extends ActionBarActivity {
         }
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.statusbar_bg);
+        if (isFullScreen)
+            tintManager.setStatusBarTintResource(R.color.transparent);
+        else
+            tintManager.setStatusBarTintResource(R.color.statusbar_bg);
         initView();
         receiver = new ReconnectReceiver();
         //获取imei码
@@ -81,6 +85,9 @@ public abstract class BaseActivity extends ActionBarActivity {
 //        IMEI = tm.getDeviceId();
     }
 
+    public void setIsFullScreen(boolean isFullScreen) {
+        this.isFullScreen = isFullScreen;
+    }
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {

@@ -18,7 +18,7 @@
         android:layout_marginTop="5dip"
         android:divider="@null"
         android:dividerHeight="4dip"
-        android:layoutAnimation="@anim/layout_bottom_to_top_slide"
+        android:layoutAnimation="@anim/layout_left_to_right"
         android:persistentDrawingCache="animation|scrolling" />
 
     <TextView

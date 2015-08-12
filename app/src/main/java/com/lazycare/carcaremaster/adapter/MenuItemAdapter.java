@@ -71,7 +71,7 @@ public class MenuItemAdapter extends BaseAdapter {
 		if (null == convertView) {
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(mContext).inflate(
-					R.layout.item_meun, null);
+					R.layout.item_menu, null);
 			holder.ItemImage = (ImageView) convertView
 					.findViewById(R.id.ItemImage);
 			holder.ItemText = (TextView) convertView
@@ -85,7 +85,7 @@ public class MenuItemAdapter extends BaseAdapter {
 		MenuClass mc = listMenus.get(position);
 		if (position == 0 && mc.getUnread() != 0) {
 			holder.tip.setVisibility(View.VISIBLE);
-			holder.tip.setText(String.valueOf(mc.getUnread()));
+//			holder.tip.setText(String.valueOf(mc.getUnread()));
 		}
 		holder.ItemImage.setImageResource(res.get(position));
 		holder.ItemText.setText(mc.getName());

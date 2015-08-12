@@ -173,6 +173,9 @@ public class PhotoView extends ImageView implements IPhotoView {
         return mAttacher.getScaleType();
     }
 
+    /**
+     * @param allow whether to allow intercepting by parent element or not
+     */
     @Override
     public void setAllowParentInterceptOnEdge(boolean allow) {
         mAttacher.setAllowParentInterceptOnEdge(allow);

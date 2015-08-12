@@ -458,11 +458,10 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements OnC
             case R.id.more_btn2:
                 break;
             case R.id.multiMediaButton:
+                hideSoftInputView();
                 if (layout_more.getVisibility() == View.VISIBLE) {
-                    hideSoftInputView();
                     layout_more.setVisibility(View.GONE);
                 } else if (layout_more.getVisibility() == View.GONE) {
-                    hideSoftInputView();
                     layout_more.setVisibility(View.VISIBLE);
                 }
                 break;

@@ -3,21 +3,21 @@
     <item android:state_pressed="true">
         <shape>
             <corners android:radius="3dip" />
-            <solid android:color="@color/darkolivegreen" />
+            <solid android:color="@color/main_blue_light" />
         </shape>
     </item>
     <!-- pressed -->
     <item android:state_focused="true">
         <shape>
             <corners android:radius="3dip" />
-            <solid android:color="@color/darkolivegreen" />
+            <solid android:color="@color/main_blue_light" />
         </shape>
     </item>
     <!-- focused -->
     <item>
         <shape>
             <corners android:radius="3dip" />
-            <solid android:color="@color/olivedrab" />
+            <solid android:color="@color/statusbar_bg" />
         </shape>
     </item>
     <!-- default -->

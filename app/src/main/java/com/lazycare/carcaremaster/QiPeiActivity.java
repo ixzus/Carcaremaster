@@ -1,6 +1,7 @@
 package com.lazycare.carcaremaster;
 
 import android.graphics.Bitmap;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebChromeClient;
@@ -53,9 +54,9 @@ public class QiPeiActivity extends BaseActivity {
         webview.requestFocus();
         webview.setHorizontalScrollbarOverlay(true);
         if (NetworkUtil.isNetworkAvailable(mContext))
-//			webview.loadUrl("http://wx.sooqp.com");
+            webview.loadUrl("http://wx.sooqp.com");
 
-            webview.loadUrl("http://www.ssei.cn/TzsbZyAzProjectWEB/pages/weixin/index_ywdt.jsp");
+//            webview.loadUrl("http://www.ssei.cn/TzsbZyAzProjectWEB/pages/weixin/index_ywdt.jsp");
         else {
             webview.loadUrl("file:///android_asset/network_warning.htm");
         }
@@ -112,5 +113,16 @@ public class QiPeiActivity extends BaseActivity {
                 super.onProgressChanged(view, newProgress);
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (webview.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK) {
+            webview.goBack();
+            return true;
+        } else
+            finish();
+        return false;
     }
 }

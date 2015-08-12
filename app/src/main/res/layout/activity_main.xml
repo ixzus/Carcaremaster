@@ -1,78 +1,135 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightgrey"
     android:clipToPadding="true"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/include_toolbar" />
-
-    <RelativeLayout
-        android:id="@+id/rl_userinfo"
+    <LinearLayout
+        android:id="@+id/rl_maintop"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/main_top_height"
-        android:background="@color/statusbar_bg">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/userinfo_bg"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/main_top_content_height"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/include_toolbar"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_collapseMode="pin" />
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sdv_headphoto"
-                android:layout_width="@dimen/main_top_content_height"
-                android:layout_height="@dimen/main_top_content_height"
-                fresco:failureImage="@drawable/defaulthead"
-                fresco:failureImageScaleType="centerInside"
-                fresco:placeholderImage="@drawable/defaulthead"
-                fresco:placeholderImageScaleType="fitCenter" />
+        <RelativeLayout
+            android:id="@+id/rl_userinfo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_top_height">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/main_top_content_height"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/margin_left"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_username"
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_headphoto"
+                    android:layout_width="@dimen/main_top_content_height"
+                    android:layout_height="@dimen/main_top_content_height"
+                    fresco:failureImage="@drawable/defaulthead"
+                    fresco:failureImageScaleType="centerInside"
+                    fresco:placeholderImage="@drawable/defaulthead"
+                    fresco:placeholderImageScaleType="fitCenter" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/username_fontsize" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dip"
-                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_userrank"
+                        android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/xicon_usertech_bg"
-                        android:padding="@dimen/usertech_bg_padding"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </RelativeLayout>
+                        android:textSize="@dimen/username_fontsize" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_userrank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/xicon_usertech_bg"
+                            android:padding="@dimen/usertech_bg_padding"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <ViewFlipper
+        android:id="@+id/flipper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:flipInterval="7000">
+
+        <TextView
+            android:id="@+id/tv_gotoqipei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="源泰搜汽配"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="源泰搜汽配2"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="源泰搜汽配3"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="源泰搜汽配4"
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+    </ViewFlipper>
 
     <RelativeLayout
         android:id="@+id/rl_pannel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_userinfo"
+        android:layout_above="@+id/flipper"
+        android:layout_below="@id/rl_maintop"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -92,4 +149,5 @@
             android:verticalSpacing="@dimen/gridview_specingwidth" />
     </RelativeLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

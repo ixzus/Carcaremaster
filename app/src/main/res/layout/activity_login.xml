@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layoutAnimation="@anim/layout_bottom_to_top"
         android:layout_marginTop="@dimen/usertech_bg_padding"
         android:orientation="vertical">
 
@@ -83,7 +84,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_height"
-            android:layout_marginTop="10dip">
+            android:layout_marginTop="20dip">
 
             <Button
                 android:id="@+id/btn_login"
@@ -99,6 +100,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_height"
+            android:layout_marginRight="6dip"
             android:layout_marginTop="@dimen/margin_top">
 
             <TextView
@@ -106,6 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+
                 android:text="@string/txt_forgetpwd"
                 android:textColor="@color/red" />
         </RelativeLayout>

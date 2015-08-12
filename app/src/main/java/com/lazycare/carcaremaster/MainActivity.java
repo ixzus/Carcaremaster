@@ -6,16 +6,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -61,11 +63,23 @@ public class MainActivity extends BaseActivity {
     TextView tvUserrank;
     @Bind(R.id.gv_menu)
     GridView gvMenu;
+    @Bind(R.id.tv_gotoqipei)
+    TextView tvGotoqipei;
+    @Bind(R.id.flipper)
+    ViewFlipper flipper;
+    @Bind(R.id.rl_pannel)
+    RelativeLayout rlPannel;
 
     @OnClick(R.id.sdv_headphoto)
+    void goUserCenter() {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, UserInfoActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_gotoqipei)
     void goQiPei() {
         Intent intent = new Intent();
-        // intent.setClass(MainActivity.this, UserInfoActivity.class);
         intent.setClass(MainActivity.this, QiPeiActivity.class);
         startActivity(intent);
     }
@@ -127,6 +141,7 @@ public class MainActivity extends BaseActivity {
     public void setActionBarOption() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("首页");
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.transparent));
         setSupportActionBar(mToolbar);
     }
 
@@ -136,6 +151,11 @@ public class MainActivity extends BaseActivity {
         adapter = new MenuItemAdapter(MainActivity.this);
         // 添加Item到网格中
         gvMenu.setAdapter(adapter);
+        flipper.setInAnimation(AnimationUtils.loadAnimation(this,
+                R.anim.push_left_in));
+        flipper.setOutAnimation(AnimationUtils.loadAnimation(this,
+                R.anim.push_left_out));
+        flipper.startFlipping();
 //        lstMenu = new ArrayList<>();
 //        MenuClass menuClass = null;
 //        for (int i = 0; i < 6; i++) {

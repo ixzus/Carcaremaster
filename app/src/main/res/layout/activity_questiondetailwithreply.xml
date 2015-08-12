@@ -26,6 +26,7 @@
             android:dividerHeight="10dip"
             android:minHeight="100dip"
             android:paddingBottom="44dip"
+            android:layoutAnimation="@anim/layout_bottom_to_top"
             android:scrollbars="none" />
 
         <LinearLayout

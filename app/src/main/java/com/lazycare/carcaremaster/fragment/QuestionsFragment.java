@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -293,10 +294,9 @@ public class QuestionsFragment extends BaseFragment implements RefreshLayout.OnR
                         } else if (type == 2) {
                             dataSize = Integer.parseInt(complate);
                         }
-
-                        mPagerSlidingTabStrip.setTabText(0, "@我" + "(" + my + ")");
-                        mPagerSlidingTabStrip.setTabText(1, "抢单" + "(" + pub + ")");
-                        mPagerSlidingTabStrip.setTabText(2, "我的回复" + "(" + complate + ")");
+                        mPagerSlidingTabStrip.setTabText(0, "@我 (" + my + ")");
+                        mPagerSlidingTabStrip.setTabText(1, "抢单 (" + pub + ")");
+                        mPagerSlidingTabStrip.setTabText(2, "我的回复 (" + complate + ")");
                         //获取到所有数据集
                         List<QuestionClass> temp = gson.fromJson(list, new TypeToken<List<QuestionClass>>() {
                         }.getType());

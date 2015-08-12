@@ -14,6 +14,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,7 @@ import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.facebook.imagepipeline.request.Postprocessor;
+import com.lazycare.carcaremaster.widget.HackyViewPager;
 import com.lazycare.carcaremaster.widget.imageview.PhotoView;
 import com.lazycare.carcaremaster.widget.imageview.PhotoViewAttacher;
 
@@ -45,7 +47,7 @@ import java.util.List;
  * @date 2015年6月2日
  */
 public class ImagesShowActivity extends BaseActivity {
-    private ViewPager viewPager;
+    private HackyViewPager viewPager;
     // private int[] res = { R.drawable.login_bg, R.drawable.login_bg,
     // R.drawable.login_bg, R.drawable.login_bg };
     private MyPageAdapter adapter;
@@ -63,13 +65,12 @@ public class ImagesShowActivity extends BaseActivity {
 
     @Override
     public void setActionBarOption() {
-        // TODO Auto-generated method stub
-
+        setIsFullScreen(true);
     }
 
     @Override
     public void initView() {
-        viewPager = (ViewPager) this.findViewById(R.id.viewpage);
+        viewPager = (HackyViewPager) this.findViewById(R.id.viewpage);
         txt = (TextView) findViewById(R.id.show_txt);
         back = (Button) findViewById(R.id.show_back);
         res = getIntent().getStringArrayListExtra("mlist");
@@ -86,14 +87,12 @@ public class ImagesShowActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
         back.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 finish();
             }
         });
@@ -140,7 +139,7 @@ public class ImagesShowActivity extends BaseActivity {
 
         @Override
         public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == (View) arg1;
+            return arg0 == arg1;
         }
 
         @Override
@@ -153,66 +152,31 @@ public class ImagesShowActivity extends BaseActivity {
             View iv = LayoutInflater.from(context).inflate(
                     R.layout.item_viewpage, null);
             PhotoView img = (PhotoView) iv.findViewById(R.id.imageview);
-//            GestureImageView img = (GestureImageView) iv.findViewById(R.id.image);
-//            ImageView img=(ImageView)iv.findViewById(R.id.imageview);
-
-//            TuoFrescoProcessor processor = new TuoFrescoProcessor();
-//            OpusTypeProcessor opusTypeProcessor = new OpusTypeProcessor(context);
-//            opusTypeProcessor.setOpusType(opusInfo.getOpusType());
-//            processor.addProcessor(opusTypeProcessor);
-            /**
-             * 给图片加标识
-             */
-            Postprocessor redMeshPostprocessor = new BasePostprocessor() {
-                @Override
-                public String getName() {
-                    return "redMeshPostprocessor";
-                }
-
-                @Override
-                public void process(Bitmap bitmap) {
-                    Canvas canvas = new Canvas(bitmap);
-                    //对bitmap进行处理
-
-                    canvas.drawBitmap(bitmap, 0.0f, 0.0f, null);
-
-                    TextPaint textPaint = new TextPaint();
-                    textPaint.setAntiAlias(true);
-                    textPaint.setTextSize(16.0F);
-                    StaticLayout sl = new StaticLayout("GIF", textPaint, bitmap.getWidth() - 8, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
-                    canvas.translate(6, 40);
-                    sl.draw(canvas);
-                }
-
-            };
-            ControllerListener listener = new BaseControllerListener();
             if (!res.get(position).equals("")) {
-//                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(res.get(position)))
-////                            .setResizeOptions(new ResizeOptions(100, 100))//修改图片大小
-//                        .setAutoRotateEnabled(true)//设置图片智能摆正
-//                        .setProgressiveRenderingEnabled(true)//设置渐进显示
-////                            .setPostprocessor(redMeshPostprocessor)//设置后处理  (设置之后加载图片每次都会有progress，说明每次都要从网络从新加载)
-//                        .build();
-//                PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-//                        .setImageRequest(request)
-//                        .setOldController(img.getController())
-//                        .setControllerListener(listener)
-//                        .build();
-//                img.setController(controller);
                 img.setZoomable(true);
+                img.setAllowParentInterceptOnEdge(true);
                 img.setImageUri(res.get(position));
             }
-            img.setOnClickListener(new OnClickListener() {
+            //图片区域内单击之后退出
+            img.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
                 @Override
-                public void onClick(View v) {
+                public void onPhotoTap(View view, float x, float y) {
                     finish();
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }
             });
-            ((ViewPager) container).addView(iv, 0);
+            container.addView(iv, 0);
             return iv;
         }
-
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+        return false;
+    }
 }

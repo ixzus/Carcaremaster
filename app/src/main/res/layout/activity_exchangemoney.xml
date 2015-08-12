@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/exchangemoney_item_height"
-        android:background="@drawable/view_questionitem_bg"
+        android:background="@drawable/item_question_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dip"
-        android:background="@drawable/view_questionitem_bg"
+        android:background="@drawable/item_question_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -325,7 +325,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/exchangemoney_item_height"
         android:layout_marginTop="@dimen/common_height"
-        android:background="@drawable/view_questionitem_bg"
+        android:background="@drawable/item_question_bg"
         android:gravity="center_vertical">
 
         <ImageView

@@ -32,6 +32,7 @@ import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.widget.PopupMenu;
+import android.text.Spanned;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -231,7 +232,6 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     }
 
     private void addTextTab(final int position, String title) {
-
         TextView tab = new TextView(getContext());
         tab.setText(title);
         tab.setGravity(Gravity.CENTER);
@@ -240,12 +240,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     }
 
     private void addIconTab(final int position, int resId) {
-
         ImageButton tab = new ImageButton(getContext());
         tab.setImageResource(resId);
-
         addTab(position, tab);
-
     }
 
     private void addTab(final int position, final View tab) {
@@ -266,8 +263,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private void showPopMenu(View currentTab) {
         PopupMenu popup = new PopupMenu(getContext(), currentTab);
         //Inflating the Popup using xml file
-        popup.getMenuInflater()
-                .inflate(expandMenuId, popup.getMenu());
+        popup.getMenuInflater().inflate(expandMenuId, popup.getMenu());
         //registering popup with OnMenuItemClickListener
         popup.setOnMenuItemClickListener(menuItemClickListener);
         popup.show(); //showing popup menu
@@ -286,15 +282,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     }
 
     private void updateTabStyles() {
-
         for (int i = 0; i < tabCount; i++) {
-
             View v = tabsContainer.getChildAt(i);
-
             v.setBackgroundResource(tabBackgroundResId);
-
             if (v instanceof TextView) {
-
                 TextView tab = (TextView) v;
                 tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
                 tab.setTypeface(tabTypeface, tabTypefaceStyle);
