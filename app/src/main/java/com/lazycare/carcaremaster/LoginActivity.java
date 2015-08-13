@@ -127,6 +127,11 @@ public class LoginActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //避免点击打开，返回，点击图标后
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

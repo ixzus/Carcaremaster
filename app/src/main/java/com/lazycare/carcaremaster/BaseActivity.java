@@ -55,6 +55,11 @@ public abstract class BaseActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        //避免点击打开，返回，点击图标后
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
         // bug分析
         MobclickAgent.setDebugMode(true);
         MobclickAgent.openActivityDurationTrack(false);
@@ -80,6 +85,7 @@ public abstract class BaseActivity extends ActionBarActivity {
             tintManager.setStatusBarTintResource(R.color.statusbar_bg);
         initView();
         receiver = new ReconnectReceiver();
+
         //获取imei码
 //        TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
 //        IMEI = tm.getDeviceId();
