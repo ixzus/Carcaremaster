@@ -183,7 +183,7 @@ public class CoreService extends Service {
         Intent notifyIntent = new Intent(this, activity);
 
         notifyIntent.putExtra("type", type);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 		/* 创建PendingIntent作为设置递延运行的Activity */
         PendingIntent appIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT);// 即时更新

@@ -52,7 +52,7 @@ public class ImagesShowActivity extends BaseActivity {
     // R.drawable.login_bg, R.drawable.login_bg };
     private MyPageAdapter adapter;
 
-    private List<String> res = new ArrayList<>();
+    private List<String> res = new ArrayList<String>();
     private int position = 0;
     private TextView txt;
     private Button back;
