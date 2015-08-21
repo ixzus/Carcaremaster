@@ -43,8 +43,8 @@
     <style name="detail_item_texttip_style">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">@dimen/common_height</item>
-        <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/username_fontsize</item>
         <item name="android:textColor">@color/black</item>
@@ -54,7 +54,6 @@
     <style name="detail_item_text_style">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">@dimen/common_height</item>
-        <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/username_fontsize</item>
@@ -64,7 +63,6 @@
     <style name="detail_info_item_text_style">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">@dimen/common_height</item>
-        <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/username_fontsize</item>

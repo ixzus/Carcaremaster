@@ -11,7 +11,7 @@
         android:layout_height="100dip"
         android:layout_above="@+id/tvNonet"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/no_wifi" />
+        android:src="@mipmap/no_wifi" />
 
     <TextView
         android:id="@+id/tvNonet"

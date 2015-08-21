@@ -191,7 +191,7 @@ public class QuestionsAdapter extends BaseAdapter {
         // 回复的数量
         holder.tv_replaycount.setText(qc.getAnswers_count());
         // 获得所有的图片url
-        lstPhoto = new ArrayList<String>();
+        lstPhoto = new ArrayList<>();
         lstPhoto = qc.getMphotos();
         if (!ObjectUtil.isEmpty(lstPhoto)) {
             holder.gv_image.setVisibility(View.VISIBLE);
@@ -224,7 +224,7 @@ public class QuestionsAdapter extends BaseAdapter {
             holder.iv_imageview.setVisibility(View.VISIBLE);
             holder.rl_voice.setVisibility(View.VISIBLE);
             holder.iv_imageview
-                    .setBackgroundResource(R.drawable.chatfrom_voice_playing);
+                    .setBackgroundResource(R.mipmap.chatfrom_voice_playing);
             // 点击播放音频
             holder.rl_voice.setOnClickListener(new OnClickListener() {
 

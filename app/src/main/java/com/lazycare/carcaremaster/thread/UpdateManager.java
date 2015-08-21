@@ -215,7 +215,7 @@ public class UpdateManager {
     }
 
     private void setUpNotification() {
-        int icon = R.drawable.ic_launcher;
+        int icon = R.mipmap.ic_launcher;
         CharSequence tickerText = "开始下载";
         long when = System.currentTimeMillis();
         mNotification = new Notification(icon, tickerText, when);
@@ -246,31 +246,6 @@ public class UpdateManager {
     /**
      * 显示软件下载对话框
      */
-    // private void showDownloadDialog() {
-    // // 构造软件下载对话框
-    // AlertDialog.Builder builder = new Builder(mContext);
-    // builder.setTitle("正在更新");
-    // // 给下载对话框增加进度条
-    // final LayoutInflater inflater = LayoutInflater.from(mContext);
-    // View v = inflater.inflate(R.layout.update_progress, null);
-    // // mProgress = (ProgressBar) v.findViewById(R.id.update_progress);
-    // builder.setView(v);
-    // // 取消更新
-    // builder.setNegativeButton("取消", new OnClickListener() {
-    // @Override
-    // public void onClick(DialogInterface dialog, int which) {
-    // dialog.dismiss();
-    // // 设置取消状态
-    // cancelUpdate = true;
-    // }
-    // });
-    // mDownloadDialog = builder.create();
-    // mDownloadDialog.show();
-    //
-    // // 现在文件
-    // downloadApk();
-    //
-    // }
     private void showDownloadDialog() {
         //开启启动提醒
         mContext.getSharedPreferences(Config.USERINFO, 0).edit()
@@ -290,18 +265,8 @@ public class UpdateManager {
     }
 
     /**
-     * 下载apk文件
-     */
-    private void downloadApk() {
-
-    }
-
-//    private int lastRate = 0;
-
-    /**
      * 下载文件线程
      *
-     * @author coolszy
      * @date 2012-4-26
      * @blog http://blog.92coding.com
      */
@@ -387,10 +352,7 @@ public class UpdateManager {
         }
         // 通过Intent安装APK文件
         Intent i = new Intent(Intent.ACTION_VIEW);
-        // i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
-        // "application/vnd.android.package-archive");
-        i.setDataAndType(Uri.fromFile(new File(apkfile.toString())),
-                "application/vnd.android.package-archive");
+        i.setDataAndType(Uri.fromFile(new File(apkfile.toString())), "application/vnd.android.package-archive");
         mContext.startActivity(i);
     }
 }

@@ -99,13 +99,13 @@ public class RecordButton extends Button {
 
 		switch (flag) {
 		case 1:
-			dialogImg.setImageResource(R.drawable.record_cancel);
+			dialogImg.setImageResource(R.mipmap.record_cancel);
 			dialogTextView.setText("松开手指可取消录音");
 			this.setText("松开手指 取消录音");
 			break;
 
 		default:
-			dialogImg.setImageResource(R.drawable.record_animate_01);
+			dialogImg.setImageResource(R.mipmap.record_animate_01);
 			dialogTextView.setText("向上滑动可取消录音");
 			this.setText("松开手指 完成录音");
 			break;
@@ -133,33 +133,33 @@ public class RecordButton extends Button {
 	// 录音Dialog图片随录音音量大小切换
 	private void setDialogImage() {
 		if (voiceValue < 600.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_01);
+			dialogImg.setImageResource(R.mipmap.record_animate_01);
 		} else if (voiceValue > 600.0 && voiceValue < 1000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_02);
+			dialogImg.setImageResource(R.mipmap.record_animate_02);
 		} else if (voiceValue > 1000.0 && voiceValue < 1200.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_03);
+			dialogImg.setImageResource(R.mipmap.record_animate_03);
 		} else if (voiceValue > 1200.0 && voiceValue < 1400.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_04);
+			dialogImg.setImageResource(R.mipmap.record_animate_04);
 		} else if (voiceValue > 1400.0 && voiceValue < 1600.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_05);
+			dialogImg.setImageResource(R.mipmap.record_animate_05);
 		} else if (voiceValue > 1600.0 && voiceValue < 1800.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_06);
+			dialogImg.setImageResource(R.mipmap.record_animate_06);
 		} else if (voiceValue > 1800.0 && voiceValue < 2000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_07);
+			dialogImg.setImageResource(R.mipmap.record_animate_07);
 		} else if (voiceValue > 2000.0 && voiceValue < 3000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_08);
+			dialogImg.setImageResource(R.mipmap.record_animate_08);
 		} else if (voiceValue > 3000.0 && voiceValue < 4000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_09);
+			dialogImg.setImageResource(R.mipmap.record_animate_09);
 		} else if (voiceValue > 4000.0 && voiceValue < 6000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_10);
+			dialogImg.setImageResource(R.mipmap.record_animate_10);
 		} else if (voiceValue > 6000.0 && voiceValue < 8000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_11);
+			dialogImg.setImageResource(R.mipmap.record_animate_11);
 		} else if (voiceValue > 8000.0 && voiceValue < 10000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_12);
+			dialogImg.setImageResource(R.mipmap.record_animate_12);
 		} else if (voiceValue > 10000.0 && voiceValue < 12000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_13);
+			dialogImg.setImageResource(R.mipmap.record_animate_13);
 		} else if (voiceValue > 12000.0) {
-			dialogImg.setImageResource(R.drawable.record_animate_14);
+			dialogImg.setImageResource(R.mipmap.record_animate_14);
 		}
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.setTimeInMillis((long) (recodeTime * 1000));

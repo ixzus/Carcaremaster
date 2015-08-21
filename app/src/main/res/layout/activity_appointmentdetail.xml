@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/icon_title_bg"
+                android:background="@mipmap/icon_title_bg"
                 android:gravity="center_vertical"
                 android:minHeight="45dip"
                 android:orientation="horizontal">
@@ -120,7 +120,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dip"
-                    android:background="@drawable/ic_keyboard_arrow_right_grey600_36dp"
+                    android:background="@mipmap/ic_keyboard_arrow_right_grey600_36dp"
                     android:clickable="false"
                     android:duplicateParentState="true"
                     android:focusable="false" />

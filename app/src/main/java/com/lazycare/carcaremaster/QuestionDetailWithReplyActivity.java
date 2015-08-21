@@ -284,7 +284,7 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements OnC
             qiang.setVisibility(View.GONE);
             second_layout.setVisibility(View.VISIBLE);
         }
-        mCv.ivvoice.setBackgroundResource(R.drawable.chatfrom_voice_playing_f3);
+        mCv.ivvoice.setBackgroundResource(R.mipmap.chatfrom_voice_playing_f3);
         mCv.rlvoice.setVisibility(View.GONE);
         player = new AudioPlayer(mContext, "right");
 
@@ -473,12 +473,12 @@ public class QuestionDetailWithReplyActivity extends BaseActivity implements OnC
                     hideSoftInputView();
                     chat_content.setVisibility(View.INVISIBLE);
                     voiceButton.setVisibility(View.VISIBLE);
-                    voiceOrTextButton.setBackgroundResource(R.drawable.keyborad);
+                    voiceOrTextButton.setBackgroundResource(R.mipmap.keyborad);
                 } else if (chat_content.getVisibility() == View.INVISIBLE) {
                     showSoftInputView();
                     chat_content.setVisibility(View.VISIBLE);
                     voiceButton.setVisibility(View.INVISIBLE);
-                    voiceOrTextButton.setBackgroundResource(R.drawable.voice);
+                    voiceOrTextButton.setBackgroundResource(R.mipmap.voice);
                 }
                 layout_more.setVisibility(View.GONE);
                 break;

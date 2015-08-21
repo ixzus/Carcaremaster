@@ -202,7 +202,7 @@ public class QuestionService extends Service implements Runnable {
 		String tickerText = getString(R.string.imcoming_message_ticker_text,
 				message);
 
-		mNotification = new Notification(R.drawable.ic_launcher, tickerText,
+		mNotification = new Notification(R.mipmap.ic_launcher, tickerText,
 				System.currentTimeMillis());
 
 		mNotification.setLatestEventInfo(this, from, message, contentIntent);

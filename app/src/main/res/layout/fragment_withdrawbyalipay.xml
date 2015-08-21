@@ -114,7 +114,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:visibility="gone"
-            android:src="@drawable/icon_password" />
+            android:src="@mipmap/icon_password" />
 
         <EditText
             android:id="@+id/txt_safePass"

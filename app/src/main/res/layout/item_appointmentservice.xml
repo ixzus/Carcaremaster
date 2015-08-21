@@ -32,7 +32,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:background="@drawable/ic_keyboard_arrow_right_grey600_36dp"
+            android:background="@mipmap/ic_keyboard_arrow_right_grey600_36dp"
             android:clickable="false"
             android:duplicateParentState="true"
             android:focusable="false" />

@@ -49,7 +49,7 @@ public class NetworkUtil {
     /* 开发环境地址 */
 //    public static String IP = "development.chudongyangche.com";
     /* 生产环境地址 */
-	 public static String IP = "121.43.235.158/chudongyangche";
+    public static String IP = "121.43.235.158/chudongyangche";
 
     public static String WSDL_URL = "http://" + IP + "/api/index.php";
     /* menu图片显示的地址 */
@@ -75,8 +75,7 @@ public class NetworkUtil {
     /**
      * 判断网络是否可用
      *
-     * @param
-   0  * @return
+     * @param 0 * @return
      */
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager) context
@@ -326,8 +325,7 @@ public class NetworkUtil {
             Log.d("PARAM", "URL:" + http + uri);
             httpost.setEntity(entity);
             HttpResponse response = mHttpClient.execute(httpost);
-            if (null != response
-                    && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+            if (null != response && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
                 return EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
             else
                 return ErrorUtil.ERROR + ErrorUtil.NETWORK_UNCONNECT;

@@ -71,7 +71,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
-            android:src="@drawable/icon_bank" />
+            android:src="@mipmap/icon_bank" />
 
         <TextView
             android:id="@+id/tv_banknametip"
@@ -89,7 +89,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:src="@drawable/icon_rightarrow" />
+            android:src="@mipmap/icon_rightarrow" />
 
         <TextView
             android:id="@+id/tv_bankname"

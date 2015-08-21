@@ -26,7 +26,7 @@
         android:maxHeight="700dip"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        fresco:progressBarImage="@drawable/ic_launcher"
+        fresco:progressBarImage="@mipmap/ic_launcher"
         fresco:progressBarImageScaleType="centerInside"
         fresco:progressBarAutoRotateInterval="1000"
         fresco:failureImage="@mipmap/pic_failure"

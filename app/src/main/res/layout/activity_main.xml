@@ -37,9 +37,9 @@
                     android:id="@+id/sdv_headphoto"
                     android:layout_width="@dimen/main_top_content_height"
                     android:layout_height="@dimen/main_top_content_height"
-                    fresco:failureImage="@drawable/defaulthead"
+                    fresco:failureImage="@mipmap/defaulthead"
                     fresco:failureImageScaleType="centerInside"
-                    fresco:placeholderImage="@drawable/defaulthead"
+                    fresco:placeholderImage="@mipmap/defaulthead"
                     fresco:placeholderImageScaleType="fitCenter" />
 
                 <LinearLayout

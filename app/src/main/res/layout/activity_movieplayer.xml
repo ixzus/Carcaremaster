@@ -18,7 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dip"
-            android:background="@drawable/videoplayer_icon_play" >
+            android:background="@mipmap/videoplayer_icon_play" >
         </Button>
 
         <SeekBar

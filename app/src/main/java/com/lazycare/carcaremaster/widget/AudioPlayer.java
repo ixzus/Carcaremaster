@@ -139,9 +139,9 @@ public class AudioPlayer implements OnBufferingUpdateListener,
     private void stopAnim() {
         rocketAnimation.stop();
         if (direct.equals("right")) {
-            imageView.setBackgroundResource(R.drawable.chatfrom_voice_playing);
+            imageView.setBackgroundResource(R.mipmap.chatfrom_voice_playing);
         } else {
-            imageView.setBackgroundResource(R.drawable.chatto_voice_playing_f3);
+            imageView.setBackgroundResource(R.mipmap.chatto_voice_playing_f3);
         }
     }
 

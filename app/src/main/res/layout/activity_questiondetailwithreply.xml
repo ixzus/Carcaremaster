@@ -35,6 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:orientation="vertical"
+            android:focusable="true"
+            android:clickable="true"
             android:visibility="gone">
 
             <RelativeLayout
@@ -51,7 +53,7 @@
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dip"
-                    android:background="@drawable/voice" />
+                    android:background="@mipmap/voice" />
 
                 <EditText
                     android:id="@+id/chat_content"
@@ -97,7 +99,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dip"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/multimedia" />
+                    android:background="@mipmap/multimedia" />
 
                 <Button
                     android:id="@+id/sendButton"
@@ -142,7 +144,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/aa8"
+                            android:background="@mipmap/aa8"
                             android:clickable="false"
                             android:duplicateParentState="true" />
                     </RelativeLayout>
@@ -162,7 +164,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/aad"
+                            android:background="@mipmap/aad"
                             android:clickable="false"
                             android:duplicateParentState="true" />
                     </RelativeLayout>

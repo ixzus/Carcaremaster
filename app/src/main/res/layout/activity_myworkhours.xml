@@ -183,7 +183,7 @@
             android:id="@+id/tv_tipcolor"
             android:layout_width="20dip"
             android:layout_height="20dip"
-            android:background="@drawable/icon_itemselected" />
+            android:background="@mipmap/icon_itemselected" />
 
         <TextView
             android:id="@+id/tv_tip"

@@ -80,7 +80,7 @@ public class PictureGridViewAdapter extends BaseAdapter {
 		}
 		// 在最后添加一个加号
 		if (position == getCount() - 1) {
-			imageView.setImageResource(R.drawable.common_phone);
+			imageView.setImageResource(R.mipmap.common_phone);
 		} else {
 			path = getItem(position);
 			// 缩小图片的品质

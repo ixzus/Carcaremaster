@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.sdv_headphoto)
     void goUserCenter() {
         Intent intent = new Intent();
-        intent.setClass(MainActivity.this, UserInfoActivity.class);
+        intent.setClass(MainActivity.this, ProfileActivity.class);
         startActivity(intent);
     }
 

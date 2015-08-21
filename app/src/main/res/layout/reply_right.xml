@@ -45,9 +45,9 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             fresco:actualImageScaleType="fitCenter"
-            fresco:failureImage="@drawable/defaulthead"
+            fresco:failureImage="@mipmap/defaulthead"
             fresco:failureImageScaleType="centerInside"
-            fresco:placeholderImage="@drawable/defaulthead"
+            fresco:placeholderImage="@mipmap/defaulthead"
             fresco:placeholderImageScaleType="fitCenter" />
 
         <TextView
@@ -99,7 +99,7 @@
                 fresco:failureImage="@mipmap/pic_failure"
                 fresco:failureImageScaleType="centerInside"
                 fresco:progressBarAutoRotateInterval="400"
-                fresco:progressBarImage="@drawable/ic_launcher"
+                fresco:progressBarImage="@mipmap/ic_launcher"
                 fresco:progressBarImageScaleType="centerInside"
                 fresco:retryImage="@mipmap/pic_failure"
                 fresco:retryImageScaleType="centerCrop" />

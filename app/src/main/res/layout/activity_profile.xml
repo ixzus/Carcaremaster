@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:id="@+id/tv_profile_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dip"
+            android:gravity="center_vertical|right"
+            android:text="提交"
+            android:textColor="#fff" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_profile_top"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_userbg_height"
+                android:background="@mipmap/userinfo_bg">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/userphoto_height"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/sdv_profile_avator"
+                        android:layout_width="@dimen/main_top_content_height"
+                        android:layout_height="@dimen/main_top_content_height"
+                        fresco:failureImage="@mipmap/defaulthead"
+                        fresco:failureImageScaleType="centerInside"
+                        fresco:placeholderImage="@mipmap/defaulthead"
+                        fresco:placeholderImageScaleType="fitCenter" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="@dimen/margin_left"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_profile_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="李师傅"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/username_fontsize" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_profile_userrank"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/xicon_usertech_bg"
+                                android:padding="@dimen/usertech_bg_padding"
+                                android:text="金牌技师"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/username_fontsize" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_profile_name"
+                    style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="姓        名" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_name"
+                        style="@style/detail_info_item_text_style"
+                        android:text="王师傅"/>
+                </LinearLayout>
+
+                <View style="@style/StyleLine" />
+
+                <RelativeLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="性        别" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_sex"
+                        style="@style/detail_info_item_text_style"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/ic_keyboard_arrow_right_grey600_36dp" />
+                </RelativeLayout>
+
+                <View style="@style/StyleLine" />
+
+                <LinearLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="年        龄" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_age"
+                        style="@style/detail_info_item_text_style"/>
+                </LinearLayout>
+
+                <View style="@style/StyleLine" />
+
+                <LinearLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="工        龄" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_workage"
+                        style="@style/detail_info_item_text_style"/>
+                </LinearLayout>
+
+                <View style="@style/StyleLine" />
+
+                <LinearLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="手机号码" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_phonenumber"
+                        style="@style/detail_info_item_text_style"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="姓        名" />
+
+                    <TextView
+                        style="@style/detail_info_item_text_style"
+                        android:text="王师傅"></TextView>
+                </LinearLayout>
+
+                <View style="@style/StyleLine" />
+
+                <LinearLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="性        别" />
+
+                    <TextView style="@style/detail_info_item_text_style"></TextView>
+                </LinearLayout>
+
+                <View style="@style/StyleLine" />
+
+                <LinearLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="年        龄" />
+
+                    <TextView style="@style/detail_info_item_text_style"></TextView>
+                </LinearLayout>
+
+                <View style="@style/StyleLine" />
+
+                <LinearLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="工        龄" />
+
+                    <TextView style="@style/detail_info_item_text_style"></TextView>
+                </LinearLayout>
+
+                <View style="@style/StyleLine" />
+
+                <LinearLayout style="@style/detail_item_style">
+
+                    <TextView
+                        style="@style/detail_item_texttip_style"
+                        android:text="手机号码" />
+
+                    <TextView style="@style/detail_info_item_text_style"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

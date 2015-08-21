@@ -35,7 +35,7 @@
             android:layout_marginRight="@dimen/margin_right"
             android:layout_marginTop="@dimen/margin_top"
             android:scaleType="centerCrop"
-            android:src="@drawable/common_phone"
+            android:src="@mipmap/common_phone"
             android:visibility="visible" />
     </LinearLayout>
 

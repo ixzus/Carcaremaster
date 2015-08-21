@@ -142,22 +142,22 @@ public class CoreService extends Service {
 
                 if (lstMsg != null && lstMsg.length != 0) {
                     if (lstMsg[1].contains(Constant.MY_NEWS_TXT)) {
-                        setQuestionNotiType(R.drawable.ic_launcher, "收到新消息", lstMsg[0], QuestionsListActivity.class, 2);
+                        setQuestionNotiType(R.mipmap.ic_launcher, "收到新消息", lstMsg[0], QuestionsListActivity.class, 2);
                         sendBroad(msg);
                     } else if (lstMsg[1].contains(Constant.MY_NEWS_AUDIO)) {
-                        setQuestionNotiType(R.drawable.ic_launcher, "收到新消息", "音频", QuestionsListActivity.class, 2);
+                        setQuestionNotiType(R.mipmap.ic_launcher, "收到新消息", "音频", QuestionsListActivity.class, 2);
                         sendBroad(msg);
                     } else if (lstMsg[1].contains(Constant.MY_NEWS_IMG)) {
-                        setQuestionNotiType(R.drawable.ic_launcher, "收到新消息", "图片", QuestionsListActivity.class, 2);
+                        setQuestionNotiType(R.mipmap.ic_launcher, "收到新消息", "图片", QuestionsListActivity.class, 2);
                         sendBroad(msg);
                     } else if (lstMsg[1].contains(Constant.MY_NEWS_QUESTION)) {
-                        setQuestionNotiType(R.drawable.ic_launcher, "有新的抢单问题来啦", "", QuestionsListActivity.class, 0);
+                        setQuestionNotiType(R.mipmap.ic_launcher, "有新的抢单问题来啦", "", QuestionsListActivity.class, 0);
                         sendQuestionBroad(Constant.NEW_QUESTION_ACTION);
                     } else if (lstMsg[1].contains(Constant.MY_NEWS_QUESTION_AT)) {
-                        setQuestionNotiType(R.drawable.ic_launcher, "有新的@我问题来啦", "", QuestionsListActivity.class, 1);
+                        setQuestionNotiType(R.mipmap.ic_launcher, "有新的@我问题来啦", "", QuestionsListActivity.class, 1);
                         sendQuestionBroad(Constant.NEW_QUESTION_ACTION);
                     } else if (lstMsg[1].contains(Constant.MY_NEWS_APPOINTMENT)) {
-                        setQuestionNotiType(R.drawable.ic_launcher, "有新的订单来啦", "", AppointmentListActivity.class, 1);
+                        setQuestionNotiType(R.mipmap.ic_launcher, "有新的订单来啦", "", AppointmentListActivity.class, 1);
                         sendQuestionBroad(Constant.NEW_APPOINTMENT);
                     } else {
 
@@ -183,7 +183,7 @@ public class CoreService extends Service {
         Intent notifyIntent = new Intent(this, activity);
 
         notifyIntent.putExtra("type", type);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
 		/* 创建PendingIntent作为设置递延运行的Activity */
         PendingIntent appIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT);// 即时更新

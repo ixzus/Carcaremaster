@@ -33,7 +33,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/usertech_bg_padding"
-                android:src="@drawable/icon_username" />
+                android:src="@mipmap/icon_username" />
 
             <EditText
                 android:id="@+id/txt_username"
@@ -66,7 +66,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/usertech_bg_padding"
-                android:src="@drawable/icon_password" />
+                android:src="@mipmap/icon_password" />
 
             <EditText
                 android:id="@+id/txt_password"

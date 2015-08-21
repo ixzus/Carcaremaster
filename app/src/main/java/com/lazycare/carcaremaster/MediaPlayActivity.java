@@ -42,22 +42,22 @@ public class MediaPlayActivity extends Activity {
 						if (!isPlaying) {
 							player.playUrl(url);
 							isPlaying = true;
-							btn.setBackgroundResource(R.drawable.videoplayer_icon_stop);
+							btn.setBackgroundResource(R.mipmap.videoplayer_icon_stop);
 						} else {
 							player.pause();
 							isPlaying = false;
-							btn.setBackgroundResource(R.drawable.videoplayer_icon_play);
+							btn.setBackgroundResource(R.mipmap.videoplayer_icon_play);
 						}
 						t++;
 					} else {
 						if (!isPlaying) {
 							player.play();
 							isPlaying = true;
-							btn.setBackgroundResource(R.drawable.videoplayer_icon_stop);
+							btn.setBackgroundResource(R.mipmap.videoplayer_icon_stop);
 						} else {
 							player.pause();
 							isPlaying = false;
-							btn.setBackgroundResource(R.drawable.videoplayer_icon_play);
+							btn.setBackgroundResource(R.mipmap.videoplayer_icon_play);
 						}
 					}
 

@@ -51,9 +51,9 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="5dip"
-                fresco:failureImage="@drawable/defaulthead"
+                fresco:failureImage="@mipmap/defaulthead"
                 fresco:failureImageScaleType="centerInside"
-                fresco:placeholderImage="@drawable/defaulthead"
+                fresco:placeholderImage="@mipmap/defaulthead"
                 fresco:placeholderImageScaleType="fitCenter" />
 
             <LinearLayout
@@ -68,7 +68,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/reply_layout"
                     android:layout_gravity="center"
-                    android:background="@drawable/skin_aio_friend_bubble_nor"
+                    android:background="@mipmap/skin_aio_friend_bubble_nor"
                     android:minHeight="@dimen/questionlist_item_phone_height" />
 
                 <ImageView
@@ -78,7 +78,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/reply_layout"
                     android:layout_gravity="center"
-                    android:src="@drawable/compose_toolbar_picture_highlighted"
+                    android:src="@mipmap/compose_toolbar_picture_highlighted"
                     android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>

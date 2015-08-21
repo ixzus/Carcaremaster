@@ -41,7 +41,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/defaulthead" />
+            android:src="@mipmap/defaulthead" />
 
         <TextView
             android:id="@+id/textview_name_r"

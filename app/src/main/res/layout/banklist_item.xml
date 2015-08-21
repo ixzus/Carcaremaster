@@ -11,7 +11,7 @@
         android:layout_height="@dimen/icon_height"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/margin_left"
-        android:src="@drawable/icon_pay" />
+        android:src="@mipmap/icon_pay" />
 
     <ImageView
         android:id="@+id/iv_payarrow"
@@ -19,7 +19,7 @@
         android:layout_height="@dimen/icon_rightarrow_height"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/margin_right"
-        android:src="@drawable/icon_rightarrow" />
+        android:src="@mipmap/icon_rightarrow" />
 
     <LinearLayout
         android:layout_width="match_parent"

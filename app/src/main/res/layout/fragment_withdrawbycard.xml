@@ -23,7 +23,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/usertech_bg_padding"
-            android:src="@drawable/icon_bank" />
+            android:src="@mipmap/icon_bank" />
 
         <ImageView
             android:id="@+id/iv_bankarrow"
@@ -32,7 +32,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:src="@drawable/icon_rightarrow" />
+            android:src="@mipmap/icon_rightarrow" />
 
         <TextView
             android:id="@+id/tv_bankname"
@@ -71,7 +71,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:src="@drawable/icon_rightarrow" />
+            android:src="@mipmap/icon_rightarrow" />
 
 
         <TextView
@@ -191,7 +191,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:src="@drawable/icon_password"
+            android:src="@mipmap/icon_password"
             android:visibility="gone" />
 
         <EditText

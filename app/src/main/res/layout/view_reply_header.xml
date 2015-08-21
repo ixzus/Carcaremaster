@@ -26,9 +26,9 @@
                 android:id="@+id/ci_userphoto"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
-                fresco:failureImage="@drawable/defaulthead"
+                fresco:failureImage="@mipmap/defaulthead"
                 fresco:failureImageScaleType="centerInside"
-                fresco:placeholderImage="@drawable/defaulthead"
+                fresco:placeholderImage="@mipmap/defaulthead"
                 fresco:placeholderImageScaleType="fitCenter" />
         </LinearLayout>
 
@@ -163,7 +163,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dip"
             android:layout_toLeftOf="@id/tv_replay1"
-            android:background="@drawable/icon_replay" />
+            android:background="@mipmap/icon_replay" />
 
     </RelativeLayout>
 

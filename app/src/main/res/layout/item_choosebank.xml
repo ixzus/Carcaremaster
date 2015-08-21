@@ -16,7 +16,7 @@
         android:layout_height="@dimen/icon_height"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dip"
-        android:src="@drawable/icon_pay" />
+        android:src="@mipmap/icon_pay" />
 
     <TextView
         android:id="@+id/tv_bankname"

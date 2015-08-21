@@ -28,12 +28,12 @@ public class MenuItemAdapter extends BaseAdapter {
 
 	public MenuItemAdapter(Context mContext) {
 		this.mContext = mContext;
-		res.add(R.drawable.app_artificer_menu_1);
-		res.add(R.drawable.app_artificer_menu_2);
-		res.add(R.drawable.app_artificer_menu_3);
-		res.add(R.drawable.app_artificer_menu_4);
-		res.add(R.drawable.app_artificer_menu_5);
-		res.add(R.drawable.app_artificer_menu_6);
+		res.add(R.mipmap.app_artificer_menu_1);
+		res.add(R.mipmap.app_artificer_menu_2);
+		res.add(R.mipmap.app_artificer_menu_3);
+		res.add(R.mipmap.app_artificer_menu_4);
+		res.add(R.mipmap.app_artificer_menu_5);
+		res.add(R.mipmap.app_artificer_menu_6);
 	}
 
 	public MenuItemAdapter(List<MenuClass> mList, Context mContext) {

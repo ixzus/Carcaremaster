@@ -83,7 +83,7 @@ public class PhotoView extends ImageView implements IPhotoView {
         if (mDraweeHolder == null) {
             GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(getResources())
                     .setFadeDuration(800)
-                    .setProgressBarImage(getResources().getDrawable(R.drawable.ic_launcher))
+                    .setProgressBarImage(getResources().getDrawable(R.mipmap.ic_launcher))
                     .setFailureImage(getResources().getDrawable(R.mipmap.pic_failure))
                     .setRetryImage(getResources().getDrawable(R.mipmap.pic_failure))
                     .build();

@@ -272,7 +272,7 @@ public class ReplyListAdapter extends BaseAdapter {
         if (!msg.getAudio().equals("")) {
             viewHolderLeft.leftVoice.setVisibility(View.VISIBLE);
             viewHolderLeft.leftVoice
-                    .setBackgroundResource(R.drawable.chatfrom_voice_playing);
+                    .setBackgroundResource(R.mipmap.chatfrom_voice_playing);
 
             viewHolderLeft.leftVoice.setOnClickListener(new OnClickListener() {
 
@@ -319,6 +319,7 @@ public class ReplyListAdapter extends BaseAdapter {
         if (msg.getMphotos() != null && msg.getMphotos().size() != 0) {
             viewHolderRight.rightPhoto.setVisibility(View.VISIBLE);
             String urlOrPath = msg.getMphotos().get(0);
+            urlOrPath = StringUtil.isHttp(urlOrPath) ? urlOrPath : "file://" + urlOrPath;
             ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(urlOrPath))
                     .setResizeOptions(new ResizeOptions(200, 200))
                     .setAutoRotateEnabled(true)//设置图片智能摆正
@@ -353,7 +354,7 @@ public class ReplyListAdapter extends BaseAdapter {
         if (!msg.getAudio().equals("")) {
             viewHolderRight.rightVoice.setTag(msg.getAudio());
             viewHolderRight.rightVoice.setVisibility(View.VISIBLE);
-            viewHolderRight.rightVoice.setBackgroundResource(R.drawable.chatto_voice_playing_f3);
+            viewHolderRight.rightVoice.setBackgroundResource(R.mipmap.chatto_voice_playing_f3);
             viewHolderRight.rightVoice
                     .setOnClickListener(new OnClickListener() {
                         @Override

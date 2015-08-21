@@ -4,13 +4,13 @@
     >
 
     <item
-        android:drawable="@drawable/chatfrom_voice_playing_f3"
+        android:drawable="@mipmap/chatfrom_voice_playing_f3"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/chatfrom_voice_playing_f2"
+        android:drawable="@mipmap/chatfrom_voice_playing_f2"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/chatfrom_voice_playing_f1"
+        android:drawable="@mipmap/chatfrom_voice_playing_f1"
         android:duration="200"/>
 
 </animation-list>

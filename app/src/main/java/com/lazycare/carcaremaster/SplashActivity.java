@@ -21,6 +21,11 @@ public class SplashActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //避免点击打开，返回，点击图标后
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_splash);
 
 //        if (id.equals("") || username.equals("") || pwd.equals("")) {

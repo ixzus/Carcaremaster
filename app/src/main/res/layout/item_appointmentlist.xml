@@ -8,9 +8,7 @@
         android:id="@+id/ll_appointment_des"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@dimen/margin_top"
-        android:layout_marginLeft="3dip"
-        android:layout_marginRight="3dip"
+        android:layout_marginTop="@dimen/margin_top"
         android:background="@drawable/view_questionitem_bg"
         android:orientation="vertical"
         android:paddingLeft="5dip"
@@ -33,9 +31,9 @@
                     android:id="@+id/ci_userphoto"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    fresco:failureImage="@drawable/defaulthead"
+                    fresco:failureImage="@mipmap/defaulthead"
                     fresco:failureImageScaleType="centerInside"
-                    fresco:placeholderImage="@drawable/defaulthead"
+                    fresco:placeholderImage="@mipmap/defaulthead"
                     fresco:placeholderImageScaleType="fitCenter" />
             </LinearLayout>
 
@@ -71,7 +69,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/margin_right"
-                android:background="@drawable/icon_waitservice"
+                android:background="@mipmap/icon_waitservice"
                 android:gravity="center"
                 android:padding="3dip"
                 android:text="待服务"
@@ -136,7 +134,7 @@
                     android:layout_height="27dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/applintmenttime_marginleft"
-                    android:src="@drawable/icon_time" />
+                    android:src="@mipmap/icon_time" />
 
                 <TextView
                     android:id="@+id/tv_appointtimetip"
@@ -175,7 +173,7 @@
                     android:layout_height="27dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/applintmenttime_marginleft"
-                    android:src="@drawable/icon_phone" />
+                    android:src="@mipmap/icon_phone" />
 
                 <TextView
                     android:id="@+id/tv_appointphonetip"
